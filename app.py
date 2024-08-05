@@ -14,17 +14,17 @@ from langchain.chat_models import ChatOpenAI
 
 GOOGLE_API_KEY= st.secrets['GOOGLE_API_KEY']
 
+PDF_FILE_PATH = "data/knowledge_center.pdf" 
 
 
 
 
-def get_pdf_text(pdf_docs):
-    text=""
-    for pdf in pdf_docs:
-        pdf_reader= PdfReader(pdf)
-        for page in pdf_reader.pages:
-            text+= page.extract_text()
-    return  text
+def get_pdf_text(pdf_file_path):
+    text = ""
+    pdf_reader = PdfReader(pdf_file_path)
+    for page in pdf_reader.pages:
+        text += page.extract_text()
+    return text
 
 
 
@@ -82,6 +82,17 @@ def user_input(user_question):
 
 def main():
     st.set_page_config("Chat PDF")
+    st.markdown(
+    """
+    <style>
+    body {
+        direction: rtl;
+        text-align: right;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
     st.header("מודל שפה משכ״ל🤖🗨️")
 
     user_question = st.text_input("Ask a Question from the PDF Files")
@@ -89,17 +100,11 @@ def main():
     if user_question:
         user_input(user_question)
 
-    with st.sidebar:
-        st.title("Menu:")
-        pdf_docs = st.file_uploader("Upload your PDF Files and Click on the Submit & Process Button", accept_multiple_files=True)
-        if st.button("Submit & Process"):
-            with st.spinner("Processing..."):
-                raw_text = get_pdf_text(pdf_docs)
-                text_chunks = get_text_chunks(raw_text)
-                get_vector_store(text_chunks)
-                st.success("Done")
-
-
+    with st.spinner("Processing..."):
+        raw_text = get_pdf_text(PDF_FILE_PATH)
+        text_chunks = get_text_chunks(raw_text)
+        get_vector_store(text_chunks)
+        st.success("Done")
 
 if __name__ == "__main__":
     main()
