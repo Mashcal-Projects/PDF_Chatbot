@@ -4,6 +4,7 @@ python_dotenv
 langchain_community
 langserve
 streamlit 
+openai
 langchain_google_genai
 google-generativeai
 chromadb
