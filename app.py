@@ -75,7 +75,7 @@ def user_input(user_question):
         , return_only_outputs=True)
 
     print(response)
-    st.write("Reply: ", response["output_text"])
+    st.write(response["output_text"])
 
 
 
@@ -95,12 +95,12 @@ def main():
 )
     st.header("מודל שפה משכ״ל🤖🗨️")
 
-    user_question = st.text_input("Ask a Question from the PDF Files")
+    user_question = st.text_input("שאל אותי הכל!")
 
     if user_question:
         user_input(user_question)
 
-    with st.spinner("Processing..."):
+    with st.spinner("חושב..."):
         raw_text = get_pdf_text(PDF_FILE_PATH)
         text_chunks = get_text_chunks(raw_text)
         get_vector_store(text_chunks)
