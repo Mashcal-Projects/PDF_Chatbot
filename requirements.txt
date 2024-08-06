@@ -8,6 +8,7 @@ openai
 langchain_google_genai
 google-generativeai
 chromadb
-faiss-cpu==1.7.4
+faiss-cpu
+python-dotenv
 PyPDF2
 langchain
