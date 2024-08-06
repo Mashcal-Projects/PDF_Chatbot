@@ -9,6 +9,7 @@ import google.generativeai as genai
 from langchain.vectorstores import FAISS
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.chains.question_answering import load_qa_chain
+from langchain.embeddings import OpenAIEmbeddings
 from langchain.prompts import PromptTemplate
 from dotenv import load_dotenv
 from langchain.prompts import ChatPromptTemplate
@@ -88,7 +89,6 @@ def get_text_chunks(text):
 
 
 def get_vector_store(text_chunks):
-    from langchain.embeddings import OpenAIEmbeddings
     embeddings = OpenAIEmbeddings()
     vector_store = FAISS.from_texts(text_chunks, embedding=embeddings)
     vector_store.save_local("faiss_index")
