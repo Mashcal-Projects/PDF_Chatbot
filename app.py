@@ -110,7 +110,7 @@ def generate_response(prompt):
 
 def user_input(user_question):
     # Load the vector store and perform a similarity search
-    embeddings = OpenAIEmbeddings(api_key=OPENAI_API_KEY)
+    embeddings = OpenAIEmbeddings()
     new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
     docs = new_db.similarity_search(user_question)
     
