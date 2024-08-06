@@ -1,4 +1,5 @@
 import streamlit as st
+import openai 
 from openai import OpenAI
 from PyPDF2 import PdfReader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -15,8 +16,10 @@ from langchain.chat_models import ChatOpenAI
 
 GOOGLE_API_KEY= st.secrets['GOOGLE_API_KEY']
 
-OPENAI_API_KEY = st.secrets['OPENAI_API_KEY']
-client = OpenAI(api_key=st.secrets['OPENAI_API_KEY'])
+
+# Access OpenAI API key from Streamlit secrets
+openai.api_key = st.secrets["OPENAI_API_KEY"]
+client = OpenAI(api_key= st.secrets["OPENAI_API_KEY"])
 
 PDF_FILE_PATH = "data/knowledge_center.pdf" 
 
