@@ -18,7 +18,7 @@ GOOGLE_API_KEY= st.secrets['GOOGLE_API_KEY']
 
 
 # Access OpenAI API key from Streamlit secrets
-# OPENAI_API_KEY = st.secrets['OPENAI_API_KEY']
+OPENAI_API_KEY = st.secrets['OPENAI_API_KEY']
 openai.api_key = st.secrets['OPENAI_API_KEY']
 client = OpenAI(api_key= st.secrets['OPENAI_API_KEY'])
 
