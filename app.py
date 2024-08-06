@@ -89,7 +89,7 @@ def get_text_chunks(text):
 
 def get_vector_store(text_chunks):
     from langchain.embeddings import OpenAIEmbeddings
-    embeddings = OpenAIEmbeddings(api_key=OPENAI_API_KEY)
+    embeddings = OpenAIEmbeddings()
     vector_store = FAISS.from_texts(text_chunks, embedding=embeddings)
     vector_store.save_local("faiss_index")
 
