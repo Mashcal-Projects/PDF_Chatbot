@@ -85,6 +85,8 @@ def main():
     # Initialize chat history in session state
     if 'chat_history' not in st.session_state:
         st.session_state.chat_history = []
+    if 'user_input' not in st.session_state:
+        st.session_state.user_input = ''
 
     questions = load_questions('data/knowledge_center.csv')
 
