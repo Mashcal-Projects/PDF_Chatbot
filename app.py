@@ -91,7 +91,7 @@ def main():
     questions = load_questions('data/knowledge_center.csv')
 
     # user_question = st.text_input("שאל אותי הכל!", value=st.session_state.get('user_input', ''))
-    user_question = st.text_input("שאל אותי הכל!", value=st.session_state.user_input)
+    # user_question = st.text_input("שאל אותי הכל!", value=st.session_state.user_input)
   # # Display buttons for predefined questions
   #   cols = st.columns(5)
   #   for i, question in enumerate(questions[:5]):  # Limiting to first 5 questions for simplicity
@@ -117,15 +117,16 @@ def main():
             st.session_state.user_input = question
             response = user_input(question)
             st.session_state.chat_history.append({'question': question, 'answer': response})
-            st.session_state.user_input = ''  # Clear the input field
+            # st.session_state.user_input = ''  # Clear the input field
             # st.experimental_set_query_params(rerun='true')  # Forces a re-render by setting query params
-
+     # Text input for user's question, showing the last clicked question
+    user_question = st.text_input("שאל אותי הכל!", value=st.session_state.user_input)
     # Process input from the text field
     if user_question and user_question != st.session_state.get('last_processed', ''):
         response = user_input(user_question)
         st.session_state.chat_history.append({'question': user_question, 'answer': response})
         st.session_state['last_processed'] = user_question
-        st.session_state.user_input = '' 
+        # st.session_state.user_input = '' 
         # st.experimental_set_query_params(rerun='true')  # Forces a re-render by setting query params
         
         
