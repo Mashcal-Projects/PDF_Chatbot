@@ -116,7 +116,6 @@ def main():
             response = user_input(question)
             st.session_state.chat_history.append({'question': question, 'answer': response})
             st.session_state.user_input = ''  # Clear the input field
-            break 
             # st.experimental_set_query_params(rerun='true')  # Forces a re-render by setting query params
 
     # Process input from the text field
