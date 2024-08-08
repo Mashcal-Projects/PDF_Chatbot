@@ -82,45 +82,70 @@ def main():
 )
     st.header("מודל שפה משכ״ל🤖🗨️")
 
-    # Initialize chat history in session state
+    # Initialize session state variables
     if 'chat_history' not in st.session_state:
         st.session_state.chat_history = []
     if 'user_input' not in st.session_state:
         st.session_state.user_input = ''
+    if 'last_processed' not in st.session_state:
+        st.session_state.last_processed = ''
+    # Load predefined questions
+    
+    
+    user_question = st.text_input("שאל אותי הכל!", value=st.session_state.user_input)
 
     questions = load_questions('data/knowledge_center.csv')
-    user_question = st.text_input("שאל אותי הכל!", value=st.session_state.user_input)
     # previous_user_input = st.session_state.user_input
 
-    # Display buttons for predefined questions
-    cols = st.columns(5)
-    for i, question in enumerate(questions[:5]):
-        if cols[i % 5].button(question):
-            st.session_state.user_input = question
-            response = user_input(question)
-            st.session_state.chat_history.append({'question': question, 'answer': response})
+    # # Display buttons for predefined questions
+    # cols = st.columns(5)
+    # for i, question in enumerate(questions[:5]):
+    #     if cols[i % 5].button(question):
+    #         st.session_state.user_input = question
+    #         response = user_input(question)
+    #         st.session_state.chat_history.append({'question': question, 'answer': response})
 
     
      # Text input for user's question, showing the last clicked question
     # Process input from the text field
-    if user_question and user_question != st.session_state.get('last_processed', ''):
-        response = user_input(user_question)
-        st.session_state.chat_history.append({'question': user_question, 'answer': response})
-        st.session_state['last_processed'] = user_question
+    # if user_question and user_question != st.session_state.get('last_processed', ''):
+    #     response = user_input(user_question)
+    #     st.session_state.chat_history.append({'question': user_question, 'answer': response})
+    #     st.session_state['last_processed'] = user_question
         
         
     # Display the chat history
-    if st.session_state.chat_history:
-        for entry in st.session_state.chat_history:
-            st.write(f"**שאלה:** {entry['question']}")
-            st.write(f"**תשובה:** {entry['answer']}")
-            st.write("---")  # Separator line
+    # if st.session_state.chat_history:
+    #     for entry in st.session_state.chat_history:
+    #         st.write(f"**שאלה:** {entry['question']}")
+    #         st.write(f"**תשובה:** {entry['answer']}")
+    #         st.write("---")  # Separator line
       
 
-    with st.spinner("חושב..."):
-        raw_text = get_pdf_text(PDF_FILE_PATH)
-        text_chunks = get_text_chunks(raw_text)
-        get_vector_store(text_chunks)
+    # with st.spinner("חושב..."):
+    #     raw_text = get_pdf_text(PDF_FILE_PATH)
+    #     text_chunks = get_text_chunks(raw_text)
+    #     get_vector_store(text_chunks)
+
+
+# Process input from the text field or button click
+if user_question and user_question != st.session_state.last_processed:
+    response = user_input(user_question)
+    st.session_state.chat_history.append({'question': user_question, 'answer': response})
+    st.session_state.last_processed = user_question
+    st.session_state.user_input = ''  # Clear the input field after processing
+
+# Display the chat history
+if st.session_state.chat_history:
+    for entry in st.session_state.chat_history:
+        st.write(f"**שאלה:** {entry['question']}")
+        st.write(f"**תשובה:** {entry['answer']}")
+        st.write("---")  # Separator line
+
+with st.spinner("חושב..."):
+    raw_text = get_pdf_text(PDF_FILE_PATH)
+    text_chunks = get_text_chunks(raw_text)
+    get_vector_store(text_chunks)
 
 if __name__ == "__main__":
     main()
