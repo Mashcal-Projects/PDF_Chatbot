@@ -5,6 +5,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import FAISS
 from langchain.embeddings import OpenAIEmbeddings
 from dotenv import load_dotenv
+import pandas as pd
 
 # Set OpenAI API key from Streamlit secrets
 openai.api_key = st.secrets['OPENAI_API_KEY']
