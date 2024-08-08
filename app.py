@@ -111,7 +111,7 @@ def main():
     cols = st.columns(5)
     for i, question in enumerate(questions[:5]):
         if cols[i % 5].button(question):
-            user_question = question
+            st.session_state['user_input'] = question 
             response = user_input(question)
             st.session_state.chat_history.append({'question': question, 'answer': response})
             st.experimental_set_query_params(rerun='true')  # Forces a re-render by setting query params
