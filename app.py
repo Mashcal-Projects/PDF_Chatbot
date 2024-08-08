@@ -84,6 +84,8 @@ def main():
      # Initialize chat history in session state
     if 'chat_history' not in st.session_state:
         st.session_state.chat_history = []
+    if 'questions_displayed' not in st.session_state:
+        st.session_state.questions_displayed = 5 
 
     questions = load_questions('data/knowledge_center.csv')
     
@@ -93,7 +95,7 @@ def main():
 
     # Display buttons for predefined questions
     cols = st.columns(5)
-    for i, question in enumerate(questions[:5]):  # Limiting to first 5 questions for simplicity
+    for i, question in enumerate(questions[:st.session_state.questions_displayed]):  # Limiting to first 5 questions for simplicity
         if cols[i % 5].button(question):
             st.session_state['user_input'] = question  # Update session state with the selected question - Added 
             with st.spinner("חושב..."):  # Add spinner here
@@ -101,7 +103,13 @@ def main():
             st.session_state.chat_history.append({'question': question, 'answer': response})
             st.session_state['last_processed'] = question  # Track last processed question
             st.session_state.user_input = ''
-   
+
+
+    # Show more button to reveal additional questions
+    if st.session_state.questions_displayed < len(questions):
+        if st.button("הצג עוד שאלות"):
+            st.session_state.questions_displayed += 5  # Increase the number of displayed questions by 5
+
         # Process input (either from text input or button selection)
     if user_question and (user_question != st.session_state.get('last_processed', '')):
         response = user_input(user_question)  # Generate the response
