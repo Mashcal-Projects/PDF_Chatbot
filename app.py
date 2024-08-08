@@ -109,14 +109,17 @@ def main():
             st.session_state['last_processed'] = question  # Track last processed question
             st.session_state.user_input = ''
 
+   # Show more/less button to toggle additional questions
+    if st.session_state.questions_displayed < len(questions):
+        show_more_button = st.button("הצג עוד שאלות")
+    else:
+        show_more_button = st.button("הצג פחות שאלות")
 
- # Show more/less button to toggle additional questions
-    if st.button("הצג עוד שאלות" if not st.session_state.show_more else "הצג פחות שאלות"):
-        if st.session_state.show_more:
-            st.session_state.questions_displayed = 5  # Reset to showing only 5 questions
+    if show_more_button:
+        if st.session_state.questions_displayed == 5:
+            st.session_state.questions_displayed += 5  # Show more questions
         else:
-            st.session_state.questions_displayed += 5  # Increase the number of displayed questions by 5
-        st.session_state.show_more = not st.session_state.show_more  # Toggle the show_more state
+            st.session_state.questions_displayed = 5  # Reset to showing only 5 questions
 
 
         # Process input (either from text input or button selection)
