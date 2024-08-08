@@ -97,9 +97,12 @@ def main():
     user_question = st.text_input("שאל אותי הכל!", value=st.session_state.get('user_input', ''))
 
     # Display buttons for predefined questions
+    # cols = st.columns(5)
+    # for i, question in enumerate(questions[:st.session_state.questions_displayed]):
+    # # for i, question in enumerate(questions[:st.session_state.questions_displayed]): 
     cols = st.columns(5)
-    for i, question in enumerate(questions[:st.session_state.questions_displayed]):
-    # for i, question in enumerate(questions[:st.session_state.questions_displayed]):  # Limiting to first 5 questions for simplicity
+    questions_to_show = st.session_state.questions_displayed if st.session_state.show_more else 5
+    for i, question in enumerate(questions[:questions_to_show]):# Limiting to first 5 questions for simplicity
         if cols[i % 5].button(question):
             st.session_state['user_input'] = question  # Update session state with the selected question - Added 
             with st.spinner("חושב..."):  # Add spinner here
@@ -108,19 +111,16 @@ def main():
             st.session_state['last_processed'] = question  # Track last processed question
             st.session_state.user_input = ''
             
- # Show more/less button to toggle additional questions
-    if st.session_state.questions_displayed < len(questions):
-        show_more_button = st.button("הצג עוד שאלות")
-    else:
+# Show more/less button to toggle additional questions
+    if st.session_state.show_more:
         show_more_button = st.button("הצג פחות שאלות")
+    else:
+        show_more_button = st.button("הצג עוד שאלות")
 
     if show_more_button:
-        if st.session_state.questions_displayed == 5:
-            st.session_state.questions_displayed += 5  # Show more questions
-        else:
-            st.session_state.questions_displayed = 5  # Reset to showing only 5 questions
-        st.experimental_set_query_params(rerun=True)  # Force a rerun to immediately apply the changes
-
+        st.session_state.show_more = not st.session_state.show_more
+        st.session_state.questions_displayed = 10 if st.session_state.show_more else 5
+        st.experimental_rerun()
 
         # Process input (either from text input or button selection)
     if user_question and (user_question != st.session_state.get('last_processed', '')):
