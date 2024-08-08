@@ -100,7 +100,7 @@ def main():
     cols = st.columns(5)
     questions_to_show = st.session_state.questions_displayed if st.session_state.show_more else 5
     for i, question in enumerate(questions[:questions_to_show]):
-    for i, question in enumerate(questions[:st.session_state.questions_displayed]):  # Limiting to first 5 questions for simplicity
+    # for i, question in enumerate(questions[:st.session_state.questions_displayed]):  # Limiting to first 5 questions for simplicity
         if cols[i % 5].button(question):
             st.session_state['user_input'] = question  # Update session state with the selected question - Added 
             with st.spinner("חושב..."):  # Add spinner here
