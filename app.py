@@ -90,22 +90,38 @@ def main():
 
     user_question = st.text_input("שאל אותי הכל!")
 
-  # Display buttons for predefined questions
-    cols = st.columns(5)
-    for i, question in enumerate(questions[:5]):  # Limiting to first 5 questions for simplicity
-        if cols[i % 5].button(question):
-            st.session_state['user_input'] = question  # Update session state with the selected question - Added 
-            response = user_input(question)  # Generate the response
-            st.session_state.chat_history.append({'question': question, 'answer': response})
-            st.session_state['last_processed'] = question  # Track last processed question
-            st.experimental_rerun() 
+  # # Display buttons for predefined questions
+  #   cols = st.columns(5)
+  #   for i, question in enumerate(questions[:5]):  # Limiting to first 5 questions for simplicity
+  #       if cols[i % 5].button(question):
+  #           st.session_state['user_input'] = question  # Update session state with the selected question - Added 
+  #           response = user_input(question)  # Generate the response
+  #           st.session_state.chat_history.append({'question': question, 'answer': response})
+  #           st.session_state['last_processed'] = question  # Track last processed question
+  #           st.experimental_rerun() 
 
-           # Process input (either from text input or button selection)
-    if user_question and (user_question != st.session_state.get('last_processed', '')):
-        response = user_input(user_question)  # Generate the response
+  #          # Process input (either from text input or button selection)
+  #   if user_question and (user_question != st.session_state.get('last_processed', '')):
+  #       response = user_input(user_question)  # Generate the response
+  #       st.session_state.chat_history.append({'question': user_question, 'answer': response})
+  #       st.session_state['last_processed'] = user_question  # Track last processed question
+  #       st.experimental_rerun()  # Rerun to display the updated chat history
+
+        # Display buttons for predefined questions
+    cols = st.columns(5)
+    for i, question in enumerate(questions[:5]):
+        if cols[i % 5].button(question):
+            response = user_input(question)
+            st.session_state.chat_history.append({'question': question, 'answer': response})
+            st.session_state['user_input'] = ''  # Clear the input field
+            st.experimental_set_query_params(rerun='true')  # Forces a re-render by setting query params
+
+    # Process input from the text field
+    if user_question and user_question != st.session_state.get('last_processed', ''):
+        response = user_input(user_question)
         st.session_state.chat_history.append({'question': user_question, 'answer': response})
-        st.session_state['last_processed'] = user_question  # Track last processed question
-        st.experimental_rerun()  # Rerun to display the updated chat history
+        st.session_state['last_processed'] = user_question
+        st.experimental_set_query_params(rerun='true')  # Forces a re-render by setting query params
         
         
         # Display the chat history
