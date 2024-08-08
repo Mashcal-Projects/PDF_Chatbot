@@ -119,6 +119,7 @@ def main():
             st.session_state.questions_displayed += 5  # Show more questions
         else:
             st.session_state.questions_displayed = 5  # Reset to showing only 5 questions
+        st.experimental_rerun()  # Force a rerun to immediately apply the changes
 
 
         # Process input (either from text input or button selection)
