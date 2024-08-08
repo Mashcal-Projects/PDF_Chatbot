@@ -166,11 +166,11 @@ for i, question in enumerate(questions[:5]):  # Limiting to first 5 questions fo
            st.write(f"**שאלה:** {entry['question']}")
            st.write(f"**תשובה:** {entry['answer']}")
            st.write("---")  # Separator line
-
-    with st.spinner("חושב..."):
-    raw_text = get_pdf_text(PDF_FILE_PATH)
-    text_chunks = get_text_chunks(raw_text)
-    get_vector_store(text_chunks)
+           
+   with st.spinner("חושב..."):
+        raw_text = get_pdf_text(PDF_FILE_PATH)
+        text_chunks = get_text_chunks(raw_text)
+        get_vector_store(text_chunks)
     
     
 
