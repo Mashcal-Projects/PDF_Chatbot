@@ -153,7 +153,7 @@ for i, question in enumerate(questions[:5]):  # Limiting to first 5 questions fo
            st.experimental_rerun() 
    
         # Process input (either from text input or button selection)
-  if user_question and (user_question != st.session_state.get('last_processed', '')):
+if user_question and (user_question != st.session_state.get('last_processed', '')):
      response = user_input(user_question)  # Generate the response
      st.session_state.chat_history.append({'question': user_question, 'answer': response})
      st.session_state['last_processed'] = user_question  # Track last processed question
@@ -161,7 +161,7 @@ for i, question in enumerate(questions[:5]):  # Limiting to first 5 questions fo
         
         
         # Display the chat history
-  if st.session_state.chat_history:
+if st.session_state.chat_history:
        for entry in st.session_state.chat_history:
            st.write(f"**שאלה:** {entry['question']}")
            st.write(f"**תשובה:** {entry['answer']}")
