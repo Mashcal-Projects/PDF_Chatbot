@@ -107,8 +107,8 @@ def main():
             st.session_state.chat_history.append({'question': question, 'answer': response})
             st.session_state['last_processed'] = question  # Track last processed question
             st.session_state.user_input = ''
-
-   # Show more/less button to toggle additional questions
+            
+ # Show more/less button to toggle additional questions
     if st.session_state.questions_displayed < len(questions):
         show_more_button = st.button("הצג עוד שאלות")
     else:
@@ -119,7 +119,7 @@ def main():
             st.session_state.questions_displayed += 5  # Show more questions
         else:
             st.session_state.questions_displayed = 5  # Reset to showing only 5 questions
-        st.experimental_rerun()  # Force a rerun to immediately apply the changes
+        st.experimental_set_query_params(rerun=True)  # Force a rerun to immediately apply the changes
 
 
         # Process input (either from text input or button selection)
