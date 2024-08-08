@@ -147,10 +147,10 @@ for i, question in enumerate(questions[:5]):  # Limiting to first 5 questions fo
      if cols[i % 5].button(question):
         st.session_state['user_input'] = question  # Update session state with the selected question - Added 
         with st.spinner("חושב..."):  # Add spinner here
-              response = user_input(question)  # Generate the response
-           st.session_state.chat_history.append({'question': question, 'answer': response})
-           st.session_state['last_processed'] = question  # Track last processed question
-           st.experimental_rerun() 
+            response = user_input(question)  # Generate the response
+        st.session_state.chat_history.append({'question': question, 'answer': response})
+        st.session_state['last_processed'] = question  # Track last processed question
+        st.experimental_rerun() 
    
         # Process input (either from text input or button selection)
 if user_question and (user_question != st.session_state.get('last_processed', '')):
