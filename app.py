@@ -84,6 +84,8 @@ def main():
     if 'chat_history' not in st.session_state:
         st.session_state.chat_history = []
 
+    questions = load_questions('data/knowledge_center.csv')
+
     user_question = st.text_input("שאל אותי הכל!")
 
   # Display buttons for predefined questions
