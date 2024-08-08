@@ -135,42 +135,42 @@ def main():
 if 'chat_history' not in st.session_state:
         st.session_state.chat_history = []
 
-    questions = load_questions('data/knowledge_center.csv')
+questions = load_questions('data/knowledge_center.csv')
     
       # Text input for user's question
      # Manage input field with state control
-    user_question = st.text_input("שאל אותי הכל!", value=st.session_state.get('user_input', ''))
+user_question = st.text_input("שאל אותי הכל!", value=st.session_state.get('user_input', ''))
 
     # Display buttons for predefined questions
-    cols = st.columns(5)
-    for i, question in enumerate(questions[:5]):  # Limiting to first 5 questions for simplicity
-        if cols[i % 5].button(question):
-            st.session_state['user_input'] = question  # Update session state with the selected question - Added 
-            with st.spinner("חושב..."):  # Add spinner here
-                response = user_input(question)  # Generate the response
-            st.session_state.chat_history.append({'question': question, 'answer': response})
-            st.session_state['last_processed'] = question  # Track last processed question
-            st.experimental_rerun() 
+cols = st.columns(5)
+ for i, question in enumerate(questions[:5]):  # Limiting to first 5 questions for simplicity
+     if cols[i % 5].button(question):
+        st.session_state['user_input'] = question  # Update session state with the selected question - Added 
+           with st.spinner("חושב..."):  # Add spinner here
+              response = user_input(question)  # Generate the response
+           st.session_state.chat_history.append({'question': question, 'answer': response})
+           st.session_state['last_processed'] = question  # Track last processed question
+           st.experimental_rerun() 
    
         # Process input (either from text input or button selection)
-    if user_question and (user_question != st.session_state.get('last_processed', '')):
-        response = user_input(user_question)  # Generate the response
-        st.session_state.chat_history.append({'question': user_question, 'answer': response})
-        st.session_state['last_processed'] = user_question  # Track last processed question
-        st.experimental_rerun()  # Rerun to display the updated chat history
+  if user_question and (user_question != st.session_state.get('last_processed', '')):
+     response = user_input(user_question)  # Generate the response
+     st.session_state.chat_history.append({'question': user_question, 'answer': response})
+     st.session_state['last_processed'] = user_question  # Track last processed question
+     st.experimental_rerun()  # Rerun to display the updated chat history
         
         
         # Display the chat history
-    if st.session_state.chat_history:
-        for entry in st.session_state.chat_history:
-            st.write(f"**שאלה:** {entry['question']}")
-            st.write(f"**תשובה:** {entry['answer']}")
-            st.write("---")  # Separator line
+  if st.session_state.chat_history:
+       for entry in st.session_state.chat_history:
+           st.write(f"**שאלה:** {entry['question']}")
+           st.write(f"**תשובה:** {entry['answer']}")
+           st.write("---")  # Separator line
 
-    with st.spinner("חושב..."):
-        raw_text = get_pdf_text(PDF_FILE_PATH)
-        text_chunks = get_text_chunks(raw_text)
-        get_vector_store(text_chunks)
+ with st.spinner("חושב..."):
+    raw_text = get_pdf_text(PDF_FILE_PATH)
+    text_chunks = get_text_chunks(raw_text)
+    get_vector_store(text_chunks)
     
     
 
