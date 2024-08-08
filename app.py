@@ -88,8 +88,8 @@ def main():
 
     questions = load_questions('data/knowledge_center.csv')
 
-    user_question = st.text_input("שאל אותי הכל!", value=st.session_state.get('user_input', ''))
-
+    # user_question = st.text_input("שאל אותי הכל!", value=st.session_state.get('user_input', ''))
+    user_question = st.text_input("שאל אותי הכל!", value=st.session_state.user_input)
   # # Display buttons for predefined questions
   #   cols = st.columns(5)
   #   for i, question in enumerate(questions[:5]):  # Limiting to first 5 questions for simplicity
@@ -111,8 +111,8 @@ def main():
     cols = st.columns(5)
     for i, question in enumerate(questions[:5]):
         if cols[i % 5].button(question):
-            st.session_state['user_input'] = question 
-            # st.session_state.user_input = question  
+            # st.session_state['user_input'] = question 
+            st.session_state.user_input = question
             response = user_input(question)
             st.session_state.chat_history.append({'question': question, 'answer': response})
             st.session_state.user_input = ''  # Clear the input field
