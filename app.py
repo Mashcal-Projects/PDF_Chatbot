@@ -143,7 +143,7 @@ user_question = st.text_input("שאל אותי הכל!", value=st.session_state.
 
     # Display buttons for predefined questions
 cols = st.columns(5)
- for i, question in enumerate(questions[:5]):  # Limiting to first 5 questions for simplicity
+for i, question in enumerate(questions[:5]):  # Limiting to first 5 questions for simplicity
      if cols[i % 5].button(question):
         st.session_state['user_input'] = question  # Update session state with the selected question - Added 
            with st.spinner("חושב..."):  # Add spinner here
