@@ -66,7 +66,7 @@ def user_input(user_question):
     # st.write(response)
     return response
     
-    def main():
+def main():
     st.set_page_config("Chat PDF")
     st.markdown(
     """
