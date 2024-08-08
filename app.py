@@ -89,6 +89,7 @@ def main():
         st.session_state.user_input = ''
 
     questions = load_questions('data/knowledge_center.csv')
+    user_question = st.text_input("שאל אותי הכל!", value=st.session_state.user_input)
 
     # user_question = st.text_input("שאל אותי הכל!", value=st.session_state.get('user_input', ''))
     # user_question = st.text_input("שאל אותי הכל!", value=st.session_state.user_input)
@@ -120,7 +121,6 @@ def main():
             # st.session_state.user_input = ''  # Clear the input field
             # st.experimental_set_query_params(rerun='true')  # Forces a re-render by setting query params
      # Text input for user's question, showing the last clicked question
-    user_question = st.text_input("שאל אותי הכל!", value=st.session_state.user_input)
     # Process input from the text field
     if user_question and user_question != st.session_state.get('last_processed', ''):
         response = user_input(user_question)
