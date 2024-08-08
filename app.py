@@ -168,9 +168,9 @@ if st.session_state.chat_history:
            st.write("---")  # Separator line
            
 with st.spinner("חושב..."):
-        raw_text = get_pdf_text(PDF_FILE_PATH)
-        text_chunks = get_text_chunks(raw_text)
-        get_vector_store(text_chunks)
+    raw_text = get_pdf_text(PDF_FILE_PATH)
+    text_chunks = get_text_chunks(raw_text)
+    get_vector_store(text_chunks)
     
     
 
