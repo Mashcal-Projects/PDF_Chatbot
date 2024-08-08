@@ -112,7 +112,7 @@ def main():
 
     
      # Text input for user's question, showing the last clicked question
-    Process input from the text field
+    # Process input from the text field
     if user_question and user_question != st.session_state.get('last_processed', ''):
         response = user_input(user_question)
         st.session_state.chat_history.append({'question': user_question, 'answer': response})
