@@ -100,19 +100,18 @@ def main():
                 response = user_input(question)  # Generate the response
             st.session_state.chat_history.append({'question': question, 'answer': response})
             st.session_state['last_processed'] = question  # Track last processed question
-            # st.experimental_rerun() 
+            st.session_state.user_input = '
    
         # Process input (either from text input or button selection)
     if user_question and (user_question != st.session_state.get('last_processed', '')):
         response = user_input(user_question)  # Generate the response
         st.session_state.chat_history.append({'question': user_question, 'answer': response})
         st.session_state['last_processed'] = user_question  # Track last processed question
-        # st.experimental_rerun()  # Rerun to display the updated chat history
+        st.session_state.user_input = ''  # Clear the input field after processing
         
         
         # Display the chat history
     if st.session_state.chat_history:
-        # st.write("## היסטוריית צ'אט")
         for entry in st.session_state.chat_history:
             st.write(f"**שאלה:** {entry['question']}")
             st.write(f"**תשובה:** {entry['answer']}")
