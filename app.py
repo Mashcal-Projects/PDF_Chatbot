@@ -114,7 +114,7 @@ def main():
             st.session_state['user_input'] = question 
             response = user_input(question)
             st.session_state.chat_history.append({'question': question, 'answer': response})
-            st.experimental_set_query_params(rerun='true')  # Forces a re-render by setting query params
+            # st.experimental_set_query_params(rerun='true')  # Forces a re-render by setting query params
 
     # Process input from the text field
     if user_question and user_question != st.session_state.get('last_processed', ''):
