@@ -120,7 +120,7 @@ def main():
     if show_more_button:
         st.session_state.show_more = not st.session_state.show_more
         st.session_state.questions_displayed = 10 if st.session_state.show_more else 5
-        st.experimental_rerun()
+        st.experimental_set_query_params()
 
         # Process input (either from text input or button selection)
     if user_question and (user_question != st.session_state.get('last_processed', '')):
