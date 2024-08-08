@@ -86,6 +86,9 @@ def main():
         st.session_state.chat_history = []
     if 'questions_displayed' not in st.session_state:
         st.session_state.questions_displayed = 5 
+    if 'show_more' not in st.session_state:
+        st.session_state.show_more = False  # Toggle state for showing more questions
+
 
     questions = load_questions('data/knowledge_center.csv')
     
@@ -105,10 +108,10 @@ def main():
             st.session_state.user_input = ''
 
 
-    # Show more button to reveal additional questions
-    if st.session_state.questions_displayed < len(questions):
-        if st.button("הצג עוד שאלות"):
-            st.session_state.questions_displayed += 5  # Increase the number of displayed questions by 5
+      # Show more/less button to toggle additional questions
+    if len(questions) > 5:
+        if st.button("הצג עוד שאלות" if not st.session_state.show_more else "הצג פחות שאלות"):
+            st.session_state.show_more = not st.session_state.show_more
 
         # Process input (either from text input or button selection)
     if user_question and (user_question != st.session_state.get('last_processed', '')):
