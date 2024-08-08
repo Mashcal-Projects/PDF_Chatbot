@@ -88,7 +88,7 @@ def main():
 
     questions = load_questions('data/knowledge_center.csv')
 
-    user_question = st.text_input("שאל אותי הכל!", value=st.session_state.get('user_input', '')
+    user_question = st.text_input("שאל אותי הכל!", value=st.session_state.get('user_input', ''))
 
   # # Display buttons for predefined questions
   #   cols = st.columns(5)
