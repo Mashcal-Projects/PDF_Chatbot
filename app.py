@@ -115,6 +115,8 @@ def main():
             st.session_state.user_input = question  
             response = user_input(question)
             st.session_state.chat_history.append({'question': question, 'answer': response})
+            st.session_state.user_input = ''  # Clear the input field
+            break 
             # st.experimental_set_query_params(rerun='true')  # Forces a re-render by setting query params
 
     # Process input from the text field
@@ -122,7 +124,8 @@ def main():
         response = user_input(user_question)
         st.session_state.chat_history.append({'question': user_question, 'answer': response})
         st.session_state['last_processed'] = user_question
-        st.experimental_set_query_params(rerun='true')  # Forces a re-render by setting query params
+        st.session_state.user_input = '' 
+        # st.experimental_set_query_params(rerun='true')  # Forces a re-render by setting query params
         
         
         # Display the chat history
