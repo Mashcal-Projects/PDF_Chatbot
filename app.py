@@ -100,14 +100,14 @@ def main():
                 response = user_input(question)  # Generate the response
             st.session_state.chat_history.append({'question': question, 'answer': response})
             st.session_state['last_processed'] = question  # Track last processed question
-            st.experimental_rerun() 
+            # st.experimental_rerun() 
    
         # Process input (either from text input or button selection)
     if user_question and (user_question != st.session_state.get('last_processed', '')):
         response = user_input(user_question)  # Generate the response
         st.session_state.chat_history.append({'question': user_question, 'answer': response})
         st.session_state['last_processed'] = user_question  # Track last processed question
-        st.experimental_rerun()  # Rerun to display the updated chat history
+        # st.experimental_rerun()  # Rerun to display the updated chat history
         
         
         # Display the chat history
