@@ -31,7 +31,7 @@ def get_vector_store(text_chunks):
 def generate_response(prompt):
     try:
         response = openai.ChatCompletion.create(
-            model="gpt-4",
+            model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": "אתה עוזר אדיב, אנא ענה בעברית."},
                 {"role": "user", "content": prompt}
@@ -41,6 +41,13 @@ def generate_response(prompt):
     except Exception as e:
         st.error(f"Error: {e}")
         return None
+
+def load_questions(file_path):
+    # Load the questions from a CSV file
+    df = pd.read_csv(file_path)
+    # Assuming questions are in a column named 'Questions'
+    return df['questions'].tolist()
+
 
 def user_input(user_question):
     # Load the vector store and perform a similarity search
@@ -55,7 +62,8 @@ def user_input(user_question):
     prompt = f"הקשר: {context}\nשאלה: {user_question}\nתשובה:"
     response = generate_response(prompt)
 
-    st.write(response)
+    # st.write(response)
+    return response
 
 def main():
     st.set_page_config("Chat PDF")
@@ -72,16 +80,43 @@ def main():
 )
     st.header("מודל שפה משכ״ל🤖🗨️")
 
+    # Initialize chat history in session state
+    if 'chat_history' not in st.session_state:
+        st.session_state.chat_history = []
+
     user_question = st.text_input("שאל אותי הכל!")
 
-    if user_question:
-        user_input(user_question)
+  # Display buttons for predefined questions
+    cols = st.columns(5)
+    for i, question in enumerate(questions[:5]):  # Limiting to first 5 questions for simplicity
+        if cols[i % 5].button(question):
+            st.session_state['user_input'] = question  # Update session state with the selected question - Added 
+            response = user_input(question)  # Generate the response
+            st.session_state.chat_history.append({'question': question, 'answer': response})
+            st.session_state['last_processed'] = question  # Track last processed question
+            st.experimental_rerun() 
+
+           # Process input (either from text input or button selection)
+    if user_question and (user_question != st.session_state.get('last_processed', '')):
+        response = user_input(user_question)  # Generate the response
+        st.session_state.chat_history.append({'question': user_question, 'answer': response})
+        st.session_state['last_processed'] = user_question  # Track last processed question
+        st.experimental_rerun()  # Rerun to display the updated chat history
+        
+        
+        # Display the chat history
+    if st.session_state.chat_history:
+        # st.write("## היסטוריית צ'אט")
+        for entry in st.session_state.chat_history:
+            st.write(f"**שאלה:** {entry['question']}")
+            st.write(f"**תשובה:** {entry['answer']}")
+            st.write("---")  # Separator line
+      
 
     with st.spinner("חושב..."):
         raw_text = get_pdf_text(PDF_FILE_PATH)
         text_chunks = get_text_chunks(raw_text)
         get_vector_store(text_chunks)
-        st.success("Done")
 
 if __name__ == "__main__":
     main()
