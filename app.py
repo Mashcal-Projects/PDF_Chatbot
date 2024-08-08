@@ -101,8 +101,8 @@ def main():
     # for i, question in enumerate(questions[:st.session_state.questions_displayed]):
     # # for i, question in enumerate(questions[:st.session_state.questions_displayed]): 
     cols = st.columns(5)
-    questions_to_show = st.session_state.questions_displayed if st.session_state.show_more else 5
-    for i, question in enumerate(questions[:questions_to_show]):# Limiting to first 5 questions for simplicity
+    questions_to_show = st.session_state.questions_displayed
+    for i, question in enumerate(questions[:questions_to_show]):
         if cols[i % 5].button(question):
             st.session_state['user_input'] = question  # Update session state with the selected question - Added 
             with st.spinner("חושב..."):  # Add spinner here
@@ -111,17 +111,16 @@ def main():
             st.session_state['last_processed'] = question  # Track last processed question
             st.session_state.user_input = ''
             
-# Show more/less button to toggle additional questions
-    if st.session_state.show_more:
-        show_more_button = st.button("הצג פחות שאלות")
-    else:
-        show_more_button = st.button("הצג עוד שאלות")
+     # Show more/less button to toggle additional questions
+    if st.button("הצג עוד שאלות" if not st.session_state.show_more else "הצג פחות שאלות"):
+        if not st.session_state.show_more:
+            st.session_state.questions_displayed = min(st.session_state.questions_displayed + 5, len(questions))
+            st.session_state.show_more = True
+        else:
+            st.session_state.questions_displayed = 5
+            st.session_state.show_more = False
 
-    if show_more_button:
-        st.session_state.show_more = not st.session_state.show_more
-        st.session_state.questions_displayed = 10 if st.session_state.show_more else 5
-        st.experimental_set_query_params()
-
+    
         # Process input (either from text input or button selection)
     if user_question and (user_question != st.session_state.get('last_processed', '')):
         response = user_input(user_question)  # Generate the response
