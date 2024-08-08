@@ -98,6 +98,8 @@ def main():
 
     # Display buttons for predefined questions
     cols = st.columns(5)
+    questions_to_show = st.session_state.questions_displayed if st.session_state.show_more else 5
+    for i, question in enumerate(questions[:questions_to_show]):
     for i, question in enumerate(questions[:st.session_state.questions_displayed]):  # Limiting to first 5 questions for simplicity
         if cols[i % 5].button(question):
             st.session_state['user_input'] = question  # Update session state with the selected question - Added 
@@ -108,13 +110,14 @@ def main():
             st.session_state.user_input = ''
 
 
-     # Show more/less button to toggle additional questions
-    if st.session_state.questions_displayed < len(questions):
-        if st.button("הצג עוד שאלות"):
-            st.session_state.questions_displayed += 5  # Increase the number of displayed questions by 5
-    elif st.session_state.questions_displayed > 5:
-        if st.button("הצג פחות שאלות"):
+ # Show more/less button to toggle additional questions
+    if st.button("הצג עוד שאלות" if not st.session_state.show_more else "הצג פחות שאלות"):
+        if st.session_state.show_more:
             st.session_state.questions_displayed = 5  # Reset to showing only 5 questions
+        else:
+            st.session_state.questions_displayed += 5  # Increase the number of displayed questions by 5
+        st.session_state.show_more = not st.session_state.show_more  # Toggle the show_more state
+
 
         # Process input (either from text input or button selection)
     if user_question and (user_question != st.session_state.get('last_processed', '')):
