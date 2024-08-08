@@ -50,7 +50,6 @@ def load_questions(file_path):
     # Assuming questions are in a column named 'Questions'
     return df['questions'].tolist()
 
-
 def user_input(user_question):
     # Load the vector store and perform a similarity search
     embeddings = OpenAIEmbeddings()
@@ -66,8 +65,8 @@ def user_input(user_question):
 
     # st.write(response)
     return response
-
-def main():
+    
+    def main():
     st.set_page_config("Chat PDF")
     st.markdown(
     """
