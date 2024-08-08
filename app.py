@@ -89,8 +89,8 @@ def main():
         st.session_state.user_input = ''
 
     questions = load_questions('data/knowledge_center.csv')
-    # user_question = st.text_input("שאל אותי הכל!", value=st.session_state.user_input)
-    previous_user_input = st.session_state.user_input
+    user_question = st.text_input("שאל אותי הכל!", value=st.session_state.user_input)
+    # previous_user_input = st.session_state.user_input
 
     # Display buttons for predefined questions
     cols = st.columns(5)
@@ -99,15 +99,6 @@ def main():
             st.session_state.user_input = question
             response = user_input(question)
             st.session_state.chat_history.append({'question': question, 'answer': response})
-
-
-
-       # If user_input was changed by a button click, set the input field
-    if previous_user_input != st.session_state.user_input:
-        user_question = st.session_state.user_input
-    else:
-        # Text input for user's question, showing the last clicked question or manual input
-        user_question = st.text_input("שאל אותי הכל!", value=st.session_state.user_input)
 
     
      # Text input for user's question, showing the last clicked question
