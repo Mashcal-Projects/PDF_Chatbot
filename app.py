@@ -135,7 +135,7 @@ def main():
 
     # Carousel for predefined questions
     selected_question = carousel(
-        items=[{"text": question} for question in questions]
+        items=[{"text": question, "img": placeholder_image_url} for question in questions]
     )
     if selected_question:
         st.session_state['user_input'] = selected_question['value']
