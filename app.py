@@ -32,7 +32,7 @@ def get_vector_store(text_chunks):
 
 def generate_response(prompt):
     try:
-    with st.spinner("חושב..."):
+        with st.spinner("חושב..."):
         response = openai.ChatCompletion.create(
             model="gpt-4o-mini",
             messages=[
