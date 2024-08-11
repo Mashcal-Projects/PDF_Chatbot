@@ -113,21 +113,14 @@ def main():
             st.session_state.trigger_rerun = not st.session_state.get('trigger_rerun', False)
             
      # Show more/less button to toggle additional questions
-    # if st.button("הצג עוד שאלות" if not st.session_state.show_more else "הצג פחות שאלות"):
-    #     if not st.session_state.show_more:
-    #         st.session_state.questions_displayed = min(st.session_state.questions_displayed + 5, len(questions))
-    #         st.session_state.show_more = True
-    #     else:
-    #         st.session_state.questions_displayed = 5
-    #         st.session_state.show_more = False
-      if st.button("הצג עוד שאלות" if not st.session_state.show_more else "הצג פחות שאלות"):
+    if st.button("הצג עוד שאלות" if not st.session_state.show_more else "הצג פחות שאלות"):
         if not st.session_state.show_more:
             st.session_state.questions_displayed = min(st.session_state.questions_displayed + 5, len(questions))
             st.session_state.show_more = True
         else:
             st.session_state.questions_displayed = 5
             st.session_state.show_more = False
-        st.session_state.trigger_rerun = not st.session_state.get('trigger_rerun', False)
+            st.session_state.trigger_rerun = not st.session_state.get('trigger_rerun', False)
     
         # Process input (either from text input or button selection)
     if user_question and (user_question != st.session_state.get('last_processed', '')):
