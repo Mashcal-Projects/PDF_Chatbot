@@ -133,9 +133,9 @@ def main():
     # Placeholder image URL
     placeholder_image_url = "https://via.placeholder.com/150"
 
-    # Carousel for predefined questions with placeholder images, titles, and text
+    # Carousel for predefined questions
     selected_question = carousel(
-        items=[{"title": question, "text": question, "value": question, "img": placeholder_image_url} for question in questions]
+        items=[{"text": question} for question in questions]
     )
     if selected_question:
         st.session_state['user_input'] = selected_question['value']
