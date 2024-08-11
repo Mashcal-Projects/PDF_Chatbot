@@ -97,20 +97,20 @@ def main():
     # Dropdown for predefined questions
     selected_question = st.selectbox("בחר שאלה:", options=["בחר שאלה..."] + questions)
 
+  
     # Process dropdown selection
     if selected_question != "בחר שאלה...":
-        if 'user_input' not in st.session_state or st.session_state['user_input'] != selected_question:
-            st.session_state['user_input'] = selected_question
-            response = user_input(selected_question)
-            st.session_state.chat_history.append({'question': selected_question, 'answer': response})
-            st.session_state['last_processed'] = selected_question
+        response = user_input(selected_question)
+        st.session_state.chat_history.append({'question': selected_question, 'answer': response})
+        st.session_state['last_processed'] = selected_question
 
     # Process custom question input
     if user_question and (user_question != st.session_state.get('last_processed', '')):
         response = user_input(user_question)
         st.session_state.chat_history.append({'question': user_question, 'answer': response})
         st.session_state['last_processed'] = user_question
-        st.session_state.text_input = ''  # Clear input field
+        st.session_state.user_input = ""  # Reset session state after processing
+        st.experimental_rerun()  # Rerun to clear the input field
 
     # Display the chat history
     if st.session_state.chat_history:
