@@ -133,11 +133,11 @@ def main():
     # Placeholder image URL
     
   
-    # Dropdown for predefined questions
+     # Dropdown for predefined questions
     selected_question = st.selectbox("בחר שאלה:", options=["בחר שאלה..."] + questions)
 
     if selected_question != "בחר שאלה...":
-        # Ensure state and processing only happens when a question is selected
+        # Process the selected question
         if 'user_input' not in st.session_state or st.session_state['user_input'] != selected_question:
             st.session_state['user_input'] = selected_question
             response = user_input(selected_question)
