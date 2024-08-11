@@ -150,6 +150,14 @@ def main():
         st.session_state.user_input = ''  # Clear input
         st.experimental_rerun() 
 
+          # Display the chat history
+    if st.session_state.chat_history:
+        # st.write("## היסטוריית צ'אט")
+        for entry in st.session_state.chat_history:
+            st.write(f"**שאלה:** {entry['question']}")
+            st.write(f"**תשובה:** {entry['answer']}")
+            st.write("---")  # Separator line
+
 
     with st.spinner("חושב..."):
         raw_text = get_pdf_text(PDF_FILE_PATH)
