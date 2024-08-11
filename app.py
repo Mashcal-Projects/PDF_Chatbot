@@ -75,6 +75,11 @@ def main():
             direction: rtl;
             text-align: right;
         }
+        .stSelectbox [dir="auto"] {
+            direction: rtl;
+            text-align: right;
+        }
+
         </style>
         """,
 
