@@ -12,4 +12,5 @@ faiss-cpu
 python-dotenv
 PyPDF2
 langchain
+streamlit_carousel
 tiktoken
