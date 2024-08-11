@@ -141,12 +141,14 @@ def main():
         st.session_state.chat_history.append({'question': selected_question, 'answer': response})
         st.session_state['last_processed'] = selected_question
         st.session_state.user_input = ''
+        st.experimental_rerun() 
 
     if user_question and (user_question != st.session_state.get('last_processed', '')):
         response = user_input(user_question)
         st.session_state.chat_history.append({'question': user_question, 'answer': response})
         st.session_state['last_processed'] = user_question
         st.session_state.user_input = ''  # Clear input
+         st.experimental_rerun() 
 
 
     with st.spinner("חושב..."):
