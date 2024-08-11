@@ -110,7 +110,7 @@ def main():
             st.session_state.chat_history.append({'question': question, 'answer': response})
             st.session_state['last_processed'] = question  # Track last processed question
             st.session_state.user_input = ''
-            st.experimental_set_query_params(trigger_reload=st.session_state.get('trigger_reload', 0) + 1)
+            st.experimental_rerun() 
             
      # Show more/less button to toggle additional questions
     if st.button("הצג עוד שאלות" if not st.session_state.show_more else "הצג פחות שאלות"):
@@ -128,6 +128,7 @@ def main():
         st.session_state.chat_history.append({'question': user_question, 'answer': response})
         st.session_state['last_processed'] = user_question  # Track last processed question
         st.session_state.user_input = ''  # Clear the input field after processing
+        st.experimental_rerun()
         
         
         # Display the chat history
