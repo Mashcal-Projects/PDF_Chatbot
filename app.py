@@ -75,7 +75,7 @@ def main():
             direction: rtl;
             text-align: right;
         }
-        .stSelectbox [dir="auto"] {
+        .st-e7{
             direction: rtl;
             text-align: right;
         }
