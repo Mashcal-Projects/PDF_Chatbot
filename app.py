@@ -120,7 +120,6 @@ def main():
     #     else:
     #         st.session_state.questions_displayed = 5
     #         st.session_state.show_more = False
-
       if st.button("הצג עוד שאלות" if not st.session_state.show_more else "הצג פחות שאלות"):
         if not st.session_state.show_more:
             st.session_state.questions_displayed = min(st.session_state.questions_displayed + 5, len(questions))
