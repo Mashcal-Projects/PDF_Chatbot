@@ -132,16 +132,18 @@ def main():
         
     # Placeholder image URL
     
+  
     # Dropdown for predefined questions
     selected_question = st.selectbox("בחר שאלה:", options=["בחר שאלה..."] + questions)
 
     if selected_question != "בחר שאלה...":
-        st.session_state['user_input'] = selected_question
-        response = user_input(selected_question)
-        st.session_state.chat_history.append({'question': selected_question, 'answer': response})
-        st.session_state['last_processed'] = selected_question
-        st.session_state.user_input = ''
-        st.experimental_rerun() 
+        # Ensure state and processing only happens when a question is selected
+        if 'user_input' not in st.session_state or st.session_state['user_input'] != selected_question:
+            st.session_state['user_input'] = selected_question
+            response = user_input(selected_question)
+            st.session_state.chat_history.append({'question': selected_question, 'answer': response})
+            st.session_state['last_processed'] = selected_question
+            st.experimental_rerun() 
 
     if user_question and (user_question != st.session_state.get('last_processed', '')):
         response = user_input(user_question)
@@ -152,7 +154,6 @@ def main():
 
           # Display the chat history
     if st.session_state.chat_history:
-        # st.write("## היסטוריית צ'אט")
         for entry in st.session_state.chat_history:
             st.write(f"**שאלה:** {entry['question']}")
             st.write(f"**תשובה:** {entry['answer']}")
