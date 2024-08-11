@@ -7,7 +7,7 @@ from langchain.embeddings import OpenAIEmbeddings
 from langchain_community.embeddings import OpenAIEmbeddings
 from dotenv import load_dotenv
 import pandas as pd
-
+from streamlit_carousel import carousel
 # Set OpenAI API key from Streamlit secrets
 openai.api_key = st.secrets['OPENAI_API_KEY']
 
