@@ -80,6 +80,10 @@ def main():
             direction: rtl;
             text-align: right;
         }
+        .st-e7{
+            direction: rtl;
+            text-align: right;
+        }
 
         </style>
         """,
