@@ -131,17 +131,15 @@ def main():
     #     st.rerun()
         
     # Placeholder image URL
-    placeholder_image_url = "https://via.placeholder.com/150"
+    
+    # Dropdown for predefined questions
+    selected_question = st.selectbox("בחר שאלה:", options=["בחר שאלה..."] + questions)
 
-    # Carousel for predefined questions
-    selected_question = carousel(
-        items=[{"text": question, "img": placeholder_image_url} for question in questions]
-    )
-    if selected_question:
-        st.session_state['user_input'] = selected_question['value']
-        response = user_input(selected_question['value'])
-        st.session_state.chat_history.append({'question': selected_question['value'], 'answer': response})
-        st.session_state['last_processed'] = selected_question['value']
+    if selected_question != "בחר שאלה...":
+        st.session_state['user_input'] = selected_question
+        response = user_input(selected_question)
+        st.session_state.chat_history.append({'question': selected_question, 'answer': response})
+        st.session_state['last_processed'] = selected_question
         st.session_state.user_input = ''
 
     if user_question and (user_question != st.session_state.get('last_processed', '')):
