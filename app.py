@@ -130,11 +130,6 @@ def main():
     #     st.session_state.user_input = ''  # Clear the input field after processing
     #     st.rerun()
         
-    # Carousel for predefined questions
-    selected_question = carousel(
-        items=[{"label": question, "value": question} for question in questions],
-        item_width=300
-    )
 
     # Carousel for predefined questions
     selected_question = carousel(
