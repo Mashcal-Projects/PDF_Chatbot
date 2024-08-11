@@ -32,6 +32,7 @@ def get_vector_store(text_chunks):
 
 def generate_response(prompt):
     try:
+    with st.spinner("חושב..."):
         response = openai.ChatCompletion.create(
             model="gpt-4o-mini",
             messages=[
@@ -124,8 +125,8 @@ def main():
             st.write(f"**תשובה:** {entry['answer']}")
             st.write("---")  # Separator line
 
-    # Load the vector store
-    with st.spinner("חושב..."):
+  # Load the vector store (initialization, not directly related to user interaction)
+    with st.spinner("מעמיס נתונים...")
         raw_text = get_pdf_text(PDF_FILE_PATH)
         text_chunks = get_text_chunks(raw_text)
         get_vector_store(text_chunks)
