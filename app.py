@@ -97,10 +97,10 @@ def main():
 
     questions = load_questions('data/knowledge_center.csv')
      # Input field for custom questions
-    user_question = st.text_input("שאל אותי הכל!", key="text_input")
+    user_question = st.text_input("הזינ/ישאלתך (חיפוש חופשי)", key="text_input")
 
     # Dropdown for predefined questions
-    selected_question = st.selectbox("בחר שאלה:", options=["בחר שאלה..."] + questions)
+    selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions)
 
   # Process dropdown selection
     if selected_question != "בחר שאלה...":
