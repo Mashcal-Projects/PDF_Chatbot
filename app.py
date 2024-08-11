@@ -75,7 +75,7 @@ def main():
             direction: rtl;
             text-align: right;
         }
-        .st-e7{
+        .st-dr{
             direction: rtl;
             text-align: right;
         }
