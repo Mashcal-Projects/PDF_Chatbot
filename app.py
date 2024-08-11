@@ -148,7 +148,7 @@ def main():
         st.session_state.chat_history.append({'question': user_question, 'answer': response})
         st.session_state['last_processed'] = user_question
         st.session_state.user_input = ''  # Clear input
-         st.experimental_rerun() 
+        st.experimental_rerun() 
 
 
     with st.spinner("חושב..."):
