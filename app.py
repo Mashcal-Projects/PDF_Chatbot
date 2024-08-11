@@ -136,6 +136,11 @@ def main():
         item_width=300
     )
 
+    # Carousel for predefined questions
+    selected_question = carousel(
+        items=[{"label": question, "value": question} for question in questions]
+    )
+
     if selected_question:
         st.session_state['user_input'] = selected_question['value']
         response = user_input(selected_question['value'])
@@ -148,15 +153,7 @@ def main():
         st.session_state.chat_history.append({'question': user_question, 'answer': response})
         st.session_state['last_processed'] = user_question
         st.session_state.user_input = ''  # Clear input
-   
-        
-        
-        # Display the chat history
-    if st.session_state.chat_history:
-        for entry in st.session_state.chat_history:
-            st.write(f"**שאלה:** {entry['question']}")
-            st.write(f"**תשובה:** {entry['answer']}")
-            st.write("---")  # Separator line
+
 
     with st.spinner("חושב..."):
         raw_text = get_pdf_text(PDF_FILE_PATH)
