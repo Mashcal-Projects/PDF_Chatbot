@@ -91,79 +91,40 @@ def main():
 
 
     questions = load_questions('data/knowledge_center.csv')
-    
-      # Text input for user's question
-     # Manage input field with state control
-    user_question = st.text_input("שאל אותי הכל!", value=st.session_state.get('user_input', ''))
+     # Input field for custom questions
+    user_question = st.text_input("שאל אותי הכל!", key="text_input")
 
-    # Display buttons for predefined questions
-    # cols = st.columns(5)
-    # for i, question in enumerate(questions[:st.session_state.questions_displayed]):
-    # # # for i, question in enumerate(questions[:st.session_state.questions_displayed]): 
-    # cols = st.columns(5)
-    # questions_to_show = st.session_state.questions_displayed
-    # for i, question in enumerate(questions[:questions_to_show]):
-    #     if cols[i % 5].button(question):
-    #         st.session_state['user_input'] = question  # Update session state with the selected question - Added 
-    #         with st.spinner("חושב..."):  # Add spinner here
-    #             response = user_input(question)  # Generate the response
-    #         st.session_state.chat_history.append({'question': question, 'answer': response})
-    #         st.session_state['last_processed'] = question  # Track last processed question
-    #         st.session_state.user_input = ''
-    #         st.rerun()
-            
-    #  # Show more/less button to toggle additional questions
-    # if st.button("הצג עוד שאלות" if not st.session_state.show_more else "הצג פחות שאלות"):
-    #     if not st.session_state.show_more:
-    #         st.session_state.questions_displayed = min(st.session_state.questions_displayed + 5, len(questions))
-    #         st.session_state.show_more = True
-    #     else:
-    #         st.session_state.questions_displayed = 5
-    #         st.session_state.show_more = False
-    #         st.experimental_set_query_params(trigger_reload=st.session_state.get('trigger_reload', 0) + 1)
-
-    #      # Process input (either from text input or button selection)
-    # if user_question and (user_question != st.session_state.get('last_processed', '')):
-    #     response = user_input(user_question)  # Generate the response
-    #     st.session_state.chat_history.append({'question': user_question, 'answer': response})
-    #     st.session_state['last_processed'] = user_question  # Track last processed question
-    #     st.session_state.user_input = ''  # Clear the input field after processing
-    #     st.rerun()
-        
-    # Placeholder image URL
-    
-  
-     # Dropdown for predefined questions
+    # Dropdown for predefined questions
     selected_question = st.selectbox("בחר שאלה:", options=["בחר שאלה..."] + questions)
 
+    # Process dropdown selection
     if selected_question != "בחר שאלה...":
-        # Process the selected question
         if 'user_input' not in st.session_state or st.session_state['user_input'] != selected_question:
             st.session_state['user_input'] = selected_question
             response = user_input(selected_question)
             st.session_state.chat_history.append({'question': selected_question, 'answer': response})
             st.session_state['last_processed'] = selected_question
-            st.experimental_rerun() 
 
+    # Process custom question input
     if user_question and (user_question != st.session_state.get('last_processed', '')):
         response = user_input(user_question)
         st.session_state.chat_history.append({'question': user_question, 'answer': response})
         st.session_state['last_processed'] = user_question
-        st.session_state.user_input = ''  # Clear input
-        st.experimental_rerun() 
+        st.session_state.text_input = ''  # Clear input field
 
-          # Display the chat history
+    # Display the chat history
     if st.session_state.chat_history:
         for entry in st.session_state.chat_history:
             st.write(f"**שאלה:** {entry['question']}")
             st.write(f"**תשובה:** {entry['answer']}")
             st.write("---")  # Separator line
 
-
+    # Load the vector store
     with st.spinner("חושב..."):
         raw_text = get_pdf_text(PDF_FILE_PATH)
         text_chunks = get_text_chunks(raw_text)
         get_vector_store(text_chunks)
+  
     
     
     # categories, values = process_pdf(PDF_FILE_PATH)
