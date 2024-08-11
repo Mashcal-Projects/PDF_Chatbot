@@ -130,12 +130,13 @@ def main():
     #     st.session_state.user_input = ''  # Clear the input field after processing
     #     st.rerun()
         
+    # Placeholder image URL
+    placeholder_image_url = "https://via.placeholder.com/150"
 
-    # Carousel for predefined questions
+    # Carousel for predefined questions with placeholder images
     selected_question = carousel(
-        items=[{"label": question, "value": question} for question in questions]
+        items=[{"label": question, "value": question, "img": placeholder_image_url} for question in questions]
     )
-
     if selected_question:
         st.session_state['user_input'] = selected_question['value']
         response = user_input(selected_question['value'])
