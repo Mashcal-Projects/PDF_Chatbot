@@ -74,6 +74,8 @@ def generate_response(prompt, diagram_data=None):
                 # Log parsed data for further inspection
                 if categories and values:
                     try:
+                        logging.info(f"Parsed categories: {categories}")
+
                         fig, ax = plt.subplots()
                         ax.bar(categories, values)
                         ax.set_title("Diagram Data")
