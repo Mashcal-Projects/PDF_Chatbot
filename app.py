@@ -37,31 +37,46 @@ def get_vector_store(text_chunks):
     vector_store = FAISS.from_texts(text_chunks, embedding=embeddings)
     vector_store.save_local("faiss_index")
 
-def generate_response(prompt, diagram_data=None):
-    try:
-        with st.spinner("חושב..."):
-            response = openai.ChatCompletion.create(
-                model="gpt-4o-mini",
-                messages=[
-                    {"role": "system", "content": "אתה עוזר אדיב, אנא ענה בעברית."},
-                    {"role": "user", "content": prompt}
-                ]
-            )
-            answer = response.choices[0].message['content'].strip()
+# def generate_response(prompt, diagram_data=None):
+#     try:
+#         with st.spinner("חושב..."):
+#             response = openai.ChatCompletion.create(
+#                 model="gpt-4o-mini",
+#                 messages=[
+#                     {"role": "system", "content": "אתה עוזר אדיב, אנא ענה בעברית."},
+#                     {"role": "user", "content": prompt}
+#                 ]
+#             )
+#             answer = response.choices[0].message['content'].strip()
 
-            # If there's diagram data, create a graph
-            # if diagram_data:
-            #     categories, values = parse_diagram_data(diagram_data)
-            #     fig, ax = plt.subplots()
-            #     ax.bar(categories, values)
-            #     ax.set_title("Diagram Data")
-            #     st.pyplot(fig)
+#             # If there's diagram data, create a graph
+#             # if diagram_data:
+#             #     categories, values = parse_diagram_data(diagram_data)
+#             #     fig, ax = plt.subplots()
+#             #     ax.bar(categories, values)
+#             #     ax.set_title("Diagram Data")
+#             #     st.pyplot(fig)
 
-            return answer
+#             return answer
             
+#     except Exception as e:
+#         st.error(f"Error: {e}")
+#         return None
+
+def generate_response(prompt):
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "אתה עוזר אדיב, אנא ענה בעברית."},
+                {"role": "user", "content": prompt}
+            ]
+        )
+        return response.choices[0].message.content.strip()
     except Exception as e:
         st.error(f"Error: {e}")
         return None
+    
 
 def load_questions(file_path):
     # Load the questions from a CSV file
