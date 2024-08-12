@@ -58,6 +58,7 @@ def generate_response(prompt, diagram_data=None):
                 st.pyplot(fig)
 
             return answer
+            
     except Exception as e:
         st.error(f"Error: {e}")
         return None
