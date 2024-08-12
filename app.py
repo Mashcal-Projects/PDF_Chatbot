@@ -51,34 +51,19 @@ def generate_response(prompt, diagram_data=None):
             answer = response.choices[0].message['content'].strip()
 
             # If there's diagram data, create a graph
-            # if diagram_data:
-            #     categories, values = parse_diagram_data(diagram_data)
-            #     fig, ax = plt.subplots()
-            #     ax.bar(categories, values)
-            #     ax.set_title("Diagram Data")
-            #     st.pyplot(fig)
+            if diagram_data:
+                categories, values = parse_diagram_data(diagram_data)
+                fig, ax = plt.subplots()
+                ax.bar(categories, values)
+                ax.set_title("Diagram Data")
+                st.pyplot(fig)
 
             return answer
             
     except Exception as e:
         st.error(f"Error: {e}")
         return None
-
-# def generate_response(prompt):
-#     try:
-#         with st.spinner("חושב..."):
-#             response = openai.ChatCompletion.create(
-#             model="gpt-4o-mini",
-#             messages=[
-#                 {"role": "system", "content": "אתה עוזר אדיב, אנא ענה בעברית."},
-#                 {"role": "user", "content": prompt}
-#             ]
-#         )
-#         return response.choices[0].message['content'].strip()
-#     except Exception as e:
-#         st.error(f"Error: {e}")
-#         return None
-
+        
 def load_questions(file_path):
     # Load the questions from a CSV file
     df = pd.read_csv(file_path)
