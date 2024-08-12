@@ -81,9 +81,13 @@ def generate_response(prompt, diagram_data=None):
                         ax.set_title("Diagram Data")
                         logging.info("Graph generated.")
                         logging.info(categories)
-                               
-                        # Set categories on the x-axis to display correctly with right alignment
-                        ax.set_xticklabels(categories, rotation=0, ha='right')
+                        ax.set_xlabel("קטגוריות", fontsize=12, horizontalalignment='center')
+                        ax.set_ylabel("ערכים", fontsize=12, horizontalalignment='center')
+                        
+                        # Manually set the x-tick labels to be right-aligned
+                        ax.set_xticks(range(len(categories)))
+                        ax.set_xticklabels(categories, ha='right', fontsize=10, rotation=0)
+
                         
                     except Exception as e:
                         logging.error(f"Error generating graph: {e}")
@@ -186,7 +190,6 @@ def main():
         row = questions_df[questions_df['questions'] == selected_question].iloc[0]
         diagram_data = row["diagram"] if pd.notna(row["diagram"]) else None
 
-        
         if 'last_processed_dropdown' not in st.session_state or st.session_state['last_processed_dropdown'] != selected_question:
             st.session_state['last_processed_dropdown'] = selected_question
             response,diagram = user_input(selected_question,diagram_data)
