@@ -50,12 +50,12 @@ def generate_response(prompt, diagram_data=None):
             answer = response.choices[0].message['content'].strip()
 
             # If there's diagram data, create a graph
-            if diagram_data:
-                categories, values = parse_diagram_data(diagram_data)
-                fig, ax = plt.subplots()
-                ax.bar(categories, values)
-                ax.set_title("Diagram Data")
-                st.pyplot(fig)
+            # if diagram_data:
+            #     categories, values = parse_diagram_data(diagram_data)
+            #     fig, ax = plt.subplots()
+            #     ax.bar(categories, values)
+            #     ax.set_title("Diagram Data")
+            #     st.pyplot(fig)
 
             return answer
             
@@ -97,8 +97,6 @@ def user_input(user_question):
     prompt = f"הקשר: {context}\nשאלה: {user_question}\nתשובה:"
     response = generate_response(prompt, row["diagram"])
     st.write(response)
-
-    # st.write(response)
     return response
 
 
