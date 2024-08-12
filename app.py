@@ -13,6 +13,13 @@ openai.api_key = st.secrets['OPENAI_API_KEY']
 
 PDF_FILE_PATH = "data/knowledge_center.pdf"
 
+# Example row from your CSV
+row = {
+    "question": "What are the issues?",
+    "diagram": "categories = [מפגע כביש,מפגע מדרכה,מפגע ריהוט,מפגע תברואה,מפגע תמרור]values = [490,467,1,6,1]"
+}
+
+
 def get_pdf_text(pdf_file_path):
     text = ""
     pdf_reader = PdfReader(pdf_file_path)
