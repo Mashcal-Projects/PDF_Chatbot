@@ -73,6 +73,14 @@ def generate_response(prompt, diagram_data=None):
                         ax.bar(categories, values)
                         ax.set_title("Diagram Data")
                         logging.info("Graph generated.")
+                        
+                          # Adjust text direction for Hebrew (RTL)
+                        plt.gca().invert_xaxis()  # Flip the x-axis for RTL text display
+                        plt.gca().yaxis.set_ticks_position('right')
+                        plt.gca().yaxis.set_label_position('right')
+                
+                        # Set categories on the x-axis to display correctly
+                        ax.set_xticklabels(categories, rotation=0, ha='right')
                     except Exception as e:
                         logging.error(f"Error generating graph: {e}")
                 else:
