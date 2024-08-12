@@ -65,6 +65,7 @@ def generate_response(prompt, diagram_data=None):
             if diagram_data:
                 logging.info(f"diagram_data : {diagram_data}")
                 categories, values = parse_diagram_data(diagram_data)
+                logging.info(f"  categories, values : {  categories, values}")
                 fig, ax = plt.subplots()
                 ax.bar(categories, values)
                 ax.set_title("Diagram Data")
@@ -99,7 +100,6 @@ def user_input(user_question):
 
 
 def parse_diagram_data(diagram_str):
-    logging.info(f"parse_diagram_data : {diagram_str}")
     # Extract categories and values using regular expressions
     categories_part = re.search(r'categories = \[(.*?)\]', diagram_str).group(1)
     values_part = re.search(r'values = \[(.*?)\]', diagram_str).group(1)
@@ -107,8 +107,6 @@ def parse_diagram_data(diagram_str):
     # Convert the strings to lists
     categories = categories_part.split(',')
     values = list(map(int, values_part.split(',')))
-    
-    logging.info(f"categories, values : {categories, values}")
     return categories, values
     
 def main():
