@@ -70,7 +70,7 @@ def generate_response(prompt, diagram_data=None):
                 if categories and values:
                     try:
                         fig, ax = plt.subplots()
-                        ax.bar(categories.reverse(), values)
+                        ax.bar(categories, values)
                         ax.set_title("Diagram Data")
                         logging.info("Graph generated.")
                                
@@ -125,7 +125,9 @@ def parse_diagram_data(diagram_str):
 
     # Convert the strings to lists
     categories = categories_part.split(',')
+    logging.info(f"categories: {categories}")
     values = list(map(int, values_part.split(',')))
+    
     return categories, values
     
 def main():
