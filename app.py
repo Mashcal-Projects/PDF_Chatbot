@@ -27,6 +27,10 @@ logging.basicConfig(
     handlers=[logging.StreamHandler()]
 )
 
+# Test if logging works by adding an initial log message
+logging.info("App started, logging is set up.")
+
+
 def get_pdf_text(pdf_file_path):
     text = ""
     pdf_reader = PdfReader(pdf_file_path)
