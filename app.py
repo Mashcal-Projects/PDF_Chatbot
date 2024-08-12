@@ -177,7 +177,7 @@ def main():
     if st.session_state.chat_history:
         for entry in st.session_state.chat_history:
             st.write(f"**שאלה:** {entry['question']}")
-            st.write(f"{entry['diagram']}")
+            st.write(f"diagram:{entry['diagram']}")
             st.write(f"**תשובה:** {entry['answer']}")
             st.write("---")  # Separator line
 
