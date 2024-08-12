@@ -169,7 +169,7 @@ def main():
     
   # Process dropdown selection
     if selected_question != "בחר שאלה...":
-        row = questions_df[questions_df['question'] == selected_question].iloc[0]
+        row = questions_df[questions_df['questions'] == selected_question].iloc[0]
         diagram_data = row["diagram"] if pd.notna(row["diagram"]) else None
 
         
@@ -182,7 +182,7 @@ def main():
 
     # Process custom question input
     if user_question and (user_question != st.session_state.get('last_processed_text', '')):
-        row = questions_df[questions_df['question'] == selected_question].iloc[0]
+        row = questions_df[questions_df['questions'] == selected_question].iloc[0]
         diagram_data = row["diagram"] if pd.notna(row["diagram"]) else None
         
         response,diagram = user_input(user_question,diagram_data)
