@@ -1,4 +1,4 @@
-# PDF Chatbot with Gemini 💬
+# PDF Chatbot with OpenAI  💬
 This web application allows you to interactively chat with a chatbot powered by Gemini, a conversational AI model, using text extracted from PDF files.
 
 <img src="https://github.com/Pratham0405/PDF_Chatbot/assets/148319246/1b7471d7-20ac-4a2b-8ec4-5bdee111e214" width="700" height="400">
