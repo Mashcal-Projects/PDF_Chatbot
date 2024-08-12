@@ -69,9 +69,8 @@ def generate_response(prompt, diagram_data=None):
                 # Log parsed data for further inspection
                 if categories and values:
                     try:
-                        categories.reverse()
                         fig, ax = plt.subplots()
-                        ax.bar(categories, values)
+                        ax.bar(categories.reverse(), values)
                         ax.set_title("Diagram Data")
                         logging.info("Graph generated.")
                                
