@@ -88,12 +88,12 @@ def generate_response(prompt, diagram_data=None):
                         ax.set_title("Diagram Data")
                         logging.info("Graph generated.")
                         logging.info(categories)
-                        ax.set_xlabel("קטגוריות", fontsize=12, horizontalalignment='center')
-                        ax.set_ylabel("ערכים", fontsize=12, horizontalalignment='center')
+                        ax.set_xlabel(reverse_hebrew_text("קטגוריות"), fontsize=12, horizontalalignment='center')
+                        ax.set_ylabel(reverse_hebrew_text("ערכים"), fontsize=12, horizontalalignment='center')
                         
-                        # Manually set the x-tick labels to be right-aligned
-                        ax.set_xticks(range(len(categories)))
-                        ax.set_xticklabels(categories, ha='right', fontsize=10, rotation=0)
+                        # # Manually set the x-tick labels to be right-aligned
+                        # ax.set_xticks(range(len(categories)))
+                        # ax.set_xticklabels(categories, ha='right', fontsize=10, rotation=0)
 
                         
                     except Exception as e:
