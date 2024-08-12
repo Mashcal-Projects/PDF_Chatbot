@@ -7,6 +7,7 @@ from langchain.embeddings import OpenAIEmbeddings
 from langchain_community.embeddings import OpenAIEmbeddings
 from dotenv import load_dotenv
 import pandas as pd
+import logging
 import matplotlib.pyplot as plt
 
 # Set OpenAI API key from Streamlit secrets
@@ -49,9 +50,10 @@ def generate_response(prompt, diagram_data=None):
                 ]
             )
             answer = response.choices[0].message['content'].strip()
-
+            logging.info(f"answer : {answer}")
             # If there's diagram data, create a graph
             if diagram_data:
+                logging.info(f"diagram_data : {diagram_data}")
                 categories, values = parse_diagram_data(diagram_data)
                 fig, ax = plt.subplots()
                 ax.bar(categories, values)
@@ -87,6 +89,7 @@ def user_input(user_question):
 
 
 def parse_diagram_data(diagram_str):
+    logging.info(f"parse_diagram_data : {diagram_str}")
     # Extract categories and values using regular expressions
     categories_part = re.search(r'categories = \[(.*?)\]', diagram_str).group(1)
     values_part = re.search(r'values = \[(.*?)\]', diagram_str).group(1)
