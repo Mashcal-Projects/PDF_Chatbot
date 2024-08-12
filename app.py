@@ -83,9 +83,8 @@ def generate_response(prompt, diagram_data=None):
                 if categories and values:
                     try:
                         logging.info(f"Parsed categories: {categories}")
-                        fig, ax = plt.subplots()
+                        fig, ax = plt.subplots(figsize=(5, 3))  # Width x Height in inches
                         ax.bar(categories, values)
-                        ax.set_title("Diagram Data")
                         logging.info("Graph generated.")
                         logging.info(categories)
                         # ax.set_xlabel("קטגוריות", fontsize=12, horizontalalignment='center')
