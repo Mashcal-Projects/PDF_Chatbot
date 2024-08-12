@@ -163,13 +163,13 @@ def main():
         if 'last_processed_dropdown' not in st.session_state or st.session_state['last_processed_dropdown'] != selected_question:
             st.session_state['last_processed_dropdown'] = selected_question
             response,diagram = user_input(selected_question)
-            st.session_state.chat_history.append({'question': selected_question, 'answer': response,'diagram': diagram})
+            st.session_state.chat_history.append({'question': selected_question, 'answer': response,diagram})
             st.rerun()
 
     # Process custom question input
     if user_question and (user_question != st.session_state.get('last_processed_text', '')):
         response,diagram = user_input(user_question)
-        st.session_state.chat_history.append({'question': user_question, 'answer': response,'diagram': diagram})
+        st.session_state.chat_history.append({'question': user_question, 'answer': response, diagram})
         st.session_state.last_processed_text = user_question
         st.rerun()
 
@@ -177,7 +177,7 @@ def main():
     if st.session_state.chat_history:
         for entry in st.session_state.chat_history:
             st.write(f"**שאלה:** {entry['question']}")
-            st.write(f"diagram:{entry['diagram']}")
+            # st.write(f"diagram:{entry['diagram']}")
             st.write(f"**תשובה:** {entry['answer']}")
             st.write("---")  # Separator line
 
