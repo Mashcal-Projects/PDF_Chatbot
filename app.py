@@ -83,7 +83,7 @@ def generate_response(prompt, diagram_data=None):
                 if categories and values:
                     try:
                         logging.info(f"Parsed categories: {categories}")
-                        fig, ax = plt.subplots(figsize=(5, 3))  # Width x Height in inches
+                        fig, ax = plt.subplots()  
                         ax.bar(categories, values)
                         logging.info("Graph generated.")
                         logging.info(categories)
