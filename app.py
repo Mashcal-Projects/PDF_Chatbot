@@ -91,7 +91,7 @@ def generate_response(prompt, diagram_data=None):
 #     # Assuming questions are in a column named 'Questions'
 #     return df['questions'].tolist()
     
-    def load_questions(file_path):
+def load_questions(file_path):
     # Load the questions and diagrams from a CSV file
     df = pd.read_csv(file_path)
     return df
