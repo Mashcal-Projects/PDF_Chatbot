@@ -61,22 +61,30 @@ def generate_response(prompt, diagram_data=None):
             )
             answer = response.choices[0].message['content'].strip()
             logging.info(f"answer : {answer}")
-            # If there's diagram data, create a graph
+            fig = None
             if diagram_data:
-                logging.info(f"diagram_data : {diagram_data}")
+                logging.info(f"Diagram data received: {diagram_data}")
                 categories, values = parse_diagram_data(diagram_data)
-                logging.info(f"  categories, values : {  categories, values}")
-                fig, ax = plt.subplots()
-                ax.bar(categories, values)
-                ax.set_title("Diagram Data")
-                st.pyplot(fig)
-                logging.info("Graph displayed.")
-
-            return answer
+                
+                # Log parsed data for further inspection
+                if categories and values:
+                    logging.info(f"Categories: {categories}, Values: {values}")
+                    try:
+                        fig, ax = plt.subplots()
+                        ax.bar(categories, values)
+                        ax.set_title("Diagram Data")
+                        logging.info("Graph generated.")
+                    except Exception as e:
+                        logging.error(f"Error generating graph: {e}")
+                else:
+                    logging.error("Failed to parse diagram data.")
+            
+            return answer, fig
             
     except Exception as e:
         st.error(f"Error: {e}")
-        return None
+        logging.error(f"Error generating response: {e}")
+        return None, None
         
 def load_questions(file_path):
     # Load the questions from a CSV file
@@ -95,9 +103,9 @@ def user_input(user_question):
 
     # Combine the context with the user question and generate a response
     prompt = f"הקשר: {context}\nשאלה: {user_question}\nתשובה:"
-    response = generate_response(prompt, row["diagram"])
+    response, diagram = generate_response(prompt, row["diagram"])
     st.write(response)
-    return response
+    return  response, diagram
 
 
 def parse_diagram_data(diagram_str):
