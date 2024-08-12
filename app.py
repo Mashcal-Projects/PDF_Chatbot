@@ -169,7 +169,7 @@ def main():
     # Process custom question input
     if user_question and (user_question != st.session_state.get('last_processed_text', '')):
         response,diagram = user_input(user_question)
-         logging.info(f"response1: {response}, diagram1: {diagram}")
+        logging.info(f"response1: {response}, diagram1: {diagram}")
         st.session_state.chat_history.append({'question': user_question, 'answer': response, 'diagram':diagram})
         st.session_state.last_processed_text = user_question
         st.rerun()
