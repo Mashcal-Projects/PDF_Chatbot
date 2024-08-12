@@ -70,6 +70,7 @@ def generate_response(prompt, diagram_data=None):
                 ax.bar(categories, values)
                 ax.set_title("Diagram Data")
                 st.pyplot(fig)
+                logging.info("Graph displayed.")
 
             return answer
             
