@@ -24,6 +24,7 @@ row = {
 }
 # Ensure matplotlib supports RTL languages
 matplotlib.rcParams['axes.unicode_minus'] = False  
+matplotlib.rcParams['font.family'] = 'Arial' 
 
 # Set up logging
 logging.basicConfig(
@@ -80,7 +81,7 @@ def generate_response(prompt, diagram_data=None):
                         logging.info(categories)
                                
                         # Set categories on the x-axis to display correctly with right alignment
-                        # ax.set_xticklabels(categories, rotation=0, ha='right')
+                        ax.set_xticklabels(categories, rotation=0, ha='right')
                         
                     except Exception as e:
                         logging.error(f"Error generating graph: {e}")
