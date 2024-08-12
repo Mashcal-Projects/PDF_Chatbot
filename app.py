@@ -54,6 +54,10 @@ def get_vector_store(text_chunks):
     vector_store = FAISS.from_texts(text_chunks, embedding=embeddings)
     vector_store.save_local("faiss_index")
 
+# Function to reverse Hebrew text in each category
+def reverse_hebrew_text(categories):
+    return [cat[::-1] for cat in categories]
+
 def generate_response(prompt, diagram_data=None):
     try:
         with st.spinner("חושב..."):
@@ -70,6 +74,9 @@ def generate_response(prompt, diagram_data=None):
             if diagram_data:
                 logging.info(f"Diagram data received: {diagram_data}")
                 categories, values = parse_diagram_data(diagram_data)
+
+                # Reverse the Hebrew text within each category
+                categories = reverse_hebrew_text(categories)
                 
                 # Log parsed data for further inspection
                 if categories and values:
