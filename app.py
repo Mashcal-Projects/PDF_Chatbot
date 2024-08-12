@@ -57,6 +57,7 @@ def get_vector_store(text_chunks):
 # Function to reverse Hebrew text in each category
 def reverse_hebrew_text(categories):
     return [cat[::-1] for cat in categories]
+    
 
 def generate_response(prompt, diagram_data=None):
     try:
@@ -82,7 +83,6 @@ def generate_response(prompt, diagram_data=None):
                 if categories and values:
                     try:
                         logging.info(f"Parsed categories: {categories}")
-                        categories.reverse()
                         fig, ax = plt.subplots()
                         ax.bar(categories, values)
                         ax.set_title("Diagram Data")
