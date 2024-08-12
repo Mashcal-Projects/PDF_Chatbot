@@ -50,12 +50,12 @@ def generate_response(prompt, diagram_data=None):
             answer = response.choices[0].message['content'].strip()
 
             # If there's diagram data, create a graph
-            if diagram_data:
-                categories, values = parse_diagram_data(diagram_data)
-                fig, ax = plt.subplots()
-                ax.bar(categories, values)
-                ax.set_title("Diagram Data")
-                st.pyplot(fig)
+            # if diagram_data:
+            #     categories, values = parse_diagram_data(diagram_data)
+            #     fig, ax = plt.subplots()
+            #     ax.bar(categories, values)
+            #     ax.set_title("Diagram Data")
+            #     st.pyplot(fig)
 
             return answer
             
