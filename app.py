@@ -73,7 +73,7 @@ def generate_response(prompt, diagram_data=None):
                         ax.bar(categories, values)
                         ax.set_title("Diagram Data")
                         logging.info("Graph generated.")
-                         logging.info(categories)
+                        logging.info(categories)
                                
                         # Set categories on the x-axis to display correctly with right alignment
                         ax.set_xticklabels(categories, rotation=0, ha='right')
