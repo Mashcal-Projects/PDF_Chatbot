@@ -65,18 +65,18 @@ def get_vector_store(text_chunks):
 
 def generate_response(prompt):
     try:
-        response = client.chat.completions.create(
+        with st.spinner("חושב..."):
+            response = openai.ChatCompletion.create(
             model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": "אתה עוזר אדיב, אנא ענה בעברית."},
                 {"role": "user", "content": prompt}
             ]
         )
-        return response.choices[0].message.content.strip()
+        return response.choices[0].message['content'].strip()
     except Exception as e:
         st.error(f"Error: {e}")
         return None
-    
 
 def load_questions(file_path):
     # Load the questions from a CSV file
