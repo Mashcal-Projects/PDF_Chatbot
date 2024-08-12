@@ -106,7 +106,8 @@ def parse_diagram_data(diagram_str):
     # Convert the strings to lists
     categories = categories_part.split(',')
     values = list(map(int, values_part.split(',')))
-
+    
+    logging.info(f"categories, values : {categories, values}")
     return categories, values
     
 def main():
@@ -155,14 +156,14 @@ def main():
             st.session_state['last_processed_dropdown'] = selected_question
             response = user_input(selected_question)
             st.session_state.chat_history.append({'question': selected_question, 'answer': response})
-            st.experimental_rerun()
+            st.rerun()
 
     # Process custom question input
     if user_question and (user_question != st.session_state.get('last_processed_text', '')):
         response = user_input(user_question)
         st.session_state.chat_history.append({'question': user_question, 'answer': response})
         st.session_state.last_processed_text = user_question
-        st.experimental_rerun()
+        st.rerun()
 
     # Display the chat history
     if st.session_state.chat_history:
