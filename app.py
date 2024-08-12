@@ -157,7 +157,7 @@ def main():
         st.session_state.show_more = False  # Toggle state for showing more questions
 
     questions_df = load_questions('data/knowledge_center.csv')
-    questions = questions_df['question'].tolist()
+    questions = questions_df['questions'].tolist()
     # questions = load_questions('data/knowledge_center.csv')
      # Input field for custom questions
     user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)", key="text_input")
