@@ -162,14 +162,14 @@ def main():
     if selected_question != "בחר שאלה...":
         if 'last_processed_dropdown' not in st.session_state or st.session_state['last_processed_dropdown'] != selected_question:
             st.session_state['last_processed_dropdown'] = selected_question
-            response = user_input(selected_question)
-            st.session_state.chat_history.append({'question': selected_question, 'answer': response})
+            response,diagram = user_input(selected_question)
+            st.session_state.chat_history.append({'question': selected_question, 'answer': response,'diagram': diagram})
             st.rerun()
 
     # Process custom question input
     if user_question and (user_question != st.session_state.get('last_processed_text', '')):
-        response = user_input(user_question)
-        st.session_state.chat_history.append({'question': user_question, 'answer': response})
+        response,diagram = user_input(user_question)
+        st.session_state.chat_history.append({'question': user_question, 'answer': response,'diagram': diagram})
         st.session_state.last_processed_text = user_question
         st.rerun()
 
