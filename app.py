@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 import pandas as pd
 import logging
 import re
+import matplotlib
 import matplotlib.pyplot as plt
 
 # Set OpenAI API key from Streamlit secrets
