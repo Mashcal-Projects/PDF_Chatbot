@@ -85,13 +85,19 @@ def generate_response(prompt, diagram_data=None):
         logging.error(f"Error generating response: {e}")
         return None, None
         
-def load_questions(file_path):
-    # Load the questions from a CSV file
+# def load_questions(file_path):
+#     # Load the questions from a CSV file
+#     df = pd.read_csv(file_path)
+#     # Assuming questions are in a column named 'Questions'
+#     return df['questions'].tolist()
+    
+    def load_questions(file_path):
+    # Load the questions and diagrams from a CSV file
     df = pd.read_csv(file_path)
-    # Assuming questions are in a column named 'Questions'
-    return df['questions'].tolist()
+    return df
 
-def user_input(user_question):
+
+def user_input(user_question, diagram_data=None):
     # Load the vector store and perform a similarity search
     embeddings = OpenAIEmbeddings()
     new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
@@ -102,7 +108,8 @@ def user_input(user_question):
 
     # Combine the context with the user question and generate a response
     prompt = f"הקשר: {context}\nשאלה: {user_question}\nתשובה:"
-    response, diagram = generate_response(prompt, row["diagram"])
+    # response, diagram = generate_response(prompt, row["diagram"])
+    response, diagram = generate_response(prompt, diagram_data)
     st.write(response)
     return  response, diagram
 
@@ -149,26 +156,36 @@ def main():
     if 'show_more' not in st.session_state:
         st.session_state.show_more = False  # Toggle state for showing more questions
 
-
-    questions = load_questions('data/knowledge_center.csv')
+    questions_df = load_questions('data/knowledge_center.csv')
+    questions = questions_df['question'].tolist()
+    # questions = load_questions('data/knowledge_center.csv')
      # Input field for custom questions
     user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)", key="text_input")
 
     # Dropdown for predefined questions
     selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions)
 
+
+    
   # Process dropdown selection
     if selected_question != "בחר שאלה...":
+        row = questions_df[questions_df['question'] == selected_question].iloc[0]
+        diagram_data = row["diagram"] if pd.notna(row["diagram"]) else None
+
+        
         if 'last_processed_dropdown' not in st.session_state or st.session_state['last_processed_dropdown'] != selected_question:
             st.session_state['last_processed_dropdown'] = selected_question
-            response,diagram = user_input(selected_question)
+            response,diagram = user_input(selected_question,diagram_data)
             logging.info(f"response: {response}, diagram: {diagram}")
             st.session_state.chat_history.append({'question': selected_question, 'answer': response,'diagram':diagram})
             st.rerun()
 
     # Process custom question input
     if user_question and (user_question != st.session_state.get('last_processed_text', '')):
-        response,diagram = user_input(user_question)
+        row = questions_df[questions_df['question'] == selected_question].iloc[0]
+        diagram_data = row["diagram"] if pd.notna(row["diagram"]) else None
+        
+        response,diagram = user_input(user_question,diagram_data)
         logging.info(f"response1: {response}, diagram1: {diagram}")
         st.session_state.chat_history.append({'question': user_question, 'answer': response, 'diagram':diagram})
         st.session_state.last_processed_text = user_question
