@@ -21,6 +21,9 @@ row = {
     "question": "What are the issues?",
     "diagram": "categories = [מפגע כביש,מפגע מדרכה,מפגע ריהוט,מפגע תברואה,מפגע תמרור]values = [490,467,1,6,1]"
 }
+# Ensure matplotlib supports RTL languages
+matplotlib.rcParams['axes.unicode_minus'] = False  
+
 # Set up logging
 logging.basicConfig(
     level=logging.DEBUG,  # Set to DEBUG to capture all levels of logs
@@ -76,7 +79,7 @@ def generate_response(prompt, diagram_data=None):
                         logging.info(categories)
                                
                         # Set categories on the x-axis to display correctly with right alignment
-                        ax.set_xticklabels(categories, rotation=0, ha='right')
+                        # ax.set_xticklabels(categories, rotation=0, ha='right')
                         
                     except Exception as e:
                         logging.error(f"Error generating graph: {e}")
