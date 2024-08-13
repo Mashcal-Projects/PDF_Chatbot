@@ -85,16 +85,17 @@ def generate_response(prompt, diagram_data=None):
                     try:
                         logging.info(f"Parsed categories: {categories}")
                         fig, ax = plt.subplots(figsize=(1.5, 1))  
-                        # colors = plt.cm.viridis(np.linspace(0, 1, len(categories)))  # Example with viridis colormap
-                        # ax.bar(categories, values, color=colors)
-                        ax.bar(categories, values)
+                        colors = plt.cm.viridis(np.linspace(0, 1, len(categories)))  # Example with viridis colormap
+                        ax.bar(categories, values, color=colors)
+                        # ax.bar(categories, values)
                       
                         # Rotate the x-axis labels and set the font size smaller
                         ax.set_xticklabels(categories, rotation=45, ha='right')
-                        # ax.set_yticklabels(values, fontsize=5)
 
                         # Adjust tick parameters for a smaller font size
                         ax.tick_params(axis='both', which='major', labelsize=5)
+                         # Use tight layout to remove excess space
+                        plt.tight_layout()
                         
                     except Exception as e:
                         logging.error(f"Error generating graph: {e}")
