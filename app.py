@@ -125,7 +125,7 @@ def user_input(user_question, diagram_data=None):
     # prompt = f"הקשר: {context}\nשאלה: {user_question}\nתשובה:"
 
    # Combine the context from your data with the user question
-    context = " ".join(semantic_data)
+    context = " ".join(semanticsearch)
 
     # Form the prompt using the context from your data
     prompt = f"הקשר: {context}\nשאלה: {user_question}\nתשובה:"
