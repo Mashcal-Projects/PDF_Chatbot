@@ -84,7 +84,7 @@ def generate_response(prompt, diagram_data=None):
                 if categories and values:
                     try:
                         logging.info(f"Parsed categories: {categories}")
-                        fig, ax = plt.subplots()  
+                        fig, ax = plt.subplots(figsize=(4.2, 2.8))  
                         ax.bar(categories, values)
                       
                         # Rotate the x-axis labels and set the font size smaller
