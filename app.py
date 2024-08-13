@@ -84,12 +84,16 @@ def generate_response(prompt, diagram_data=None):
                 if categories and values:
                     try:
                         logging.info(f"Parsed categories: {categories}")
-                        fig, ax = plt.subplots(figsize=(2, 1.5), dpi=150)  
+                        fig, ax = plt.subplots(figsize=(3, 2))  
                         ax.bar(categories, values)
                       
                         # Rotate the x-axis labels and set the font size smaller
                         ax.set_xticklabels(categories, rotation=45, ha='right', fontsize=5)
                         ax.set_yticklabels(values, fontsize=5)
+
+                        # Adjust tick parameters for a smaller font size
+                        ax.tick_params(axis='both', which='major', labelsize=5)
+                        
                     except Exception as e:
                         logging.error(f"Error generating graph: {e}")
                 else:
