@@ -84,11 +84,13 @@ def generate_response(prompt, diagram_data=None):
                 if categories and values:
                     try:
                         logging.info(f"Parsed categories: {categories}")
-                        fig, ax = plt.subplots(figsize=(3, 2))  
-                        ax.bar(categories, values)
+                        fig, ax = plt.subplots(figsize=(1.5, 1))  
+                        colors = plt.cm.viridis(np.linspace(0, 1, len(categories)))  # Example with viridis colormap
+                         ax.bar(categories, values, color=colors)
+                        # ax.bar(categories, values)
                       
                         # Rotate the x-axis labels and set the font size smaller
-                        ax.set_xticklabels(categories, rotation=45, ha='right', fontsize=5)
+                        ax.set_xticklabels(categories, rotation=45, ha='right')
                         # ax.set_yticklabels(values, fontsize=5)
 
                         # Adjust tick parameters for a smaller font size
