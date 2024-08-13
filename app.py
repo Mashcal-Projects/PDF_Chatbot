@@ -89,7 +89,7 @@ def generate_response(prompt, diagram_data=None):
                       
                         # Rotate the x-axis labels and set the font size smaller
                         ax.set_xticklabels(categories, rotation=45, ha='right', fontsize=5)
-                        ax.set_yticklabels(values, fontsize=5)
+                        # ax.set_yticklabels(values, fontsize=5)
 
                         # Adjust tick parameters for a smaller font size
                         ax.tick_params(axis='both', which='major', labelsize=5)
