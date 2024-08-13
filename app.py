@@ -85,7 +85,9 @@ def generate_response(prompt, diagram_data=None):
                     try:
                         logging.info(f"Parsed categories: {categories}")
                         fig, ax = plt.subplots(figsize=(2, 1.5))  
-                        colors = plt.cm.viridis(np.linspace(0, 1, len(categories)))  # Example with viridis colormap
+
+                        # Manually assign colors
+                        colors = ['blue', 'green', 'red', 'purple', 'orange'][:len(categories)]
                         ax.bar(categories, values, color=colors)
                         # ax.bar(categories, values)
                       
