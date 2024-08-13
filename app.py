@@ -113,12 +113,12 @@ def load_questions(file_path):
 
 def user_input(user_question, diagram_data=None):
     # Load the vector store and perform a similarity search
-    embeddings = OpenAIEmbeddings()
-    new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
-    docs = new_db.similarity_search(user_question)
+    # embeddings = OpenAIEmbeddings()
+    # new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
+    # docs = new_db.similarity_search(user_question)
     
-    # Use the content of the documents to form a context
-    context = " ".join([doc.page_content for doc in docs])
+    # # Use the content of the documents to form a context
+    # context = " ".join([doc.page_content for doc in docs])
 
     # Combine the context with the user question and generate a response
     prompt = f"הקשר: {context}\nשאלה: {user_question}\nתשובה:"
