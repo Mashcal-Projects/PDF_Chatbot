@@ -83,18 +83,10 @@ def generate_response(prompt, diagram_data=None):
                 if categories and values:
                     try:
                         logging.info(f"Parsed categories: {categories}")
-                        fig, ax = plt.subplots(figsize=(6, 4))  
+                        fig, ax = plt.subplots()  
                         ax.bar(categories, values)
                         logging.info("Graph generated.")
                         logging.info(categories)
-                        # ax.set_xlabel("קטגוריות", fontsize=12, horizontalalignment='center')
-                        # ax.set_ylabel("ערכים", fontsize=12, horizontalalignment='center')
-                        
-                        # # Manually set the x-tick labels to be right-aligned
-                        # ax.set_xticks(range(len(categories)))
-                        # ax.set_xticklabels(categories, ha='right', fontsize=10, rotation=0)
-
-                        
                     except Exception as e:
                         logging.error(f"Error generating graph: {e}")
                 else:
@@ -175,14 +167,13 @@ def main():
      # Initialize chat history in session state
     if 'chat_history' not in st.session_state:
         st.session_state.chat_history = []
-    if 'questions_displayed' not in st.session_state:
-        st.session_state.questions_displayed = 5 
-    if 'show_more' not in st.session_state:
-        st.session_state.show_more = False  # Toggle state for showing more questions
+    # if 'questions_displayed' not in st.session_state:
+    #     st.session_state.questions_displayed = 5 
+    # if 'show_more' not in st.session_state:
+    #     st.session_state.show_more = False  # Toggle state for showing more questions
 
     questions_df = load_questions('data/knowledge_center.csv')
     questions = questions_df['questions'].tolist()
-    # questions = load_questions('data/knowledge_center.csv')
      # Input field for custom questions
     user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)", key="text_input")
 
@@ -227,24 +218,7 @@ def main():
     with st.spinner("מעמיס נתונים..."):
         raw_text = get_pdf_text(PDF_FILE_PATH)
         text_chunks = get_text_chunks(raw_text)
-        # summary = generate_response(text_chunks)
-        # get_vector_store(text_chunks)
-       
-  
-    
-    
-    # categories, values = process_pdf(PDF_FILE_PATH)
-
-    # if categories and values:
-    #     fig, ax = plt.subplots()
-    #     ax.bar(categories, values)
-    #     # ax.set_xlabel('Categories')
-    #     # ax.set_ylabel('Values')
-    #     # ax.set_title('Bar Chart from PDF Data')
-
-    #     st.pyplot(fig)
-    # else:
-    #     st.write("Categories or values not found in the PDF.")
+   
 
 
 if __name__ == "__main__":
