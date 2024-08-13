@@ -89,7 +89,7 @@ def generate_response(prompt, diagram_data=None):
                       
                         # Rotate the x-axis labels and set the font size smaller
                         ax.set_xticklabels(categories, rotation=45, ha='right', fontsize=5)
-                        ax.set_yticklabels(categories, rotation=45, ha='right', fontsize=5)
+                        # ax.set_yticklabels(categories, rotation=45, ha='right', fontsize=5)
                     except Exception as e:
                         logging.error(f"Error generating graph: {e}")
                 else:
