@@ -227,7 +227,7 @@ def main():
     with st.spinner("מעמיס נתונים..."):
         raw_text = get_pdf_text(PDF_FILE_PATH)
         text_chunks = get_text_chunks(raw_text)
-        summary =generate_summary(text_chunks)
+        # summary = generate_response(text_chunks)
         # get_vector_store(text_chunks)
        
   
