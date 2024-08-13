@@ -1,3 +1,4 @@
+
 import streamlit as st
 import openai
 from PyPDF2 import PdfReader
@@ -121,7 +122,12 @@ def user_input(user_question, diagram_data=None):
     # context = " ".join([doc.page_content for doc in docs])
 
     # Combine the context with the user question and generate a response
-    prompt = f"הקשר: {context}\nשאלה: {user_question}\nתשובה:"
+    # prompt = f"הקשר: {context}\nשאלה: {user_question}\nתשובה:"
+
+     # Form a prompt using the user question
+    prompt = f"שאלה: {user_question}\nתשובה:"
+
+    
     # response, diagram = generate_response(prompt, row["diagram"])
     response, diagram = generate_response(prompt, diagram_data)
     st.write(response)
