@@ -121,7 +121,7 @@ def user_input(user_question, diagram_data=None):
     # Use the content of the documents to form a context
     context = " ".join([doc.page_content for doc in docs])
 
-    Combine the context with the user question and generate a response
+    # Combine the context with the user question and generate a response
     prompt = f"הקשר: {context}\nשאלה: {user_question}\nתשובה:"
 
 
