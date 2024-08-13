@@ -50,10 +50,10 @@ def get_text_chunks(text):
     chunks = text_splitter.split_text(text)
     return chunks
 
-# def get_vector_store(text_chunks):
-#     embeddings = OpenAIEmbeddings()
-#     vector_store = FAISS.from_texts(text_chunks, embedding=embeddings)
-#     vector_store.save_local("faiss_index")
+def get_vector_store(text_chunks):
+    embeddings = OpenAIEmbeddings()
+    vector_store = FAISS.from_texts(text_chunks, embedding=embeddings)
+    vector_store.save_local("faiss_index")
 
 # Function to reverse Hebrew text in each category
 def reverse_hebrew_text(categories):
@@ -222,6 +222,7 @@ def main():
     with st.spinner("מעמיס נתונים..."):
         raw_text = get_pdf_text(PDF_FILE_PATH)
         text_chunks = get_text_chunks(raw_text)
+        get_vector_store(text_chunks)
    
 
 
