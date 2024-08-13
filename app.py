@@ -86,8 +86,13 @@ def generate_response(prompt, diagram_data=None):
                         logging.info(f"Parsed categories: {categories}")
                         fig, ax = plt.subplots()  
                         ax.bar(categories, values)
-                        logging.info("Graph generated.")
-                        logging.info(categories)
+                      
+                        # Rotate the x-axis labels and set the font size smaller
+                        ax.set_xticklabels(categories, rotation=45, ha='right', fontsize=10)
+
+                        # Optionally, adjust other plot settings like labels
+                        ax.set_xlabel("קטגוריות", fontsize=12)
+                        ax.set_ylabel("ערכים", fontsize=12)
                     except Exception as e:
                         logging.error(f"Error generating graph: {e}")
                 else:
