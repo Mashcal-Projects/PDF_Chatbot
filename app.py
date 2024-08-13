@@ -84,6 +84,7 @@ def generate_response(prompt, diagram_data=None):
                 if categories and values:
                     try:
                         logging.info(f"Parsed categories: {categories}")
+                        assert len(categories) == len(values),
                         fig, ax = plt.subplots(figsize=(1.5, 1))  
                         colors = plt.cm.viridis(np.linspace(0, 1, len(categories)))  # Example with viridis colormap
                         ax.bar(categories, values, color=colors)
