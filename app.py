@@ -124,8 +124,11 @@ def user_input(user_question, diagram_data=None):
     # Combine the context with the user question and generate a response
     # prompt = f"הקשר: {context}\nשאלה: {user_question}\nתשובה:"
 
-     # Form a prompt using the user question
-    prompt = f"שאלה: {user_question}\nתשובה:"
+   # Combine the context from your data with the user question
+    context = " ".join(semantic_data)
+
+    # Form the prompt using the context from your data
+    prompt = f"הקשר: {context}\nשאלה: {user_question}\nתשובה:"
 
     
     # response, diagram = generate_response(prompt, row["diagram"])
