@@ -85,9 +85,9 @@ def generate_response(prompt, diagram_data=None):
                     try:
                         logging.info(f"Parsed categories: {categories}")
                         fig, ax = plt.subplots(figsize=(1.5, 1))  
-                        colors = plt.cm.viridis(np.linspace(0, 1, len(categories)))  # Example with viridis colormap
-                        ax.bar(categories, values, color=colors)
-                        # ax.bar(categories, values)
+                        # colors = plt.cm.viridis(np.linspace(0, 1, len(categories)))  # Example with viridis colormap
+                        # ax.bar(categories, values, color=colors)
+                        ax.bar(categories, values)
                       
                         # Rotate the x-axis labels and set the font size smaller
                         ax.set_xticklabels(categories, rotation=45, ha='right')
