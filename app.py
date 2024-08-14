@@ -90,18 +90,15 @@ def generate_response(prompt, diagram_data=None):
                         bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
                         bars = ax.bar(categories, values, label=categories, color=bar_colors)
                     
-                        # ax.set_ylabel('fruit supply')
-                        # ax.set_xlabel('fruit supply')
+                        # ax.set_ylabel('')
+                        # ax.set_xlabel('')
                         
                         # Add value labels on top of the bars with a small font size
                         for bar in bars:
                             yval = bar.get_height()
-                            ax.text(bar.get_x() + bar.get_width() / 2, yval + 5, f'{yval}', ha='center', va='bottom', fontsize=5)
+                            ax.text(bar.get_x() + bar.get_width() / 2, yval + 5, f'{yval}', ha='center', va='bottom', fontsize=10)
+                        ax.legend()
                         
-                      
-                        ax.legend(title='מקרא')
-                    
-
                     except Exception as e:
                         logging.error(f"Error generating graph: {e}")
                 else:
