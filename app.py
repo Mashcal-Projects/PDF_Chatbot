@@ -166,7 +166,7 @@ def main():
             background-color: white;
             color:black;
         }
-        .st-bb{
+        .st-bb ,h2, p{
             background-color: white;
             color:black;
         
