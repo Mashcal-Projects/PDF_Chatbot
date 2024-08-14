@@ -164,6 +164,12 @@ def main():
             direction: rtl;
             text-align: right;
             background-color: white;
+            color:black;
+        }
+        .st-bb{
+            background-color: white;
+            color:black;
+        
         }
         .stApp {
             background-color: white;
