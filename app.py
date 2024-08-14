@@ -25,7 +25,7 @@ row = {
 }
 # Ensure matplotlib supports RTL languages
 matplotlib.rcParams['axes.unicode_minus'] = False  
-matplotlib.rcParams['font.family'] = 'Arial' 
+# matplotlib.rcParams['font.family'] = 'Arial' 
 
 # Set up logging
 logging.basicConfig(
@@ -87,7 +87,7 @@ def generate_response(prompt, diagram_data=None):
                     try:
                         logging.info(f"Parsed categories: {categories}")
                         fig, ax = plt.subplots()
-                        bar_colors = ['tab:red', 'tab:blue', 'tab:yellow', 'tab:orange']
+                        bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
                         ax.bar(categories, values, label=categories, color=bar_colors)
                     
                         # ax.set_ylabel('fruit supply')
