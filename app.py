@@ -71,6 +71,8 @@ def generate_response(prompt, diagram_data=None):
                 ]
             )
             answer = response.choices[0].message['content'].strip()
+            logging.info(f"full response : {response}")
+            
             logging.info(f"answer : {answer}")
             fig = None
             if diagram_data:
