@@ -92,7 +92,8 @@ def generate_response(prompt, diagram_data=None):
                     
                         # ax.set_ylabel('')
                         # ax.set_xlabel('')
-                        
+                        # Adjust the y-limit to accommodate the label
+                        ax.set_ylim(0, max(values) * 1.2)
                         # Add value labels on top of the bars with a small font size
                         for bar in bars:
                             yval = bar.get_height()
