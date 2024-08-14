@@ -86,33 +86,15 @@ def generate_response(prompt, diagram_data=None):
                 if categories and values:
                     try:
                         logging.info(f"Parsed categories: {categories}")
-                        # # Set a slightly larger figure size to prevent overlapping
-                        # fig, ax = plt.subplots(figsize=(2.5, 2), dpi=200)  # Adjusting DPI for better resolution
-                        
-                        # # Use colors in hex codes
-                        # colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd'][:len(categories)]
-                        
-                        # # Plot the bar chart
-                        # bars = ax.bar(categories, values, color=colors)
-                        
-                     
-                    
-                        # # Use tight layout to remove excess space and avoid clipping
-                        # plt.tight_layout()
-
                         fig, ax = plt.subplots()
-
-                        # fruits = ['apple', 'blueberry', 'cherry', 'orange']
-                        # counts = [40, 100, 30, 55]
-                        # bar_labels = ['red', 'blue', '_red', 'orange']
-                        bar_colors = ['tab:red', 'tab:blue', 'tab:red', 'tab:orange']
-                        
+                        bar_colors = ['tab:red', 'tab:blue', 'tab:yellow', 'tab:orange']
                         ax.bar(categories, values, label=categories, color=bar_colors)
+                    
+                        # ax.set_ylabel('fruit supply')
+                        # ax.set_xlabel('fruit supply')
                         
-                        ax.set_ylabel('fruit supply')
-                        ax.set_title('Fruit supply by kind and color')
-                        ax.legend()
-                        # plt.show()
+                        ax.legend('מקרא')
+                      
                     
 
                     except Exception as e:
@@ -127,12 +109,6 @@ def generate_response(prompt, diagram_data=None):
         logging.error(f"Error generating response: {e}")
         return None, None
         
-# def load_questions(file_path):
-#     # Load the questions from a CSV file
-#     df = pd.read_csv(file_path)
-#     # Assuming questions are in a column named 'Questions'
-#     return df['questions'].tolist()
-    
 def load_questions(file_path):
     # Load the questions and diagrams from a CSV file
     df = pd.read_csv(file_path)
@@ -198,26 +174,7 @@ def main():
 
     unsafe_allow_html=True
 )
-
-
-
-
-    fig, ax = plt.subplots()
-    
-    fruits = ['apple', 'blueberry', 'cherry', 'orange']
-    counts = [40, 100, 30, 55]
-    bar_labels = ['red', 'blue', '_red', 'orange']
-    bar_colors = ['tab:red', 'tab:blue', 'tab:red', 'tab:orange']
-    
-    ax.bar(fruits, counts, label=bar_labels, color=bar_colors)
-    
-    ax.set_ylabel('fruit supply')
-    ax.set_title('Fruit supply by kind and color')
-    ax.legend(title='Fruit color')
-    
-    plt.show()
-    
-    
+        
     st.header("מודל שפה משכ״ל🤖🗨️")
      # Initialize chat history in session state
     if 'chat_history' not in st.session_state:
