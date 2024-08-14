@@ -163,17 +163,17 @@ def main():
         body {
             direction: rtl;
             text-align: right;
-            background-color: white;
-            color:black;
+            # background-color: white;
+            # color:black;
         }
-        .st-bb ,h2, p{
-            background-color: white;
-            color:black;
+        # .st-bb ,h2, p{
+        #     background-color: white;
+        #     color:black;
         
-        }
-        .stApp {
-            background-color: white;
-        }
+        # }
+        # .stApp {
+        #     background-color: white;
+        # }
         .st-dr{
             direction: rtl;
             text-align: right;
