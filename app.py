@@ -163,6 +163,10 @@ def main():
         body {
             direction: rtl;
             text-align: right;
+            background-color: white;
+        }
+        .stApp {
+            background-color: white;
         }
         .st-dr{
             direction: rtl;
