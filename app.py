@@ -87,10 +87,10 @@ def generate_response(prompt, diagram_data=None):
                     try:
                         logging.info(f"Parsed categories: {categories}")
                    
-                        # Set a smaller figure size
-                        fig, ax = plt.subplots(figsize=(2, 1.5))  # Smaller figure size
+                        # Set a smaller figure size and adjust DPI (dots per inch) for better scaling
+                        fig, ax = plt.subplots(figsize=(2, 1.5), dpi=200)  # Smaller figure size with higher DPI
                         
-                        # Use colors in hex if desired
+                        # Use colors in hex codes
                         colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd'][:len(categories)]
                         
                         # Plot the bar chart
@@ -105,14 +105,13 @@ def generate_response(prompt, diagram_data=None):
                         # Set x-axis tick parameters to have a smaller font size
                         ax.tick_params(axis='x', labelsize=5)
                         
-                        # Optionally add value labels on top of the bars with a small font size
+                        # Add value labels on top of the bars with a small font size
                         for bar in bars:
                             yval = bar.get_height()
-                            ax.text(bar.get_x() + bar.get_width()/2, yval, f'{yval}', ha='center', va='bottom', fontsize=5)
+                            ax.text(bar.get_x() + bar.get_width() / 2, yval + 5, f'{yval}', ha='center', va='bottom', fontsize=4)
                         
                         # Use tight layout to remove excess space and avoid clipping
                         plt.tight_layout()
-
                        
 
                     except Exception as e:
