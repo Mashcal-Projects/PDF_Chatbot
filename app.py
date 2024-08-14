@@ -157,7 +157,7 @@ def main():
 
     
     st.set_page_config("Chat PDF")
-     st.markdown(
+    st.markdown(
         """
         <style>
         body {
