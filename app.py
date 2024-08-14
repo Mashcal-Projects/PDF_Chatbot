@@ -135,6 +135,8 @@ def user_input(user_question, diagram_data=None):
 
     # Combine the context with the user question and generate a response
     prompt = f"הקשר: {context}\nשאלה: {user_question}\nתשובה:"
+    logging.info(f"prompt: {prompt}")
+    
 
     # response, diagram = generate_response(prompt, row["diagram"])
     response, diagram = generate_response(prompt, diagram_data)
