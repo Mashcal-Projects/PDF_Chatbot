@@ -95,43 +95,23 @@ def generate_response(prompt, diagram_data=None):
                         # # Plot the bar chart
                         # bars = ax.bar(categories, values, color=colors)
                         
-                        # plt.rcParams.update({'font.size': 8})
-                        # plt.rcParams['font.size'] = 6
-
-                        # plt.title('My Plot', fontsize=14)
-                        # Set the font size for the x and y axis labels
-                        # plt.xlabel('X-axis', fontsize=8)
-                        # plt.ylabel('Y-axis', fontsize=8)
-                        
-                        # Set the font size for the tick labels
-                        # plt.xticks(fontsize=8)
-                        # plt.yticks(fontsize=8)
-                        
-                        # Add value labels on top of the bars with a small font size
-                        # for bar in bars:
-                        #     yval = bar.get_height()
-                        #     ax.text(bar.get_x() + bar.get_width() / 2, yval + 5, f'{yval}', ha='center', va='bottom', fontsize=5)
-                        
-                        # # Adjust the y-axis limit to create more space at the top
-                        # ax.set_ylim(0, max(values) * 1.1)
-                        # ax.legend(fontsize=8)
+                     
                     
                         # # Use tight layout to remove excess space and avoid clipping
                         # plt.tight_layout()
 
-
                         fig, ax = plt.subplots()
 
-                        fruits = ['apple', 'blueberry', 'cherry', 'orange']
-                        counts = [40, 100, 30, 55]
-                        bar_labels = ['red', 'blue', '_red', 'orange']
+                        # fruits = ['apple', 'blueberry', 'cherry', 'orange']
+                        # counts = [40, 100, 30, 55]
+                        # bar_labels = ['red', 'blue', '_red', 'orange']
                         bar_colors = ['tab:red', 'tab:blue', 'tab:red', 'tab:orange']
                         
-                        ax.bar(fruits, counts, label=bar_labels, color=bar_colors)
+                        ax.bar(categories, values, label=categories, color=bar_colors)
                         
                         ax.set_ylabel('fruit supply')
                         ax.set_title('Fruit supply by kind and color')
-                        ax.legend(title='Fruit color')
+                        ax.legend()
                         # plt.show()
                     
 
