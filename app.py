@@ -96,10 +96,11 @@ def generate_response(prompt, diagram_data=None):
                         bars = ax.bar(categories, values, color=colors)
                         
                         # Rotate the x-axis labels and set a smaller font size
-                        ax.set_xticklabels(categories, rotation=45, ha='right', fontsize=6)
+                        # ax.set_xticklabels(categories, rotation=45, ha='right', fontsize=6)
                         
                         # Set y-axis tick parameters to have a smaller font size
-                        ax.tick_params(axis='y', labelsize=6)
+                        # ax.tick_params(axis='y', labelsize=6)
+                        plt.rcParams.update({'font.size': 22})
                         
                         # Add value labels on top of the bars with a small font size
                         for bar in bars:
