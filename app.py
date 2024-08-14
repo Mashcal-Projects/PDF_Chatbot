@@ -86,22 +86,30 @@ def generate_response(prompt, diagram_data=None):
                 if categories and values:
                     try:
                         logging.info(f"Parsed categories: {categories}")
-                        fig, ax = plt.subplots(figsize=(1.5, 1))  
+                        fig, ax = plt.subplots(figsize=(1.8, 1.2))  # Slightly larger figure size for better readability
 
-                        # Manually assign colors
-                        colors = ['blue', 'green', 'red', 'purple', 'orange'][:len(categories)]
-                        ax.bar(categories, values, color=colors)
-                        # ax.bar(categories, values)
-                      
-                        # Rotate the x-axis labels and set the font size smaller
-                        ax.set_xticklabels(categories, rotation=45, ha='right', fontsize=8) 
-                        # Set smaller font size for y-axis labels (values)
-                        ax.set_yticklabels(ax.get_yticks(), fontsize=8)  # Smaller font size for values
+                        # Manually assign colors using hex codes
+                        colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd'][:len(categories)]
+                        bars = ax.bar(categories, values, color=colors)
+
+                        # Rotate the x-axis labels and set a more readable font size
+                        ax.set_xticklabels(categories, rotation=45, ha='right', fontsize=6)  # Adjusted font size for categories
+
+                        # Set a smaller, but readable, font size for y-axis labels (values)
+                        ax.set_yticklabels(ax.get_yticks(), fontsize=6)  # Adjusted font size for values
 
                         # Adjust tick parameters for a smaller font size
-                        ax.tick_params(axis='both', which='major', labelsize=8)
-                         # Use tight layout to remove excess space
+                        ax.tick_params(axis='both', which='major', labelsize=6)  # Adjusted tick label size
+                        
+                        # Optionally add value labels on the bars if needed
+                        for bar in bars:
+                            yval = bar.get_height()
+                            ax.text(bar.get_x() + bar.get_width()/2, yval, f'{yval}', ha='center', va='bottom', fontsize=6)
+                        
+                        # Use tight layout to remove excess space
                         plt.tight_layout()
+
+                       
 
                     except Exception as e:
                         logging.error(f"Error generating graph: {e}")
