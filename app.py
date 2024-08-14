@@ -132,10 +132,8 @@ def generate_response(prompt, diagram_data=None):
                         ax.set_ylabel('fruit supply')
                         ax.set_title('Fruit supply by kind and color')
                         ax.legend(title='Fruit color')
-                        
-                        plt.show()
+                        # plt.show()
                     
-
 
                     except Exception as e:
                         logging.error(f"Error generating graph: {e}")
