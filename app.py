@@ -216,7 +216,7 @@ def main():
     # Process input text
     if user_question and (user_question != st.session_state.get('last_processed', '')):
         response = user_input(user_question)  # Generate the response
-        st.session_state.chat_history.append({'question': user_question, 'answer': response})
+        st.session_state.chat_history.append({'question': user_question, 'answer': response.response})
         st.session_state['last_processed'] = user_question  # Track last processed question
         st.rerun()  # Rerun to display the updated chat history
 
