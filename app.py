@@ -131,12 +131,11 @@ def user_input(user_question, diagram_data=None):
     
     # Use the content of the documents to form a context
     context = " ".join([doc.page_content for doc in docs])
+    logging.info(f"context: {context}")
 
     # Combine the context with the user question and generate a response
     prompt = f"הקשר: {context}\nשאלה: {user_question}\nתשובה:"
 
-
-    
     # response, diagram = generate_response(prompt, row["diagram"])
     response, diagram = generate_response(prompt, diagram_data)
     st.write(response)
@@ -150,7 +149,7 @@ def parse_diagram_data(diagram_str):
 
     # Convert the strings to lists
     categories = categories_part.split(',')
-    logging.info(f"categories: {categories}")
+    # logging.info(f"categories: {categories}")
     values = list(map(int, values_part.split(',')))
     
     return categories, values
@@ -209,16 +208,25 @@ def main():
             st.session_state.chat_history.append({'question': selected_question, 'answer': response,'diagram':diagram})
             st.rerun()
 
-    # Process custom question input
-    if user_question and (user_question != st.session_state.get('last_processed_text', '')):
-        row = questions_df[questions_df['questions'] == selected_question].iloc[0]
-        diagram_data = row["diagram"] if pd.notna(row["diagram"]) else None
+    # # Process custom question input
+    # if user_question and (user_question != st.session_state.get('last_processed_text', '')):
+    #     # row = questions_df[questions_df['questions'] == selected_question].iloc[0]
+    #     # diagram_data = row["diagram"] if pd.notna(row["diagram"]) else None
         
-        response,diagram = user_input(user_question,diagram_data)
-        logging.info(f"response1: {response}, diagram1: {diagram}")
-        st.session_state.chat_history.append({'question': user_question, 'answer': response, 'diagram':diagram})
-        st.session_state.last_processed_text = user_question
-        st.rerun()
+    #     response,diagram = user_input(user_question,diagram_data)
+    #     logging.info(f"response1: {response}, diagram1: {diagram}")
+    #     st.session_state.chat_history.append({'question': user_question, 'answer': response, 'diagram':diagram})
+    #     st.session_state.last_processed_text = user_question
+    #     st.rerun()
+
+
+
+    # Process input (either from text input or button selection)
+    if user_question and (user_question != st.session_state.get('last_processed', '')):
+        response = user_input(user_question)  # Generate the response
+        st.session_state.chat_history.append({'question': user_question, 'answer': response})
+        st.session_state['last_processed'] = user_question  # Track last processed question
+        st.rerun()  # Rerun to display the updated chat history
 
     # Display the chat history
     if st.session_state.chat_history:
