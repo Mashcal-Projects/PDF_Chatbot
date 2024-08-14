@@ -195,6 +195,8 @@ def parse_diagram_data(diagram_str):
     return categories, values
     
 def main():
+
+    
     st.set_page_config("Chat PDF")
     st.markdown(
           """
@@ -217,6 +219,26 @@ def main():
 
     unsafe_allow_html=True
 )
+
+
+
+
+    fig, ax = plt.subplots()
+    
+    fruits = ['apple', 'blueberry', 'cherry', 'orange']
+    counts = [40, 100, 30, 55]
+    bar_labels = ['red', 'blue', '_red', 'orange']
+    bar_colors = ['tab:red', 'tab:blue', 'tab:red', 'tab:orange']
+    
+    ax.bar(fruits, counts, label=bar_labels, color=bar_colors)
+    
+    ax.set_ylabel('fruit supply')
+    ax.set_title('Fruit supply by kind and color')
+    ax.legend(title='Fruit color')
+    
+    plt.show()
+    
+    
     st.header("מודל שפה משכ״ל🤖🗨️")
      # Initialize chat history in session state
     if 'chat_history' not in st.session_state:
