@@ -130,7 +130,8 @@ def generate_response(prompt, diagram_data=None):
                         ax.set_ylim(0, max(values) * 1.1)
 
 
-                        ax.legend(loc='best', fontsize=8)
+                        ax.legend(fontsize=8)
+                    
                         # Use tight layout to remove excess space and avoid clipping
                         plt.tight_layout()
 
