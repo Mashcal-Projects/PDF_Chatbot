@@ -86,9 +86,8 @@ def generate_response(prompt, diagram_data=None):
                 if categories and values:
                     try:
                         logging.info(f"Parsed categories: {categories}")
-                   
                         # Set a smaller figure size and adjust DPI (dots per inch) for better scaling
-                       fig, ax = plt.subplots(figsize=(2.5, 2), dpi=200)  # Adjusting DPI for better resolution
+                        fig, ax = plt.subplots(figsize=(2.5, 2), dpi=200)  # Adjusting DPI for better resolution
 
                         # Use colors in hex codes
                         colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd'][:len(categories)]
