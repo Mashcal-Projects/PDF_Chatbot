@@ -95,9 +95,9 @@ def generate_response(prompt, diagram_data=None):
                         # Adjust the y-limit to accommodate the label
                         ax.set_ylim(0, max(values) * 1.2)
                         # Add value labels on top of the bars with a small font size
-                        for bar in bars:
-                            yval = bar.get_height()
-                            ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
+                        # for bar in bars:
+                        #     yval = bar.get_height()
+                        #     ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
                         ax.legend()
                         
                     except Exception as e:
