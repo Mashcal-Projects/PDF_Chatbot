@@ -102,6 +102,15 @@ def generate_response(prompt, diagram_data=None):
                         # ax.tick_params(axis='y', labelsize=6)
                         plt.rcParams.update({'font.size': 8})
 
+                        plt.rc('font', size=8)          # controls default text sizes
+                        plt.rc('axes', titlesize=8)     # fontsize of the axes title
+                        plt.rc('axes', labelsize=8)    # fontsize of the x and y labels
+                        plt.rc('xtick', labelsize=8)    # fontsize of the tick labels
+                        plt.rc('ytick', labelsize=8)    # fontsize of the tick labels
+                        plt.rc('legend', fontsize=8)    # legend fontsize
+                        plt.rc('figure', titlesize=8)  # fontsize of the figure title
+
+
                         # plt.title('My Plot', fontsize=14)
                         # Set the font size for the x and y axis labels
                         # plt.xlabel('X-axis', fontsize=8)
