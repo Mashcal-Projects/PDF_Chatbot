@@ -87,8 +87,8 @@ def generate_response(prompt, diagram_data=None):
                     try:
                         logging.info(f"Parsed categories: {categories}")
                    
-                        # Adjust the figure size and fonts
-                        fig, ax = plt.subplots(figsize=(2.5, 2))  # Slightly larger to accommodate text better
+                        # Set a smaller figure size
+                        fig, ax = plt.subplots(figsize=(2, 1.5))  # Smaller figure size
                         
                         # Use colors in hex if desired
                         colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd'][:len(categories)]
@@ -96,16 +96,19 @@ def generate_response(prompt, diagram_data=None):
                         # Plot the bar chart
                         bars = ax.bar(categories, values, color=colors)
                         
-                        # Rotate the x-axis labels and set a balanced font size
-                        ax.set_xticklabels(categories, rotation=45, ha='right', fontsize=7)
+                        # Rotate the x-axis labels and set a smaller font size
+                        ax.set_xticklabels(categories, rotation=45, ha='right', fontsize=5)
                         
-                        # Set y-axis font size
-                        ax.tick_params(axis='y', labelsize=7)
+                        # Set y-axis tick parameters to have a smaller font size
+                        ax.tick_params(axis='y', labelsize=5)
                         
-                        # Optionally add value labels on top of the bars
+                        # Set x-axis tick parameters to have a smaller font size
+                        ax.tick_params(axis='x', labelsize=5)
+                        
+                        # Optionally add value labels on top of the bars with a small font size
                         for bar in bars:
                             yval = bar.get_height()
-                            ax.text(bar.get_x() + bar.get_width()/2, yval, f'{yval}', ha='center', va='bottom', fontsize=6)
+                            ax.text(bar.get_x() + bar.get_width()/2, yval, f'{yval}', ha='center', va='bottom', fontsize=5)
                         
                         # Use tight layout to remove excess space and avoid clipping
                         plt.tight_layout()
