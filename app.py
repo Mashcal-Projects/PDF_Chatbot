@@ -86,7 +86,7 @@ def generate_response(prompt, diagram_data=None):
                 if categories and values:
                     try:
                         logging.info(f"Parsed categories: {categories}")
-                        fig, ax = plt.subplots(figsize=(2, 1.5))  
+                        fig, ax = plt.subplots(figsize=(1.5, 1))  
 
                         # Manually assign colors
                         colors = ['blue', 'green', 'red', 'purple', 'orange'][:len(categories)]
@@ -94,13 +94,13 @@ def generate_response(prompt, diagram_data=None):
                         # ax.bar(categories, values)
                       
                         # Rotate the x-axis labels and set the font size smaller
-                        ax.set_xticklabels(categories, rotation=45, ha='right')
+                        ax.set_xticklabels(categories, rotation=45, ha='right, fontsize=4')
 
                         # Adjust tick parameters for a smaller font size
-                        ax.tick_params(axis='both', which='major', labelsize=5)
+                        ax.tick_params(axis='both', which='major', labelsize=3)
                          # Use tight layout to remove excess space
                         plt.tight_layout()
-                        
+
                     except Exception as e:
                         logging.error(f"Error generating graph: {e}")
                 else:
@@ -230,7 +230,7 @@ def main():
             st.write("---")  # Separator line
 
   # Load the vector store (initialization, not directly related to user interaction)
-    with st.spinner("מעמיס נתונים..."):
+    with st.spinner("טוען נתונים..."):
         raw_text = get_pdf_text(PDF_FILE_PATH)
         text_chunks = get_text_chunks(raw_text)
         get_vector_store(text_chunks)
