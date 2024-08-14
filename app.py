@@ -86,31 +86,17 @@ def generate_response(prompt, diagram_data=None):
                 if categories and values:
                     try:
                         logging.info(f"Parsed categories: {categories}")
-                        # Set a slightly larger figure size to prevent overlapping
-                        fig, ax = plt.subplots(figsize=(2.5, 2), dpi=200)  # Adjusting DPI for better resolution
+                        # # Set a slightly larger figure size to prevent overlapping
+                        # fig, ax = plt.subplots(figsize=(2.5, 2), dpi=200)  # Adjusting DPI for better resolution
                         
-                        # Use colors in hex codes
-                        colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd'][:len(categories)]
+                        # # Use colors in hex codes
+                        # colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd'][:len(categories)]
                         
-                        # Plot the bar chart
-                        bars = ax.bar(categories, values, color=colors)
+                        # # Plot the bar chart
+                        # bars = ax.bar(categories, values, color=colors)
                         
-                        # Rotate the x-axis labels and set a smaller font size
-                        # ax.set_xticklabels(categories, rotation=45, ha='right', fontsize=6)
-                        
-                        # Set y-axis tick parameters to have a smaller font size
-                        # ax.tick_params(axis='y', labelsize=6)
-                        plt.rcParams.update({'font.size': 8})
+                        # plt.rcParams.update({'font.size': 8})
                         # plt.rcParams['font.size'] = 6
-
-                        plt.rc('font', size=8)          # controls default text sizes
-                        plt.rc('axes', titlesize=8)     # fontsize of the axes title
-                        plt.rc('axes', labelsize=8)    # fontsize of the x and y labels
-                        plt.rc('xtick', labelsize=8)    # fontsize of the tick labels
-                        plt.rc('ytick', labelsize=8)    # fontsize of the tick labels
-                        plt.rc('legend', fontsize=8)    # legend fontsize
-                        plt.rc('figure', titlesize=8)  # fontsize of the figure title
-
 
                         # plt.title('My Plot', fontsize=14)
                         # Set the font size for the x and y axis labels
@@ -122,18 +108,33 @@ def generate_response(prompt, diagram_data=None):
                         # plt.yticks(fontsize=8)
                         
                         # Add value labels on top of the bars with a small font size
-                        for bar in bars:
-                            yval = bar.get_height()
-                            ax.text(bar.get_x() + bar.get_width() / 2, yval + 5, f'{yval}', ha='center', va='bottom', fontsize=5)
+                        # for bar in bars:
+                        #     yval = bar.get_height()
+                        #     ax.text(bar.get_x() + bar.get_width() / 2, yval + 5, f'{yval}', ha='center', va='bottom', fontsize=5)
                         
-                        # Adjust the y-axis limit to create more space at the top
-                        ax.set_ylim(0, max(values) * 1.1)
-
-
-                        ax.legend(fontsize=8)
+                        # # Adjust the y-axis limit to create more space at the top
+                        # ax.set_ylim(0, max(values) * 1.1)
+                        # ax.legend(fontsize=8)
                     
-                        # Use tight layout to remove excess space and avoid clipping
-                        plt.tight_layout()
+                        # # Use tight layout to remove excess space and avoid clipping
+                        # plt.tight_layout()
+
+
+                        fig, ax = plt.subplots()
+
+                        fruits = ['apple', 'blueberry', 'cherry', 'orange']
+                        counts = [40, 100, 30, 55]
+                        bar_labels = ['red', 'blue', '_red', 'orange']
+                        bar_colors = ['tab:red', 'tab:blue', 'tab:red', 'tab:orange']
+                        
+                        ax.bar(fruits, counts, label=bar_labels, color=bar_colors)
+                        
+                        ax.set_ylabel('fruit supply')
+                        ax.set_title('Fruit supply by kind and color')
+                        ax.legend(title='Fruit color')
+                        
+                        plt.show()
+                    
 
 
                     except Exception as e:
