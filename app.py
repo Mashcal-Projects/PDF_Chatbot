@@ -86,8 +86,8 @@ def generate_response(prompt, diagram_data=None):
                 if categories and values:
                     try:
                         logging.info(f"Parsed categories: {categories}")
-                        # Set a very small figure size to make the graph more compact
-                        fig, ax = plt.subplots(figsize=(1.5, 1), dpi=300)  # Smaller figure size with higher DPI for clarity
+                        # Set a slightly larger figure size to prevent overlapping
+                        fig, ax = plt.subplots(figsize=(2.5, 2), dpi=200)  # Adjusting DPI for better resolution
                         
                         # Use colors in hex codes
                         colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd'][:len(categories)]
@@ -96,18 +96,18 @@ def generate_response(prompt, diagram_data=None):
                         bars = ax.bar(categories, values, color=colors)
                         
                         # Rotate the x-axis labels and set a smaller font size
-                        ax.set_xticklabels(categories, rotation=45, ha='right', fontsize=3)
+                        ax.set_xticklabels(categories, rotation=45, ha='right', fontsize=6)
                         
                         # Set y-axis tick parameters to have a smaller font size
-                        ax.tick_params(axis='y', labelsize=3)
+                        ax.tick_params(axis='y', labelsize=6)
                         
-                        # Optionally add value labels on top of the bars with a small font size
+                        # Add value labels on top of the bars with a small font size
                         for bar in bars:
                             yval = bar.get_height()
-                            ax.text(bar.get_x() + bar.get_width() / 2, yval + max(values) * 0.02, f'{yval}', ha='center', va='bottom', fontsize=3)
+                            ax.text(bar.get_x() + bar.get_width() / 2, yval + 5, f'{yval}', ha='center', va='bottom', fontsize=5)
                         
                         # Adjust the y-axis limit to create more space at the top
-                        ax.set_ylim(0, max(values) * 1.2)
+                        ax.set_ylim(0, max(values) * 1.1)
                         
                         # Use tight layout to remove excess space and avoid clipping
                         plt.tight_layout()
