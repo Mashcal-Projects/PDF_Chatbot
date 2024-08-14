@@ -86,27 +86,28 @@ def generate_response(prompt, diagram_data=None):
                 if categories and values:
                     try:
                         logging.info(f"Parsed categories: {categories}")
-                        fig, ax = plt.subplots(figsize=(1.8, 1.2))  # Slightly larger figure size for better readability
-
-                        # Manually assign colors using hex codes
-                        colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd'][:len(categories)]
-                        bars = ax.bar(categories, values, color=colors)
-
-                        # Rotate the x-axis labels and set a more readable font size
-                        ax.set_xticklabels(categories, rotation=45, ha='right', fontsize=6)  # Adjusted font size for categories
-
-                        # Set a smaller, but readable, font size for y-axis labels (values)
-                        ax.set_yticklabels(ax.get_yticks(), fontsize=6)  # Adjusted font size for values
-
-                        # Adjust tick parameters for a smaller font size
-                        ax.tick_params(axis='both', which='major', labelsize=6)  # Adjusted tick label size
+                   
+                        # Adjust the figure size and fonts
+                        fig, ax = plt.subplots(figsize=(2.5, 2))  # Slightly larger to accommodate text better
                         
-                        # Optionally add value labels on the bars if needed
+                        # Use colors in hex if desired
+                        colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd'][:len(categories)]
+                        
+                        # Plot the bar chart
+                        bars = ax.bar(categories, values, color=colors)
+                        
+                        # Rotate the x-axis labels and set a balanced font size
+                        ax.set_xticklabels(categories, rotation=45, ha='right', fontsize=7)
+                        
+                        # Set y-axis font size
+                        ax.tick_params(axis='y', labelsize=7)
+                        
+                        # Optionally add value labels on top of the bars
                         for bar in bars:
                             yval = bar.get_height()
                             ax.text(bar.get_x() + bar.get_width()/2, yval, f'{yval}', ha='center', va='bottom', fontsize=6)
                         
-                        # Use tight layout to remove excess space
+                        # Use tight layout to remove excess space and avoid clipping
                         plt.tight_layout()
 
                        
