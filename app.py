@@ -100,7 +100,15 @@ def generate_response(prompt, diagram_data=None):
                         
                         # Set y-axis tick parameters to have a smaller font size
                         # ax.tick_params(axis='y', labelsize=6)
-                        plt.rcParams.update({'font.size': 8})
+                        # plt.rcParams.update({'font.size': 8})
+
+                        # plt.title('My Plot', fontsize=14)
+                        # Set the font size for the x and y axis labels
+                        plt.xlabel('X-axis', fontsize=8)
+                        plt.ylabel('Y-axis', fontsize=8)
+                        # Set the font size for the tick labels
+                        plt.xticks(fontsize=8)
+                        plt.yticks(fontsize=8)
                         
                         # Add value labels on top of the bars with a small font size
                         for bar in bars:
