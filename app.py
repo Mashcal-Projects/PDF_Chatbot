@@ -88,13 +88,18 @@ def generate_response(prompt, diagram_data=None):
                         logging.info(f"Parsed categories: {categories}")
                         fig, ax = plt.subplots()
                         bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
-                        ax.bar(categories, values, label=categories, color=bar_colors)
+                        bars = ax.bar(categories, values, label=categories, color=bar_colors)
                     
                         # ax.set_ylabel('fruit supply')
                         # ax.set_xlabel('fruit supply')
                         
-                        ax.legend('מקרא')
+                        # Add value labels on top of the bars with a small font size
+                        for bar in bars:
+                            yval = bar.get_height()
+                            ax.text(bar.get_x() + bar.get_width() / 2, yval + 5, f'{yval}', ha='center', va='bottom', fontsize=5)
+                        
                       
+                        ax.legend(title='מקרא')
                     
 
                     except Exception as e:
