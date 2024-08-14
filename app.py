@@ -101,6 +101,7 @@ def generate_response(prompt, diagram_data=None):
                         # Set y-axis tick parameters to have a smaller font size
                         # ax.tick_params(axis='y', labelsize=6)
                         plt.rcParams.update({'font.size': 8})
+                        # plt.rcParams['font.size'] = 6
 
                         plt.rc('font', size=8)          # controls default text sizes
                         plt.rc('axes', titlesize=8)     # fontsize of the axes title
@@ -127,7 +128,9 @@ def generate_response(prompt, diagram_data=None):
                         
                         # Adjust the y-axis limit to create more space at the top
                         ax.set_ylim(0, max(values) * 1.1)
-                        
+
+
+                        ax.legend(loc='best', fontsize=8)
                         # Use tight layout to remove excess space and avoid clipping
                         plt.tight_layout()
 
@@ -217,10 +220,7 @@ def main():
      # Initialize chat history in session state
     if 'chat_history' not in st.session_state:
         st.session_state.chat_history = []
-    # if 'questions_displayed' not in st.session_state:
-    #     st.session_state.questions_displayed = 5 
-    # if 'show_more' not in st.session_state:
-    #     st.session_state.show_more = False  # Toggle state for showing more questions
+    
 
     questions_df = load_questions('data/knowledge_center.csv')
     questions = questions_df['questions'].tolist()
