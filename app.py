@@ -157,8 +157,8 @@ def main():
 
     
     st.set_page_config("Chat PDF")
-    st.markdown(
-          """
+     st.markdown(
+        """
         <style>
         body {
             direction: rtl;
@@ -172,19 +172,28 @@ def main():
             direction: rtl;
             text-align: right;
         }
-
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: white;
+            padding: 10px;
+            z-index: 100;
+        }
+        .content {
+            margin-top: 150px; /* Adjust this margin based on the height of the header */
+        }
         </style>
         """,
-
-    unsafe_allow_html=True
-)
-        
+        unsafe_allow_html=True
+    )
+    
+    st.markdown('<div class="fixed-header">', unsafe_allow_html=True)    
     st.header("מודל שפה משכ״ל🤖🗨️")
      # Initialize chat history in session state
     if 'chat_history' not in st.session_state:
         st.session_state.chat_history = []
     
-
     questions_df = load_questions('data/knowledge_center.csv')
     questions = questions_df['questions'].tolist()
      # Input field for custom questions
@@ -192,9 +201,9 @@ def main():
 
     # Dropdown for predefined questions
     selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions)
+    st.markdown('</div>', unsafe_allow_html=True)
 
-
-    
+    st.markdown('<div class="content">', unsafe_allow_html=True)
   # Process dropdown selection
     if selected_question != "בחר שאלה...":
         row = questions_df[questions_df['questions'] == selected_question].iloc[0]
@@ -222,14 +231,13 @@ def main():
                 st.pyplot(entry['diagram'])
             st.write(f"**תשובה:** {entry['answer']}")
             st.write("---")  # Separator line
-
-  # Load the vector store (initialization, not directly related to user interaction)
+    st.markdown('</div>', unsafe_allow_html=True)
+    # Load the vector store (initialization, not directly related to user interaction)
     with st.spinner("טוען נתונים..."):
         raw_text = get_pdf_text(PDF_FILE_PATH)
         text_chunks = get_text_chunks(raw_text)
         get_vector_store(text_chunks)
    
-
 
 if __name__ == "__main__":
     main()
