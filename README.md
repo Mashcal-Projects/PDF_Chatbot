@@ -4,26 +4,15 @@ This web application allows you to interactively chat with a chatbot powered by 
 <img src="https://github.com/Pratham0405/PDF_Chatbot/assets/148319246/1b7471d7-20ac-4a2b-8ec4-5bdee111e214" width="700" height="400">
 
 # Features:
-Chat Interface: Engage in a conversation with the chatbot by asking questions related to the content of uploaded PDF files.
-
-Conversational AI: The chatbot is powered by Gemini, a conversational AI model, trained to understand and respond to questions based on the provided context.
-![img1](https://github.com/Pratham0405/PDF_Chatbot/assets/148319246/014ac2c6-97b1-47b4-932d-330cdb03e774)
+Chat Interface: Engage in a conversation with the chatbot by asking questions related to hazards in the urban space.
 
 
 # How to Use:
-Upload PDF Files:
-
-Click on the "Upload your PDF Files" button in the sidebar.
-
-Select one or multiple PDF files from your device.
-
-Click on the "Submit & Process" button to start processing the uploaded PDF files.
-
 
 Ask Questions:
-In the main interface, type your question in the text input field labeled "Ask a Question from the PDF Files".
+In the main interface,  choose a question from the dropdown or type your question in the text input field.
 
-Hit enter or click on the submit button to send your question to the chatbot.
+Hit enter to send your question to the chatbot.
 
 View Responses:
 The chatbot will process your question based on the context extracted from the uploaded PDF files.
@@ -41,13 +30,13 @@ Install the required dependencies by running:
 Copy code
 pip install -r requirements.txt
 
-Set up your Google API key by creating a .env file and adding your API key:
+Set up your openai API key by creating a .env file and adding your API key:
 
 makefile
 
 Copy code
 
-GOOGLE_API_KEY=your_api_key_here
+OPENAI_API_KEY=your_api_key_here
 
 Run the application using Streamlit:
 
@@ -65,13 +54,11 @@ PyPDF2
 
 Langchain
 
-Google Generative AI
-
 Faiss
 
 Dotenv
 
 # About:
 
-This application is built using Streamlit, a Python library for creating interactive web apps, and integrates with Gemini, a conversational AI model, to provide an intuitive interface for querying text from PDF files.
+This application is built using Streamlit, a Python library for creating interactive web apps, and integrates with OpenAI, a conversational AI model, to provide an intuitive interface for querying text from PDF files.
 
