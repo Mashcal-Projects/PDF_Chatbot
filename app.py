@@ -89,10 +89,6 @@ def generate_response(prompt, diagram_data=None):
                         fig, ax = plt.subplots()
                         bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
                         bars = ax.bar(categories, values, label=categories, color=bar_colors)
-                    
-                        # ax.set_ylabel('')
-                        # ax.set_xlabel('')
-                        # Adjust the y-limit to accommodate the label
                         ax.set_ylim(0, max(values) * 1.2)
                         # Add value labels on top of the bars with a small font size
                         if len(values) > 1:
@@ -100,7 +96,6 @@ def generate_response(prompt, diagram_data=None):
                                 yval = bar.get_height()
                                 ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
                         ax.legend()
-                        
                     except Exception as e:
                         logging.error(f"Error generating graph: {e}")
                 else:
@@ -128,12 +123,10 @@ def user_input(user_question, diagram_data=None):
     # Use the content of the documents to form a context
     context = " ".join([doc.page_content for doc in docs])
    
-
     # Combine the context with the user question and generate a response
     prompt = f"הקשר: {context}\nשאלה: {user_question}\nתשובה:"
     logging.info(f"prompt: {prompt}")
     
-
     # response, diagram = generate_response(prompt, row["diagram"])
     response, diagram = generate_response(prompt, diagram_data)
     st.write(response)
@@ -150,7 +143,6 @@ def parse_diagram_data(diagram_str):
     categories = categories_part.split(',')
     # logging.info(f"categories: {categories}")
     values = list(map(int, values_part.split(',')))
-    
     return categories, values
     
 def main():
