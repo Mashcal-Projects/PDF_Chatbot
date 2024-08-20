@@ -25,7 +25,6 @@ row = {
 }
 # Ensure matplotlib supports RTL languages
 matplotlib.rcParams['axes.unicode_minus'] = False  
-# matplotlib.rcParams['font.family'] = 'Arial' 
 
 # Set up logging
 logging.basicConfig(
@@ -199,6 +198,13 @@ def main():
     questions_df = load_questions('data/knowledge_center.csv')
     questions = questions_df['questions'].tolist()
 
+
+    def clear_inputs():
+    st.session_state.user_question = ""
+    st.session_state.selected_question = "בחר שאלה..."
+    st.experimental_rerun()
+
+
      # Input field for custom questions
     user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question")
 
@@ -215,30 +221,17 @@ def main():
             response,diagram = user_input(selected_question,diagram_data)
             logging.info(f"response: {response}, diagram: {diagram}")
             st.session_state.chat_history.append({'question': selected_question, 'answer': response,'diagram':diagram})
-            st.session_state.user_question = ""
-            st.session_state.selected_question = "בחר שאלה..."
-            st.rerun()
-            
-    # Input field for custom questions
-    # user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)", key="user_question")
-    # # Dropdown for predefined questions
-    # selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
-
+            # Clear the inputs using the callback
+            clear_inputs()
     
+
     # Process input text
     if user_question and (user_question != st.session_state.get('last_processed', '')):
         response = user_input(user_question)  # Generate the response
         st.session_state.chat_history.append({'question': user_question, 'answer': response[0]})
         st.session_state['last_processed'] = user_question  # Track last processed question
-        st.session_state.user_question = ""
-        st.session_state.selected_question = "בחר שאלה..."
-        st.rerun()  # Rerun to display the updated chat history
-        
-    #      # Input field for custom questions
-    # user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)", key="user_question")
-
-    # # Dropdown for predefined questions
-    # selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")   
+        # Clear the inputs using the callback
+        clear_inputs()
   
        
     # Display the most recent interaction at the top
