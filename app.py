@@ -188,11 +188,6 @@ def main():
         # Initialize session state for the input if not already done
     if 'user_question' not in st.session_state:
         st.session_state['user_question'] = ""
-
-
-    if 'first_interaction' not in st.session_state:
-        st.session_state.first_interaction = True
-
     
         # Initialize session state for inputs if not already done
     # if 'user_question' not in st.session_state:
@@ -245,7 +240,7 @@ def main():
           # Clear the inputs after processing
         st.session_state.user_question = ""
         st.session_state.selected_question = "בחר שאלה..."
-        st.session_state.first_interaction = False 
+  
 
     with st.container():
         user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question", on_change=process_question)
@@ -254,11 +249,8 @@ def main():
         selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question", on_change=process_question)
     
     # Display the most recent interaction at the top
-    # if st.session_state.chat_history:
-    #     with st.container(): 
-    # Display the most recent interaction at the top
-    with st.container():  # Use a persistent container to avoid layout shift
-        if st.session_state.chat_history:
+    if st.session_state.chat_history:
+        with st.container(): 
             latest_entry = st.session_state.chat_history[-1]
             st.write(f"**שאלה:** {latest_entry['question']}")
             if latest_entry.get('diagram'):
