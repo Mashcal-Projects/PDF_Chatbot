@@ -191,7 +191,7 @@ def main():
 
 
     if 'first_interaction' not in st.session_state:
-    st.session_state.first_interaction = True
+        st.session_state.first_interaction = True
 
     
         # Initialize session state for inputs if not already done
