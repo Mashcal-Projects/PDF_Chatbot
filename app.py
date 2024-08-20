@@ -212,6 +212,7 @@ def main():
             
              # Clear the dropdown selection after processing
             st.session_state.selectbox = "בחר שאלה..."
+            st.session_state.user_question = ""
             st.rerun()
 
     # Process input text
@@ -221,7 +222,7 @@ def main():
         st.session_state['last_processed'] = user_question  # Track last processed question
         
         # Clear the text input after processing
-        st.session_state.text_input = ""
+        st.session_state.user_question = ""
         st.rerun()  # Rerun to display the updated chat history
 
     # # Display the chat history
