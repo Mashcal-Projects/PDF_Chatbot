@@ -201,7 +201,12 @@ def main():
         
     questions_df = load_questions('data/knowledge_center.csv')
     questions = questions_df['questions'].tolist()
-  
+
+     # Input field for custom questions
+    user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)", key="user_question")
+
+    # Dropdown for predefined questions
+    selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
     
       # Process dropdown selection
     if selected_question != "בחר שאלה...":
@@ -228,11 +233,7 @@ def main():
         clear_inputs()
         st.rerun()  # Rerun to display the updated chat history
         
-   # Input field for custom questions
-    user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)", key="user_question")
-
-    # Dropdown for predefined questions
-    selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
+  
        
     # Display the most recent interaction at the top
     if st.session_state.chat_history:
