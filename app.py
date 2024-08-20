@@ -184,6 +184,12 @@ def main():
      # Initialize chat history in session state
     if 'chat_history' not in st.session_state:
         st.session_state.chat_history = []
+        # Initialize session state for inputs if not already done
+    if 'user_question' not in st.session_state:
+        st.session_state.user_question = ""
+    
+    if 'selected_question' not in st.session_state:
+        st.session_state.selected_question = "בחר שאלה..."
 
       # Handle the form submission by resetting the session state before rendering widgets
     def clear_inputs():
