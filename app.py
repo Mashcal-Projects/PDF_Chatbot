@@ -220,9 +220,17 @@ def main():
                 st.pyplot(entry['diagram'])
             st.write(f"**תשובה:** {entry['answer']}")
             st.write("---")  # Separator line
-
-    # Scroll to the bottom to show the latest question and answer
-    st.markdown(f'<script>window.scrollTo(0, document.body.scrollHeight);</script>', unsafe_allow_html=True)
+    
+     # Inject JavaScript to scroll to the bottom of the page
+    scroll_script = """
+    <script>
+        var chat_history = document.getElementsByClassName('element-container');
+        if (chat_history.length > 0) {
+            chat_history[chat_history.length-1].scrollIntoView({behavior: 'smooth'});
+        }
+    </script>
+    """
+    st.markdown(scroll_script, unsafe_allow_html=True)
     # st.markdown('</div>', unsafe_allow_html=True)
     # Load the vector store (initialization, not directly related to user interaction)
     with st.spinner("טוען נתונים..."):
