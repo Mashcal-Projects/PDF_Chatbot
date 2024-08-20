@@ -261,10 +261,10 @@ def main():
         if st.session_state.chat_history:
             latest_entry = st.session_state.chat_history[-1]
             st.write(f"**שאלה:** {latest_entry['question']}")
-        if latest_entry.get('diagram'):
+            if latest_entry.get('diagram'):
                 st.pyplot(latest_entry['diagram'])
-        st.write(f"**תשובה:** {latest_entry['answer']}")
-        st.write("---")  # Separator line
+            st.write(f"**תשובה:** {latest_entry['answer']}")
+            st.write("---")  # Separator line
     
     # Display the rest of the chat history below
     with st.expander("ראה את ההיסטוריה המלאה"):
