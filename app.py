@@ -218,9 +218,9 @@ def main():
             st.rerun()
             
     # Input field for custom questions
-    user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)", key="user_question")
-    # Dropdown for predefined questions
-    selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
+    # user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)", key="user_question")
+    # # Dropdown for predefined questions
+    # selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
 
     
     # Process input text
