@@ -200,7 +200,10 @@ def main():
         
     questions_df = load_questions('data/knowledge_center.csv')
     questions = questions_df['questions'].tolist()
-
+    
+    def process_question():
+        user_question = st.session_state.user_question
+        selected_question = st.session_state.selected_question
 
     def clear_inputs():
         logging.info("responseeeeeeeeeee")
@@ -210,10 +213,10 @@ def main():
 
 
      # Input field for custom questions
-    user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question")
+    # user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question")
 
-    # Dropdown for predefined questions
-    selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
+    # # Dropdown for predefined questions
+    # selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
     
       # Process dropdown selection
     if selected_question != "בחר שאלה...":
@@ -235,13 +238,22 @@ def main():
         st.session_state.chat_history.append({'question': user_question, 'answer': response[0]})
         st.session_state['last_processed'] = user_question  # Track last processed question
         # Clear the inputs using the callback
-        clear_inputs()
+        # clear_inputs()
   
-       
+
+      # Clear the inputs after processing
+    st.session_state.user_question = ""
+    st.session_state.selected_question = "בחר שאלה..."
+
+
+     user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question", on_change=process_question)
+
+    # Dropdown for predefined questions
+    selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question", on_change=process_question)
+    
     # Display the most recent interaction at the top
     if st.session_state.chat_history:
         latest_entry = st.session_state.chat_history[-1]
-        st.write("### השאלה האחרונה שלך")
         st.write(f"**שאלה:** {latest_entry['question']}")
         if latest_entry.get('diagram'):
             st.pyplot(latest_entry['diagram'])
