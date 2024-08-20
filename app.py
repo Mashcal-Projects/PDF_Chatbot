@@ -190,15 +190,6 @@ def main():
         st.session_state.user_question = ""
         st.session_state.selected_question = "בחר שאלה..."
         
-    # Initialize session state for inputs if not already done
-    if 'user_question' not in st.session_state:
-        st.session_state.user_question = ""
-    
-    if 'selected_question' not in st.session_state:
-        st.session_state.selected_question = "בחר שאלה..."
-
-  
-        
     questions_df = load_questions('data/knowledge_center.csv')
     questions = questions_df['questions'].tolist()
 
