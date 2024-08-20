@@ -203,7 +203,7 @@ def main():
     questions = questions_df['questions'].tolist()
   
     
-  # Process dropdown selection
+      # Process dropdown selection
     if selected_question != "בחר שאלה...":
         row = questions_df[questions_df['questions'] == selected_question].iloc[0]
         diagram_data = row["diagram"] if pd.notna(row["diagram"]) else None
@@ -227,16 +227,7 @@ def main():
         # Clear inputs after processing
         clear_inputs()
         st.rerun()  # Rerun to display the updated chat history
-
-    # # Display the chat history
-    # if st.session_state.chat_history:
-    #     for entry in st.session_state.chat_history:
-    #         st.write(f"**שאלה:** {entry['question']}")
-    #         if entry.get('diagram'):  # Safely check for 'diagram' key
-    #             st.pyplot(entry['diagram'])
-    #         st.write(f"**תשובה:** {entry['answer']}")
-    #         st.write("---")  # Separator line
-    
+        
    # Input field for custom questions
     user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)", key="user_question")
 
