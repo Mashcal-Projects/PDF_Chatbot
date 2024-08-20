@@ -128,7 +128,7 @@ def user_input(user_question, diagram_data=None):
     
     # response, diagram = generate_response(prompt, row["diagram"])
     response, diagram = generate_response(prompt, diagram_data)
-    st.write(response)
+    # st.write(response)
     logging.info(f"response, diagram: {response, diagram}")
     return  response, diagram
 
