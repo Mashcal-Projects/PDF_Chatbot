@@ -184,7 +184,12 @@ def main():
      # Initialize chat history in session state
     if 'chat_history' not in st.session_state:
         st.session_state.chat_history = []
-    
+
+      # Handle the form submission by resetting the session state before rendering widgets
+    def clear_inputs():
+        st.session_state.user_question = ""
+        st.session_state.selected_question = "בחר שאלה..."
+        
     # Initialize session state for inputs if not already done
     if 'user_question' not in st.session_state:
         st.session_state.user_question = ""
@@ -192,18 +197,11 @@ def main():
     if 'selected_question' not in st.session_state:
         st.session_state.selected_question = "בחר שאלה..."
 
-    # Handle the form submission by resetting the session state before rendering widgets
-    def clear_inputs():
-        st.session_state.user_question = ""
-        st.session_state.selected_question = "בחר שאלה..."
+  
         
     questions_df = load_questions('data/knowledge_center.csv')
     questions = questions_df['questions'].tolist()
-     # Input field for custom questions
-    user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)", key="user_question")
-
-    # Dropdown for predefined questions
-    selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
+  
     
   # Process dropdown selection
     if selected_question != "בחר שאלה...":
@@ -239,7 +237,11 @@ def main():
     #         st.write(f"**תשובה:** {entry['answer']}")
     #         st.write("---")  # Separator line
     
+   # Input field for custom questions
+    user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)", key="user_question")
 
+    # Dropdown for predefined questions
+    selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
        
     # Display the most recent interaction at the top
     if st.session_state.chat_history:
