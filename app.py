@@ -205,13 +205,6 @@ def main():
         user_question = st.session_state.user_question
         selected_question = st.session_state.selected_question
 
-    def clear_inputs():
-        logging.info("responseeeeeeeeeee")
-        st.session_state.user_question = ""
-        # selected_question = "בחר שאלה..."
-        st.experimental_rerun()
-
-
      # Input field for custom questions
     # user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question")
 
@@ -219,31 +212,31 @@ def main():
     # selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
     
       # Process dropdown selection
-    if selected_question != "בחר שאלה...":
-        row = questions_df[questions_df['questions'] == selected_question].iloc[0]
-        diagram_data = row["diagram"] if pd.notna(row["diagram"]) else None
+        if selected_question != "בחר שאלה...":
+            row = questions_df[questions_df['questions'] == selected_question].iloc[0]
+            diagram_data = row["diagram"] if pd.notna(row["diagram"]) else None
 
-        if 'last_processed_dropdown' not in st.session_state or st.session_state['last_processed_dropdown'] != selected_question:
-            st.session_state['last_processed_dropdown'] = selected_question
-            response,diagram = user_input(selected_question,diagram_data)
-            logging.info(f"response: {response}, diagram: {diagram}")
-            st.session_state.chat_history.append({'question': selected_question, 'answer': response,'diagram':diagram})
+            if 'last_processed_dropdown' not in st.session_state or st.session_state['last_processed_dropdown'] != selected_question:
+                st.session_state['last_processed_dropdown'] = selected_question
+                response,diagram = user_input(selected_question,diagram_data)
+                logging.info(f"response: {response}, diagram: {diagram}")
+                st.session_state.chat_history.append({'question': selected_question, 'answer': response,'diagram':diagram})
             # Clear the inputs using the callback
             # clear_inputs()
     
 
     # Process input text
-    if user_question and (user_question != st.session_state.get('last_processed', '')):
-        response = user_input(user_question)  # Generate the response
-        st.session_state.chat_history.append({'question': user_question, 'answer': response[0]})
-        st.session_state['last_processed'] = user_question  # Track last processed question
+        if user_question and (user_question != st.session_state.get('last_processed', '')):
+            response = user_input(user_question)  # Generate the response
+            st.session_state.chat_history.append({'question': user_question, 'answer': response[0]})
+            st.session_state['last_processed'] = user_question  # Track last processed question
         # Clear the inputs using the callback
         # clear_inputs()
   
 
-      # Clear the inputs after processing
-    st.session_state.user_question = ""
-    st.session_state.selected_question = "בחר שאלה..."
+          # Clear the inputs after processing
+        st.session_state.user_question = ""
+        st.session_state.selected_question = "בחר שאלה..."
 
 
     user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question", on_change=process_question)
