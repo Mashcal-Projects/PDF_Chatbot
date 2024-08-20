@@ -222,10 +222,9 @@ def main():
     #         st.write("---")  # Separator line
     
 
-    
-    # Display the chat history
-
-    chat_placeholder = st.empty()  # Create an empty container for chat history
+        
+    # Display the chat history with a dynamic placeholder to ensure scrolling
+    chat_placeholder = st.empty()  # Create a placeholder for chat history
     
     with chat_placeholder.container():  # Use the container to manage content dynamically
         if st.session_state.chat_history:
@@ -236,8 +235,22 @@ def main():
                 st.write(f"**תשובה:** {entry['answer']}")
                 st.write("---")  # Separator line
     
-    # Adding an element to force scroll to the bottom
-    st.write("")  # This empty string adds a small invisible element to help with scrolling
+    # Add an invisible spacer element that will always be the last rendered element
+    spacer = st.empty()
+    with spacer.container():
+        st.write("")  # Invisible element to ensure that scrolling happens
+        st.markdown("<div id='scroll_to_here'></div>", unsafe_allow_html=True)  # A div to scroll to
+    
+    # Inject JavaScript to automatically scroll to the bottom of the page
+    scroll_script = """
+    <script>
+        var element = document.getElementById('scroll_to_here');
+        if (element) {
+            element.scrollIntoView({behavior: 'smooth'});
+        }
+    </script>
+    """
+    st.markdown(scroll_script, unsafe_allow_html=True)
 
 
 
