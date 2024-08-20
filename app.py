@@ -184,6 +184,18 @@ def main():
      # Initialize chat history in session state
     if 'chat_history' not in st.session_state:
         st.session_state.chat_history = []
+    
+    # Initialize session state for inputs if not already done
+    if 'user_question' not in st.session_state:
+        st.session_state.user_question = ""
+    
+    if 'selected_question' not in st.session_state:
+        st.session_state.selected_question = "בחר שאלה..."
+
+    # Handle the form submission by resetting the session state before rendering widgets
+    def clear_inputs():
+        st.session_state.user_question = ""
+        st.session_state.selected_question = "בחר שאלה..."
         
     questions_df = load_questions('data/knowledge_center.csv')
     questions = questions_df['questions'].tolist()
@@ -204,8 +216,8 @@ def main():
             logging.info(f"response: {response}, diagram: {diagram}")
             st.session_state.chat_history.append({'question': selected_question, 'answer': response,'diagram':diagram})
             
-             # Clear the dropdown selection after processing
-            st.session_state.selectbox = "בחר שאלה..."
+            # Clear inputs after processing
+            clear_inputs()
             st.rerun()
 
     # Process input text
@@ -214,8 +226,8 @@ def main():
         st.session_state.chat_history.append({'question': user_question, 'answer': response[0]})
         st.session_state['last_processed'] = user_question  # Track last processed question
         
-        # Clear the text input after processing
-        st.session_state.user_question = ""
+        # Clear inputs after processing
+        clear_inputs()
         st.rerun()  # Rerun to display the updated chat history
 
     # # Display the chat history
