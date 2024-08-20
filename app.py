@@ -149,8 +149,8 @@ def main():
     
     # st.set_page_config("Chat PDF")
     # Set page config to enforce RTL and prevent jumps
-    # st.set_page_config(layout="centered", initial_sidebar_state="collapsed")
-    st.set_page_config(layout="wide")
+    st.set_page_config(layout="centered", initial_sidebar_state="collapsed")
+    # st.set_page_config(layout="wide")
     
     st.markdown(
         """
@@ -252,7 +252,7 @@ def main():
     
     # Display the most recent interaction at the top
     if st.session_state.chat_history:
-        # with st.container(): 
+        with st.container(): 
             latest_entry = st.session_state.chat_history[-1]
             st.write(f"**שאלה:** {latest_entry['question']}")
             if latest_entry.get('diagram'):
