@@ -215,6 +215,8 @@ def main():
             response,diagram = user_input(selected_question,diagram_data)
             logging.info(f"response: {response}, diagram: {diagram}")
             st.session_state.chat_history.append({'question': selected_question, 'answer': response,'diagram':diagram})
+            st.session_state.user_question = ""
+            st.session_state.selected_question = "בחר שאלה..."
             st.rerun()
             
     # Input field for custom questions
@@ -228,6 +230,8 @@ def main():
         response = user_input(user_question)  # Generate the response
         st.session_state.chat_history.append({'question': user_question, 'answer': response[0]})
         st.session_state['last_processed'] = user_question  # Track last processed question
+        st.session_state.user_question = ""
+        st.session_state.selected_question = "בחר שאלה..."
         st.rerun()  # Rerun to display the updated chat history
         
     #      # Input field for custom questions
