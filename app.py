@@ -147,7 +147,9 @@ def parse_diagram_data(diagram_str):
 def main():
 
     
-    st.set_page_config("Chat PDF")
+    # st.set_page_config("Chat PDF")
+    # Set page config to enforce RTL and prevent jumps
+    st.set_page_config(layout="centered", initial_sidebar_state="collapsed")
     st.markdown(
         """
         <style>
