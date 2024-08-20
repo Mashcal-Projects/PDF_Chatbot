@@ -212,25 +212,36 @@ def main():
         st.session_state['last_processed'] = user_question  # Track last processed question
         st.rerun()  # Rerun to display the updated chat history
 
-    # Display the chat history
-    if st.session_state.chat_history:
-        for entry in st.session_state.chat_history:
-            st.write(f"**שאלה:** {entry['question']}")
-            if entry.get('diagram'):  # Safely check for 'diagram' key
-                st.pyplot(entry['diagram'])
-            st.write(f"**תשובה:** {entry['answer']}")
-            st.write("---")  # Separator line
+    # # Display the chat history
+    # if st.session_state.chat_history:
+    #     for entry in st.session_state.chat_history:
+    #         st.write(f"**שאלה:** {entry['question']}")
+    #         if entry.get('diagram'):  # Safely check for 'diagram' key
+    #             st.pyplot(entry['diagram'])
+    #         st.write(f"**תשובה:** {entry['answer']}")
+    #         st.write("---")  # Separator line
     
-     # Inject JavaScript to scroll to the bottom of the page
-    scroll_script = """
-    <script>
-        var chat_history = document.getElementsByClassName('element-container');
-        if (chat_history.length > 0) {
-            chat_history[chat_history.length-1].scrollIntoView({behavior: 'smooth'});
-        }
-    </script>
-    """
-    st.markdown(scroll_script, unsafe_allow_html=True)
+
+    
+    # Display the chat history
+
+    chat_placeholder = st.empty()  # Create an empty container for chat history
+    
+    with chat_placeholder.container():  # Use the container to manage content dynamically
+        if st.session_state.chat_history:
+            for entry in st.session_state.chat_history:
+                st.write(f"**שאלה:** {entry['question']}")
+                if entry.get('diagram'):  # Safely check for 'diagram' key
+                    st.pyplot(entry['diagram'])
+                st.write(f"**תשובה:** {entry['answer']}")
+                st.write("---")  # Separator line
+    
+    # Adding an element to force scroll to the bottom
+    st.write("")  # This empty string adds a small invisible element to help with scrolling
+
+
+
+    
     # st.markdown('</div>', unsafe_allow_html=True)
     # Load the vector store (initialization, not directly related to user interaction)
     with st.spinner("טוען נתונים..."):
