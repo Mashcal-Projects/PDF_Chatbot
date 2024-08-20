@@ -222,38 +222,25 @@ def main():
     #         st.write("---")  # Separator line
     
 
-        
-    # Display the chat history with a dynamic placeholder to ensure scrolling
-    chat_placeholder = st.empty()  # Create a placeholder for chat history
+       
+    # Display the most recent interaction at the top
+    if st.session_state.chat_history:
+        latest_entry = st.session_state.chat_history[-1]
+        st.write("### השאלה האחרונה שלך")
+        st.write(f"**שאלה:** {latest_entry['question']}")
+        if latest_entry.get('diagram'):
+            st.pyplot(latest_entry['diagram'])
+        st.write(f"**תשובה:** {latest_entry['answer']}")
+        st.write("---")  # Separator line
     
-    with chat_placeholder.container():  # Use the container to manage content dynamically
-        if st.session_state.chat_history:
-            for entry in st.session_state.chat_history:
-                st.write(f"**שאלה:** {entry['question']}")
-                if entry.get('diagram'):  # Safely check for 'diagram' key
-                    st.pyplot(entry['diagram'])
-                st.write(f"**תשובה:** {entry['answer']}")
-                st.write("---")  # Separator line
-    
-    # Add an invisible spacer element that will always be the last rendered element
-    spacer = st.empty()
-    with spacer.container():
-        st.write("")  # Invisible element to ensure that scrolling happens
-        st.markdown("<div id='scroll_to_here'></div>", unsafe_allow_html=True)  # A div to scroll to
-    
-    # Inject JavaScript to automatically scroll to the bottom of the page
-    scroll_script = """
-    <script>
-        var element = document.getElementById('scroll_to_here');
-        if (element) {
-            element.scrollIntoView({behavior: 'smooth'});
-        }
-    </script>
-    """
-    st.markdown(scroll_script, unsafe_allow_html=True)
-
-
-
+    # Display the rest of the chat history below
+    with st.expander("ראה את ההיסטוריה המלאה"):
+        for entry in reversed(st.session_state.chat_history[:-1]):
+            st.write(f"**שאלה:** {entry['question']}")
+            if entry.get('diagram'):
+                st.pyplot(entry['diagram'])
+            st.write(f"**תשובה:** {entry['answer']}")
+            st.write("---")  # Separator line
     
     # st.markdown('</div>', unsafe_allow_html=True)
     # Load the vector store (initialization, not directly related to user interaction)
