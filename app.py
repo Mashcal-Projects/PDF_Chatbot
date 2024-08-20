@@ -200,10 +200,10 @@ def main():
     questions = questions_df['questions'].tolist()
 
      # Input field for custom questions
-    user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)")
+    user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question")
 
     # Dropdown for predefined questions
-    selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions)
+    selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
     
       # Process dropdown selection
     if selected_question != "בחר שאלה...":
@@ -215,9 +215,6 @@ def main():
             response,diagram = user_input(selected_question,diagram_data)
             logging.info(f"response: {response}, diagram: {diagram}")
             st.session_state.chat_history.append({'question': selected_question, 'answer': response,'diagram':diagram})
-              # Clear inputs after processing
-            selected_question = "בחר שאלה..."
-            user_question = ""
             st.rerun()
             
     # Input field for custom questions
@@ -231,10 +228,6 @@ def main():
         response = user_input(user_question)  # Generate the response
         st.session_state.chat_history.append({'question': user_question, 'answer': response[0]})
         st.session_state['last_processed'] = user_question  # Track last processed question
-        
-        # Clear inputs after processing
-        selected_question = "בחר שאלה..."
-        user_question = ""
         st.rerun()  # Rerun to display the updated chat history
         
     #      # Input field for custom questions
