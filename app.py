@@ -200,9 +200,9 @@ def main():
 
 
     def clear_inputs():
-    st.session_state.user_question = ""
-    st.session_state.selected_question = "בחר שאלה..."
-    st.experimental_rerun()
+        st.session_state.user_question = ""
+        st.session_state.selected_question = "בחר שאלה..."
+        st.experimental_rerun()
 
 
      # Input field for custom questions
