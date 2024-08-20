@@ -183,6 +183,9 @@ def main():
      # Initialize chat history in session state
     if 'chat_history' not in st.session_state:
         st.session_state.chat_history = []
+        # Initialize session state for the input if not already done
+    if 'user_question' not in st.session_state:
+        st.session_state['user_question'] = ""
         # Initialize session state for inputs if not already done
     # if 'user_question' not in st.session_state:
     #     st.session_state.user_question = ""
@@ -201,7 +204,7 @@ def main():
 
     def clear_inputs():
         logging.info("responseeeeeeeeeee")
-        st.session_state['user_question'] = ""
+        st.session_state.user_question = ""
         # selected_question = "בחר שאלה..."
         st.experimental_rerun()
 
@@ -223,7 +226,7 @@ def main():
             logging.info(f"response: {response}, diagram: {diagram}")
             st.session_state.chat_history.append({'question': selected_question, 'answer': response,'diagram':diagram})
             # Clear the inputs using the callback
-            clear_inputs()
+            # clear_inputs()
     
 
     # Process input text
