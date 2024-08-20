@@ -89,6 +89,7 @@ def generate_response(prompt, diagram_data=None):
                         bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
                         bars = ax.bar(categories, values, label=categories, color=bar_colors)
                         ax.set_ylim(0, max(values) * 1.2)
+                        plt.xticks(rotation=180)
                         # Add value labels on top of the bars with a small font size
                         if len(values) > 1:
                             for bar in bars:
