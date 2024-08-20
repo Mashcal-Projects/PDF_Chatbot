@@ -201,8 +201,8 @@ def main():
 
     def clear_inputs():
         logging.info("responseeeeeeeeeee")
-        user_question = ""
-        selected_question = "בחר שאלה..."
+        st.session_state['user_question'] = ""
+        # selected_question = "בחר שאלה..."
         st.experimental_rerun()
 
 
