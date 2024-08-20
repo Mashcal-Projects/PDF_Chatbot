@@ -200,6 +200,7 @@ def main():
 
 
     def clear_inputs():
+        logging.info("responseeeeeeeeeee")
         st.session_state.user_question = ""
         st.session_state.selected_question = "בחר שאלה..."
         st.experimental_rerun()
@@ -253,7 +254,6 @@ def main():
             st.write(f"**תשובה:** {entry['answer']}")
             st.write("---")  # Separator line
     
-    # st.markdown('</div>', unsafe_allow_html=True)
     # Load the vector store (initialization, not directly related to user interaction)
     with st.spinner("טוען נתונים..."):
         raw_text = get_pdf_text(PDF_FILE_PATH)
