@@ -177,7 +177,7 @@ def main():
             direction: rtl;
             text-align: right;
         }
-        .st-emotion-cache-13ln4jf {
+        .block-container{
             margin: 0 auto;
             width: 100%;
             max-width: 1200px; /* You can adjust this width to fit your design */
