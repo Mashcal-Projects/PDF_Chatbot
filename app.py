@@ -210,10 +210,10 @@ def main():
         selected_question = st.session_state.selected_question
 
      # Input field for custom questions
-    user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question")
+    # user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question")
 
     # # Dropdown for predefined questions
-    selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
+    # selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
     
       # Process dropdown selection
         if selected_question != "בחר שאלה...":
@@ -234,11 +234,11 @@ def main():
             st.session_state['last_processed'] = user_question  # Track last processed question
      
           # Clear the inputs after processing
-        # st.session_state.user_question = ""
-        # st.session_state.selected_question = "בחר שאלה..."
+        st.session_state.user_question = ""
+        st.session_state.selected_question = "בחר שאלה..."
   
 
-    with st.container():
+    # with st.container():
     # user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question", on_change=process_question)
     
 
@@ -246,16 +246,25 @@ def main():
     # with st.container():
     # selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question", on_change=process_question)
     
-    
-    # Display the most recent interaction at the top
-    if st.session_state.chat_history:
-        with st.container(): 
-            latest_entry = st.session_state.chat_history[-1]
-            st.write(f"**שאלה:** {latest_entry['question']}")
-            if latest_entry.get('diagram'):
-                st.pyplot(latest_entry['diagram'])
-            st.write(f"**תשובה:** {latest_entry['answer']}")
-            st.write("---")  # Separator line
+    # Create static containers using st.empty() to avoid layout shift
+    input_container = st.empty()
+    history_container = st.empty()
+
+    with input_container.container():
+        col1, col2 = st.columns([2, 3])
+        with col1:
+            user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)", key="user_question", on_change=process_question)
+        with col2:
+            selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions, key="selected_question", on_change=process_question)
+        # Display the most recent interaction at the top
+        if st.session_state.chat_history:
+            with st.container(): 
+                latest_entry = st.session_state.chat_history[-1]
+                st.write(f"**שאלה:** {latest_entry['question']}")
+                if latest_entry.get('diagram'):
+                    st.pyplot(latest_entry['diagram'])
+                st.write(f"**תשובה:** {latest_entry['answer']}")
+                st.write("---")  # Separator line
     
     # Display the rest of the chat history below
     with st.expander("ראה את ההיסטוריה המלאה"):
