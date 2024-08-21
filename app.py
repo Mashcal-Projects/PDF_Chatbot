@@ -198,7 +198,7 @@ def main():
     if 'chat_history' not in st.session_state:
         st.session_state.chat_history = []
 
-        if 'question_key' not in st.session_state:
+    if 'question_key' not in st.session_state:
         st.session_state.question_key = 0
 
     if 'select_key' not in st.session_state:
