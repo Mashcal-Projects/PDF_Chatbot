@@ -217,7 +217,7 @@ def main():
     selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
     
       # Process dropdown selection
-        if selected_question != "בחר שאלה...":
+    if selected_question != "בחר שאלה...":
             row = questions_df[questions_df['questions'] == selected_question].iloc[0]
             diagram_data = row["diagram"] if pd.notna(row["diagram"]) else None
 
