@@ -150,6 +150,9 @@ def reset_inputs():
     st.session_state.user_question = ""
     st.session_state.selected_question = "בחר שאלה..."
     st.rerun()
+
+def reset_conversation():
+    st.session_state.chat_history = []
     
 def main():
 
@@ -204,6 +207,12 @@ def main():
     user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question")
     # Dropdown for predefined questions
     selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
+
+
+    # Add Reset Button for Conversation
+    if st.button("אפס שיחה"):
+        reset_conversation()
+
     
       # Process dropdown selection
     if selected_question != "בחר שאלה...":
