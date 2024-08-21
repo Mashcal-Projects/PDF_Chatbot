@@ -196,21 +196,31 @@ def main():
     if 'chat_history' not in st.session_state:
         st.session_state.chat_history = []
 
+
+    
     if 'input_toggle' not in st.session_state:
         st.session_state.input_toggle = True
+
+    if 'select_toggle' not in st.session_state:
+        st.session_state.select_toggle = True
+
 
 
     questions_df = load_questions('data/knowledge_center.csv')
     questions = questions_df['questions'].tolist()
 
-    
-    # Toggle between two different input keys based on `input_toggle`
+ 
+        # Toggle between two different input keys for user_question
     if st.session_state.input_toggle:
         user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)", key="user_question_1")
     else:
         user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)", key="user_question_2")
 
-    selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions, key="selected_question")
+    # Toggle between two different select keys for selected_question
+    if st.session_state.select_toggle:
+        selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions, key="selected_question_1")
+    else:
+        selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions, key="selected_question_2")
 
 
     
@@ -234,7 +244,8 @@ def main():
                 logging.info(f"response: {response}, diagram: {diagram}")
                 st.session_state.chat_history.append({'question': selected_question, 'answer': response,'diagram':diagram})
                 # reset_inputs()  # Reset inputs after processing
-                st.session_state.input_toggle = not st.session_state.input_toggle 
+                st.session_state.input_toggle = not st.session_state.input_toggle  # Toggle the input state
+                st.session_state.select_toggle = not st.session_state.select_toggle  # Toggle the select state
           
     
 
@@ -244,10 +255,9 @@ def main():
             st.session_state.chat_history.append({'question': user_question, 'answer': response[0]})
             st.session_state['last_processed'] = user_question  # Track last processed question
             # reset_inputs()  # Reset inputs after processing
-            st.session_state.input_toggle = not st.session_state.input_toggle 
-          # Clear the inputs after processing
-        # st.session_state.user_question = ""
-        # st.session_state.selected_question = "בחר שאלה..."
+            st.session_state.input_toggle = not st.session_state.input_toggle  # Toggle the input state
+            st.session_state.select_toggle = not st.session_state.select_toggle  # Toggle the select state
+  
   
 
     # with st.container():
