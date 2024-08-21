@@ -147,7 +147,6 @@ def parse_diagram_data(diagram_str):
     
 def main():
 
-    
     st.set_page_config("Chat PDF")
     # st.set_page_config(layout="centered", initial_sidebar_state="collapsed")
     
@@ -211,10 +210,10 @@ def main():
         selected_question = st.session_state.selected_question
 
      # Input field for custom questions
-    # user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question")
+    user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question")
 
     # # Dropdown for predefined questions
-    # selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
+    selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
     
       # Process dropdown selection
         if selected_question != "בחר שאלה...":
@@ -239,18 +238,18 @@ def main():
         # st.session_state.selected_question = "בחר שאלה..."
   
 
-    # with st.container():
-    user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question", on_change=process_question)
+    with st.container():
+    # user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question", on_change=process_question)
     
 
     # Dropdown for predefined questions
     # with st.container():
-    selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question", on_change=process_question)
+    # selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question", on_change=process_question)
     
     
     # Display the most recent interaction at the top
     if st.session_state.chat_history:
-        # with st.container(): 
+        with st.container(): 
             latest_entry = st.session_state.chat_history[-1]
             st.write(f"**שאלה:** {latest_entry['question']}")
             if latest_entry.get('diagram'):
