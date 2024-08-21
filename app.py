@@ -244,8 +244,8 @@ def main():
                 logging.info(f"response: {response}, diagram: {diagram}")
                 st.session_state.chat_history.append({'question': selected_question, 'answer': response,'diagram':diagram})
                 # reset_inputs()  # Reset inputs after processing
-                # st.session_state.input_toggle = not st.session_state.input_toggle  # Toggle the input state
-                st.session_state.select_toggle = not st.session_state.select_toggle  # Toggle the select state
+                st.session_state.input_toggle = not st.session_state.input_toggle  # Toggle the input state
+                # st.session_state.select_toggle = not st.session_state.select_toggle  # Toggle the select state
           
     
 
@@ -255,8 +255,8 @@ def main():
             st.session_state.chat_history.append({'question': user_question, 'answer': response[0]})
             st.session_state['last_processed'] = user_question  # Track last processed question
             # reset_inputs()  # Reset inputs after processing
-            st.session_state.input_toggle = not st.session_state.input_toggle  # Toggle the input state
-            # st.session_state.select_toggle = not st.session_state.select_toggle  # Toggle the select state
+            # st.session_state.input_toggle = not st.session_state.input_toggle  # Toggle the input state
+            st.session_state.select_toggle = not st.session_state.select_toggle  # Toggle the select state
   
   
 
