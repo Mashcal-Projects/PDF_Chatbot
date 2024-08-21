@@ -147,8 +147,10 @@ def parse_diagram_data(diagram_str):
     
 def main():
 
-    st.set_page_config("Chat PDF")
+    # st.set_page_config("Chat PDF")
     # st.set_page_config(layout="centered", initial_sidebar_state="collapsed")
+    st.set_page_config(layout="wide", initial_sidebar_state="collapsed", page_title="Chat PDF", page_icon="🤖")
+
     
     st.markdown(
         """
@@ -175,9 +177,17 @@ def main():
             direction: rtl;
             text-align: right;
         }
-         .stContainer {
-              direction: rtl;
+        .st-emotion-cache-13ln4jf {
+            margin: 0 auto;
+            width: 100%;
+            max-width: 1200px; /* You can adjust this width to fit your design */
+            direction: rtl;
+            text-align: right;
     }
+    .stApp {
+        transition: none !important; /* Prevents any smooth movement on render */
+    }
+    
         </style>
         """,
         unsafe_allow_html=True
