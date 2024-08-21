@@ -215,12 +215,11 @@ def main():
 
      # Input field for custom questions
     user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question")
-
     # # Dropdown for predefined questions
     selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
     
       # Process dropdown selection
-        if selected_question != "בחר שאלה...":
+    if selected_question != "בחר שאלה...":
             row = questions_df[questions_df['questions'] == selected_question].iloc[0]
             diagram_data = row["diagram"] if pd.notna(row["diagram"]) else None
 
@@ -232,7 +231,7 @@ def main():
     
 
     # Process input text
-        if user_question and (user_question != st.session_state.get('last_processed', '')):
+    if user_question and (user_question != st.session_state.get('last_processed', '')):
             response = user_input(user_question)  # Generate the response
             st.session_state.chat_history.append({'question': user_question, 'answer': response[0]})
             st.session_state['last_processed'] = user_question  # Track last processed question
