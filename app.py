@@ -175,6 +175,9 @@ def main():
             direction: rtl;
             text-align: right;
         }
+         .stContainer {
+              direction: rtl;
+    }
         </style>
         """,
         unsafe_allow_html=True
@@ -238,24 +241,13 @@ def main():
         st.session_state.selected_question = "בחר שאלה..."
   
 
-    # with st.container():
-    # user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question", on_change=process_question)
-    
+    with st.container():
+    user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question", on_change=process_question)
 
     # Dropdown for predefined questions
     # with st.container():
-    # selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question", on_change=process_question)
+    selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question", on_change=process_question)
     
-    # Create static containers using st.empty() to avoid layout shift
-    input_container = st.empty()
-    history_container = st.empty()
-
-    with input_container.container():
-        col1, col2 = st.columns([2, 3])
-        with col1:
-            user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)", key="user_question", on_change=process_question)
-        with col2:
-            selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions, key="selected_question", on_change=process_question)
         # Display the most recent interaction at the top
         if st.session_state.chat_history:
             with st.container(): 
