@@ -196,15 +196,11 @@ def main():
     if 'chat_history' not in st.session_state:
         st.session_state.chat_history = []
 
-    # if 'input_toggle' not in st.session_state:
-    #         st.session_state.input_toggle = True
+    if 'question_key' not in st.session_state:
+        st.session_state.question_key = 0
 
-    
-    # if 'input_toggle' not in st.session_state:
-    #     st.session_state.input_toggle = True
-
-    # if 'select_toggle' not in st.session_state:
-    #     st.session_state.select_toggle = True
+    if 'select_key' not in st.session_state:
+        st.session_state.select_key = 0
 
 
 
@@ -212,37 +208,14 @@ def main():
     questions = questions_df['questions'].tolist()
 
 
-        # Toggle between two different input keys based on `input_toggle`
-    # if st.session_state.input_toggle:
-    #     user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)", key="user_question_1")
-    # else:
-    #     user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)", key="user_question_2")
-
-    # selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions, key="selected_question")
-
- 
-    #     # Toggle between two different input keys for user_question
-    # if st.session_state.input_toggle:
-    #     user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)", key="user_question_1")
-    # else:
-    #     user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)", key="user_question_2")
-
-    # # Toggle between two different select keys for selected_question
-    # if st.session_state.select_toggle:
-    #     selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions, key="selected_question_1")
-    # else:
-    #     selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions, key="selected_question_2")
-
-
-    
-    # def process_question():
-    #     user_question = st.session_state.user_question
-    #     selected_question = st.session_state.selected_question
+   # Use the keys to instantiate the widgets, and change keys when resetting
+    user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)", key=f"user_question_{st.session_state.question_key}")
+    selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions, key=f"selected_question_{st.session_state.select_key}")
 
      # Input field for custom questions
-    user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question")
-    # Dropdown for predefined questions
-    selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
+    # user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question")
+    # # Dropdown for predefined questions
+    # selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
     
       # Process dropdown selection
     if selected_question != "בחר שאלה...":
@@ -254,7 +227,9 @@ def main():
                 response,diagram = user_input(selected_question,diagram_data)
                 logging.info(f"response: {response}, diagram: {diagram}")
                 st.session_state.chat_history.append({'question': selected_question, 'answer': response,'diagram':diagram})
-         
+                  # Increment keys to effectively reset the inputs
+                st.session_state.question_key += 1
+                st.session_state.select_key += 1
                 # st.session_state.input_toggle = not st.session_state.input_toggle  # Toggle the input state
                 # st.session_state.select_toggle = not st.session_state.select_toggle  # Toggle the select state
                 
@@ -267,7 +242,9 @@ def main():
             response = user_input(user_question)  # Generate the response
             st.session_state.chat_history.append({'question': user_question, 'answer': response[0]})
             st.session_state['last_processed'] = user_question  # Track last processed question
-          
+             # Increment keys to effectively reset the inputs
+            st.session_state.question_key += 1
+            st.session_state.select_key += 1
             # st.session_state.input_toggle = not st.session_state.input_toggle  # Toggle the input state
             # st.session_state.select_toggle = not st.session_state.select_toggle  # Toggle the select state
         
