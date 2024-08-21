@@ -149,32 +149,57 @@ def main():
 
     
     # st.set_page_config("Chat PDF")
-    # Set page config to enforce RTL and prevent jumps
-    st.set_page_config(layout="centered", initial_sidebar_state="collapsed")
-    # st.set_page_config(layout="wide")
+    # st.set_page_config(layout="centered", initial_sidebar_state="collapsed")
     
+    # st.markdown(
+    #     """
+    #     <style>
+    #     body {
+    #         direction: rtl;
+    #         text-align: right;
+    #         # background-color: white;
+    #         # color:black;
+    #     }
+    #     # .st-bb ,h2, p{
+    #     #     background-color: white;
+    #     #     color:black;
+        
+    #     # }
+    #     # .stApp {
+    #     #     background-color: white;
+    #     # }
+    #     .st-dr{
+    #         direction: rtl;
+    #         text-align: right;
+    #     }
+    #     .st-e7{
+    #         direction: rtl;
+    #         text-align: right;
+    #     }
+    #     </style>
+    #     """,
+    #     unsafe_allow_html=True
+    # )
+
+
+    st.set_page_config(layout="wide", initial_sidebar_state="collapsed")
+
     st.markdown(
         """
         <style>
-        body {
-            direction: rtl;
-            text-align: right;
-            # background-color: white;
-            # color:black;
-        }
-        # .st-bb ,h2, p{
-        #     background-color: white;
-        #     color:black;
-        
-        # }
-        # .stApp {
-        #     background-color: white;
-        # }
-        .st-dr{
+        body, .stApp {
             direction: rtl;
             text-align: right;
         }
-        .st-e7{
+        .stTextInput, .stSelectbox, .stMarkdown, .stContainer {
+            direction: rtl;
+            text-align: right;
+        }
+        .stTextInput input {
+            direction: rtl;
+            text-align: right;
+        }
+        .stSelectbox select {
             direction: rtl;
             text-align: right;
         }
@@ -182,6 +207,8 @@ def main():
         """,
         unsafe_allow_html=True
     )
+
+
     
     # st.markdown('<div class="fixed-header">', unsafe_allow_html=True)    
     st.header("מודל שפה משכ״ל🤖🗨️")
