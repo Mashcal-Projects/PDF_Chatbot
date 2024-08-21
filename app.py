@@ -196,8 +196,8 @@ def main():
     if 'chat_history' not in st.session_state:
         st.session_state.chat_history = []
 
-    if 'input_toggle' not in st.session_state:
-            st.session_state.input_toggle = True
+    # if 'input_toggle' not in st.session_state:
+    #         st.session_state.input_toggle = True
 
     
     # if 'input_toggle' not in st.session_state:
@@ -213,12 +213,12 @@ def main():
 
 
         # Toggle between two different input keys based on `input_toggle`
-    if st.session_state.input_toggle:
-        user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)", key="user_question_1")
-    else:
-        user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)", key="user_question_2")
+    # if st.session_state.input_toggle:
+    #     user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)", key="user_question_1")
+    # else:
+    #     user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)", key="user_question_2")
 
-    selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions, key="selected_question")
+    # selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions, key="selected_question")
 
  
     #     # Toggle between two different input keys for user_question
@@ -239,10 +239,10 @@ def main():
     #     user_question = st.session_state.user_question
     #     selected_question = st.session_state.selected_question
 
-     # Input field for custom questions
-    # user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question")
-    # # Dropdown for predefined questions
-    # selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
+     Input field for custom questions
+    user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question")
+    # Dropdown for predefined questions
+    selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
     
       # Process dropdown selection
     if selected_question != "בחר שאלה...":
@@ -258,7 +258,7 @@ def main():
                 # st.session_state.input_toggle = not st.session_state.input_toggle  # Toggle the input state
                 # st.session_state.select_toggle = not st.session_state.select_toggle  # Toggle the select state
                 
-                st.session_state.input_toggle = not st.session_state.input_toggle  # Toggle the input state
+                # st.session_state.input_toggle = not st.session_state.input_toggle  # Toggle the input state
           
     
 
@@ -271,7 +271,7 @@ def main():
             # st.session_state.input_toggle = not st.session_state.input_toggle  # Toggle the input state
             # st.session_state.select_toggle = not st.session_state.select_toggle  # Toggle the select state
         
-            st.session_state.input_toggle = not st.session_state.input_toggle  # Toggle the input state
+            # st.session_state.input_toggle = not st.session_state.input_toggle  # Toggle the input state
   
   
 
