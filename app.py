@@ -198,62 +198,38 @@ def main():
     if 'chat_history' not in st.session_state:
         st.session_state.chat_history = []
 
-    if 'question_key' not in st.session_state:
-        st.session_state.question_key = 0
-
-    if 'select_key' not in st.session_state:
-        st.session_state.select_key = 0
-
     
     questions_df = load_questions('data/knowledge_center.csv')
     questions = questions_df['questions'].tolist()
 
 
      # Input field for custom questions
-    # user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question")
-    # # Dropdown for predefined questions
-    # selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
+    user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question")
+    # Dropdown for predefined questions
+    selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
 
-   # Use dynamic keys to manage input fields
-    user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)", key=f"user_question_{st.session_state.question_key}")
-    selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions, key=f"selected_question_{st.session_state.select_key}")
 
     # Add Reset Button for Conversation
     if st.button("אפס שיחה"):
         reset_conversation()
-        reset_inputs()
         
-     # Check if user entered a question or selected one from the dropdown
-    if user_question:
-        response = user_input(user_question)  # Generate the response
-        st.session_state.chat_history.append({'question': user_question, 'answer': response[0]})
-        st.session_state.question_key += 1  # Increment key to reset input
-        reset_inputs()  # Reset the input field after submission
-
-    elif selected_question != "בחר שאלה...":
-        row = questions_df[questions_df['questions'] == selected_question].iloc[0]
-        diagram_data = row["diagram"] if pd.notna(row["diagram"]) else None
-        response, diagram = user_input(selected_question, diagram_data)
-        st.session_state.chat_history.append({'question': selected_question, 'answer': response, 'diagram': diagram})
-        st.session_state.select_key += 1  # Increment key to reset select box
-        reset_inputs()  # Reset the select box after submission
         
-    #   # Process dropdown selection
-    # if selected_question != "בחר שאלה...":
-    #         row = questions_df[questions_df['questions'] == selected_question].iloc[0]
-    #         diagram_data = row["diagram"] if pd.notna(row["diagram"]) else None
+      # Process dropdown selection
+    if selected_question != "בחר שאלה...":
+            row = questions_df[questions_df['questions'] == selected_question].iloc[0]
+            diagram_data = row["diagram"] if pd.notna(row["diagram"]) else None
 
-    #         if 'last_processed_dropdown' not in st.session_state or st.session_state['last_processed_dropdown'] != selected_question:
-    #             st.session_state['last_processed_dropdown'] = selected_question
-    #             response,diagram = user_input(selected_question,diagram_data)
-    #             logging.info(f"response: {response}, diagram: {diagram}")
-    #             st.session_state.chat_history.append({'question': selected_question, 'answer': response,'diagram':diagram})
+            if 'last_processed_dropdown' not in st.session_state or st.session_state['last_processed_dropdown'] != selected_question:
+                st.session_state['last_processed_dropdown'] = selected_question
+                response,diagram = user_input(selected_question,diagram_data)
+                logging.info(f"response: {response}, diagram: {diagram}")
+                st.session_state.chat_history.append({'question': selected_question, 'answer': response,'diagram':diagram})
             
-    #     # Process input text
-    #         if user_question and (user_question != st.session_state.get('last_processed', '')):
-    #             response = user_input(user_question)  # Generate the response
-    #             st.session_state.chat_history.append({'question': user_question, 'answer': response[0]})
-    #             st.session_state['last_processed'] = user_question  # Track last processed question
+        # Process input text
+            if user_question and (user_question != st.session_state.get('last_processed', '')):
+                response = user_input(user_question)  # Generate the response
+                st.session_state.chat_history.append({'question': user_question, 'answer': response[0]})
+                st.session_state['last_processed'] = user_question  # Track last processed question
 
         # Display the most recent interaction at the top
     if st.session_state.chat_history:
