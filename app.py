@@ -237,8 +237,8 @@ def main():
             st.session_state['last_processed'] = user_question  # Track last processed question
      
           # Clear the inputs after processing
-        st.session_state.user_question = ""
-        st.session_state.selected_question = "בחר שאלה..."
+        # st.session_state.user_question = ""
+        # st.session_state.selected_question = "בחר שאלה..."
   
 
     # with st.container():
