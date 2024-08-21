@@ -211,13 +211,13 @@ def main():
         selected_question = st.session_state.selected_question
 
      # Input field for custom questions
-    user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question")
+    # user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question")
 
     # # Dropdown for predefined questions
-    selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
+    # selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
     
       # Process dropdown selection
-    if selected_question != "בחר שאלה...":
+        if selected_question != "בחר שאלה...":
             row = questions_df[questions_df['questions'] == selected_question].iloc[0]
             diagram_data = row["diagram"] if pd.notna(row["diagram"]) else None
 
@@ -240,14 +240,12 @@ def main():
   
 
     # with st.container():
-    # user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question", on_change=process_question)
-    user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question")
+    user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question", on_change=process_question)
     
 
     # Dropdown for predefined questions
     # with st.container():
-    # selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question", on_change=process_question)
-    selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
+    selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question", on_change=process_question)
     
     
     # Display the most recent interaction at the top
