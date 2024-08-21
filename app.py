@@ -148,58 +148,31 @@ def parse_diagram_data(diagram_str):
 def main():
 
     
-    # st.set_page_config("Chat PDF")
+    st.set_page_config("Chat PDF")
     # st.set_page_config(layout="centered", initial_sidebar_state="collapsed")
     
-    # st.markdown(
-    #     """
-    #     <style>
-    #     body {
-    #         direction: rtl;
-    #         text-align: right;
-    #         # background-color: white;
-    #         # color:black;
-    #     }
-    #     # .st-bb ,h2, p{
-    #     #     background-color: white;
-    #     #     color:black;
-        
-    #     # }
-    #     # .stApp {
-    #     #     background-color: white;
-    #     # }
-    #     .st-dr{
-    #         direction: rtl;
-    #         text-align: right;
-    #     }
-    #     .st-e7{
-    #         direction: rtl;
-    #         text-align: right;
-    #     }
-    #     </style>
-    #     """,
-    #     unsafe_allow_html=True
-    # )
-
-
-    st.set_page_config(layout="wide", initial_sidebar_state="collapsed")
-
     st.markdown(
         """
         <style>
-        body, .stApp {
+        body {
+            direction: rtl;
+            text-align: right;
+            # background-color: white;
+            # color:black;
+        }
+        # .st-bb ,h2, p{
+        #     background-color: white;
+        #     color:black;
+        
+        # }
+        # .stApp {
+        #     background-color: white;
+        # }
+        .st-dr{
             direction: rtl;
             text-align: right;
         }
-        .stTextInput, .stSelectbox, .stMarkdown, .stContainer {
-            direction: rtl;
-            text-align: right;
-        }
-        .stTextInput input {
-            direction: rtl;
-            text-align: right;
-        }
-        .stSelectbox select {
+        .st-e7{
             direction: rtl;
             text-align: right;
         }
@@ -210,7 +183,6 @@ def main():
 
 
     
-    # st.markdown('<div class="fixed-header">', unsafe_allow_html=True)    
     st.header("מודל שפה משכ״ל🤖🗨️")
      # Initialize chat history in session state
     if 'chat_history' not in st.session_state:
@@ -276,6 +248,7 @@ def main():
         user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question", on_change=process_question)
 
     # Dropdown for predefined questions
+    with st.container():
         selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question", on_change=process_question)
     
     # Display the most recent interaction at the top
