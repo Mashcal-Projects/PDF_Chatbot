@@ -147,9 +147,9 @@ def parse_diagram_data(diagram_str):
     
 def main():
 
-    # st.set_page_config("Chat PDF")
+    st.set_page_config("Chat PDF")
     # st.set_page_config(layout="centered", initial_sidebar_state="collapsed")
-    st.set_page_config(layout="wide", initial_sidebar_state="collapsed", page_title="Chat PDF", page_icon="🤖")
+    # st.set_page_config(layout="wide", initial_sidebar_state="collapsed", page_title="Chat PDF", page_icon="🤖")
 
     
     st.markdown(
