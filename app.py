@@ -236,15 +236,20 @@ def main():
                 # st.session_state.input_toggle = not st.session_state.input_toggle  # Toggle the input state
           
     
-
-    # Process input text
-    if user_question and (user_question != st.session_state.get('last_processed', '')):
+  # Check if user entered a question or selected one from the dropdown
+        if user_question:
             response = user_input(user_question)  # Generate the response
             st.session_state.chat_history.append({'question': user_question, 'answer': response[0]})
-            st.session_state['last_processed'] = user_question  # Track last processed question
-             # Increment keys to effectively reset the inputs
-            st.session_state.question_key += 1
-            st.session_state.select_key += 1
+            st.session_state.question_key += 1  # Increment key to reset input
+            
+    # # Process input text
+    # if user_question and (user_question != st.session_state.get('last_processed', '')):
+    #         response = user_input(user_question)  # Generate the response
+    #         st.session_state.chat_history.append({'question': user_question, 'answer': response[0]})
+    #         st.session_state['last_processed'] = user_question  # Track last processed question
+    #          # Increment keys to effectively reset the inputs
+    #         st.session_state.question_key += 1
+    #         st.session_state.select_key += 1
             # st.session_state.input_toggle = not st.session_state.input_toggle  # Toggle the input state
             # st.session_state.select_toggle = not st.session_state.select_toggle  # Toggle the select state
         
