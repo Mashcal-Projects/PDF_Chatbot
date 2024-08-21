@@ -188,8 +188,8 @@ def main():
     if 'chat_history' not in st.session_state:
         st.session_state.chat_history = []
         # Initialize session state for the input if not already done
-    if 'user_question' not in st.session_state:
-        st.session_state['user_question'] = ""
+    # if 'user_question' not in st.session_state:
+    #     st.session_state['user_question'] = ""
     
         # Initialize session state for inputs if not already done
     # if 'user_question' not in st.session_state:
