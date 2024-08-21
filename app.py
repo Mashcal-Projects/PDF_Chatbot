@@ -149,6 +149,7 @@ def parse_diagram_data(diagram_str):
 def reset_inputs():
     st.session_state.user_question = ""
     st.session_state.selected_question = "בחר שאלה..."
+    st.rerun()
     
 def main():
 
@@ -194,33 +195,39 @@ def main():
      # Initialize chat history in session state
     if 'chat_history' not in st.session_state:
         st.session_state.chat_history = []
-        # Initialize session state for the input if not already done
-    # if 'user_question' not in st.session_state:
-    #     st.session_state['user_question'] = ""
-    
-        # Initialize session state for inputs if not already done
-    # if 'user_question' not in st.session_state:
-    #     st.session_state.user_question = ""
-    
-    # if 'selected_question' not in st.session_state:
-    #     st.session_state.selected_question = "בחר שאלה..."
 
-      # Handle the form submission by resetting the session state before rendering widgets
-    # def clear_inputs():
-    #     st.session_state.user_question = ""
-    #     st.session_state.selected_question = "בחר שאלה..."
-        
+    if 'clear_user_question' not in st.session_state:
+        st.session_state.clear_user_question = False
+    if 'clear_selected_question' not in st.session_state:
+        st.session_state.clear_selected_question = False
+
     questions_df = load_questions('data/knowledge_center.csv')
     questions = questions_df['questions'].tolist()
+
+
+
+    
+    if st.session_state.clear_user_question:
+        user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)", value="", key="user_question")
+        st.session_state.clear_user_question = False
+    else:
+        user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)", key="user_question")
+
+    if st.session_state.clear_selected_question:
+        selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions, index=0, key="selected_question")
+        st.session_state.clear_selected_question = False
+    else:
+        selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions, key="selected_question")
+
     
     # def process_question():
     #     user_question = st.session_state.user_question
     #     selected_question = st.session_state.selected_question
 
      # Input field for custom questions
-    user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question")
+    # user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question")
     # # Dropdown for predefined questions
-    selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
+    # selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
     
       # Process dropdown selection
     if selected_question != "בחר שאלה...":
