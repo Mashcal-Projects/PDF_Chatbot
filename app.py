@@ -242,11 +242,11 @@ def main():
   
 
     with st.container():
-    user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question", on_change=process_question)
+        user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question", on_change=process_question)
 
     # Dropdown for predefined questions
     # with st.container():
-    selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question", on_change=process_question)
+        selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question", on_change=process_question)
     
         # Display the most recent interaction at the top
         if st.session_state.chat_history:
