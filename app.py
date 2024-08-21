@@ -249,7 +249,7 @@ def main():
         # selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question", on_change=process_question)
     
         # Display the most recent interaction at the top
-        if st.session_state.chat_history:
+    if st.session_state.chat_history:
             # with st.container(): 
                 latest_entry = st.session_state.chat_history[-1]
                 st.write(f"**שאלה:** {latest_entry['question']}")
