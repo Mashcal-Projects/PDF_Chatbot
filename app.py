@@ -193,7 +193,7 @@ def main():
 
 
     
-    st.header("מודל שפה משכ״ל🤖🗨️")
+    st.header("שאל את מומחה התשתיות 🤖🗨️")
      # Initialize chat history in session state
     if 'chat_history' not in st.session_state:
         st.session_state.chat_history = []
