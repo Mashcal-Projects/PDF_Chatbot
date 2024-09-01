@@ -14,3 +14,4 @@ PyPDF2
 langchain
 tiktoken
 matplotlib
+gradio_client
