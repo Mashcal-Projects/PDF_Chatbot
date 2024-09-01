@@ -12,6 +12,7 @@ import logging
 import re
 import matplotlib
 import matplotlib.pyplot as plt
+from gradio_client import Client, handle_file
 
 # Set OpenAI API key from Streamlit secrets
 openai.api_key = st.secrets['OPENAI_API_KEY']
