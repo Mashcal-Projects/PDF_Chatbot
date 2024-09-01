@@ -62,13 +62,25 @@ def reverse_hebrew_text(categories):
 def generate_response(prompt, diagram_data=None):
     try:
         with st.spinner("חושב..."):
-            response = openai.ChatCompletion.create(
-                model="gpt-4o-mini",
-                messages=[
-                    {"role": "system", "content": "אתה עוזר אדיב, אנא ענה בעברית."},
-                    {"role": "user", "content": prompt}
-                ]
+            # response = openai.ChatCompletion.create(
+            #     model="gpt-4o-mini",
+            #     messages=[
+            #         {"role": "system", "content": "אתה עוזר אדיב, אנא ענה בעברית."},
+            #         {"role": "user", "content": prompt}
+            #     ]
+            # )
+            client = Client("http://192.168.28.96:8001/")
+    
+            # Create the payload for the new API request
+            response = client.predict(
+                 message=prompt,  # This is equivalent to the user's prompt
+                mode="RAG",  # Set the mode; you can change this depending on your needs
+                param_3=[handle_file(PDF_FILE_PATH)],  # Provide the file if needed
+                param_4="המערכת נותנת תשובות בעברית",  # System prompt in Hebrew
+                api_name="/chat"
             )
+                
+            
             answer = response.choices[0].message['content'].strip()
             logging.info(f"full response : {response}")
             
