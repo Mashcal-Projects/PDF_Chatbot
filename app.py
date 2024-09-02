@@ -102,7 +102,7 @@ def generate_response(prompt, diagram_data=None):
                         # ax.legend()
 
                         
-                        sfig, ax = plt.subplots()
+                        fig, ax = plt.subplots()
                         bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
                         
                         # Manually draw bars with rounded corners
