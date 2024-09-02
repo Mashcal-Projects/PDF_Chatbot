@@ -103,43 +103,30 @@ def generate_response(prompt, diagram_data=None):
 
                         fig, ax = plt.subplots()
                         bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
-                        bars = ax.bar(categories, values, label=categories, color=bar_colors)
+                        
+                        # Manually draw bars with rounded corners
+                        for i, (category, value) in enumerate(zip(categories, values)):
+                            ax.add_patch(
+                                patches.FancyBboxPatch(
+                                    (i - 0.4, 0),  # (x, y) - bottom left corner of the bar
+                                    0.8, value,  # width, height of the bar
+                                    boxstyle="round,pad=0.05",  # rounded corners
+                                    linewidth=1,  # border width
+                                    edgecolor='black',  # border color
+                                    facecolor=bar_colors[i]  # fill color
+                                )
+                            )
                         
                         ax.set_ylim(0, max(values) * 1.2)
-                        plt.xticks(rotation=45)
-                        
-                        # Add rounded corners to the bars
-                        for bar in bars:
-                            bar.set_linewidth(0)  # Remove the border
-                            bar.set_edgecolor('none')  # Ensure no edge color
-                            bar.set_path_effects([])  # Remove any path effects
-                            bar.set_capstyle('round')  # Attempt to round the caps (not always supported)
-                        
-                            # Get the current bar's rectangle and add rounded corners
-                            x, y = bar.get_xy()
-                            width = bar.get_width()
-                            height = bar.get_height()
-                        
-                            rounded_bar = patches.Rectangle(
-                                (x, y), width, height,
-                                linewidth=0,
-                                edgecolor=None,
-                                facecolor=bar.get_facecolor(),
-                                radius=0.15  # Adjust radius as needed
-                            )
-                            ax.add_patch(rounded_bar)
-                            bar.remove()  # Remove the original bar
+                        ax.set_xticks(range(len(categories)))
+                        ax.set_xticklabels(categories, rotation=45)
                         
                         # Add value labels on top of the bars with a small font size
                         if len(values) > 1:
-                            for bar in bars:
-                                yval = bar.get_height()
-                                ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
+                            for i, value in enumerate(values):
+                                ax.text(i, value + 0.5, f'{value}', ha='center', va='bottom', fontsize=8)
                         
-                        ax.legend()
-
-
-
+                        ax.legend(categories)
 
 
 
