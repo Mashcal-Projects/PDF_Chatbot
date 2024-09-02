@@ -101,7 +101,6 @@ def generate_response(prompt, diagram_data=None):
                         #         ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
                         # ax.legend()
 
-
                         
                         fig, ax = plt.subplots()
                         bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
@@ -110,13 +109,20 @@ def generate_response(prompt, diagram_data=None):
                         ax.set_ylim(0, max(values) * 1.2)
                         plt.xticks(rotation=45)
                         
-                        # Add rounded corners to the bars
+                        # Add rounded corners to the bars by manually creating rounded rectangles
                         for bar in bars:
-                            bar.set_path_effects([
-                                patches.PathPatchEffect(
-                                    path_effect=path.Path.rounded_path(bar.get_path(), radius=5)
-                                )
-                            ])
+                            bar_path = patches.PathPatch(
+                                patches.Path.make_compound_path(
+                                    patches.Path.arc(180, 360),  # Top-left corner
+                                    patches.Path.arc(0, 180)  # Bottom-right corner
+                                ),
+                                facecolor=bar.get_facecolor(), edgecolor='none'
+                            )
+                            ax.add_patch(bar_path)
+                            # Adjust position
+                            bar_path.set_xy(bar.get_xy())
+                            bar_path.set_width(bar.get_width())
+                            bar_path.set_height(bar.get_height())
                         
                         # Add value labels on top of the bars with a small font size
                         if len(values) > 1:
