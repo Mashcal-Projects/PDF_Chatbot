@@ -12,6 +12,8 @@ import logging
 import re
 import matplotlib
 import matplotlib.pyplot as plt
+import matplotlib.patches as patches
+import matplotlib.path as path
 from gradio_client import Client, handle_file
 
 # Set OpenAI API key from Streamlit secrets
@@ -87,17 +89,49 @@ def generate_response(prompt, diagram_data=None):
                 if categories and values:
                     try:
                         logging.info(f"Parsed categories: {categories}")
+                        # fig, ax = plt.subplots()
+                        # bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
+                        # bars = ax.bar(categories, values, label=categories, color=bar_colors)
+                        # ax.set_ylim(0, max(values) * 1.2)
+                        # plt.xticks(rotation=45)
+                        # # Add value labels on top of the bars with a small font size
+                        # if len(values) > 1:
+                        #     for bar in bars:
+                        #         yval = bar.get_height()
+                        #         ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
+                        # ax.legend()
+
+
+                        
                         fig, ax = plt.subplots()
                         bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
                         bars = ax.bar(categories, values, label=categories, color=bar_colors)
+                        
                         ax.set_ylim(0, max(values) * 1.2)
                         plt.xticks(rotation=45)
+                        
+                        # Add rounded corners to the bars
+                        for bar in bars:
+                            bar.set_path_effects([
+                                patches.PathPatchEffect(
+                                    path_effect=path.Path.rounded_path(bar.get_path(), radius=5)
+                                )
+                            ])
+                        
                         # Add value labels on top of the bars with a small font size
                         if len(values) > 1:
                             for bar in bars:
                                 yval = bar.get_height()
                                 ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
+                        
                         ax.legend()
+
+
+
+
+
+
+                    
                     except Exception as e:
                         logging.error(f"Error generating graph: {e}")
                 else:
