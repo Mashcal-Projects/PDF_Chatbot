@@ -103,31 +103,38 @@ def generate_response(prompt, diagram_data=None):
 
                         fig, ax = plt.subplots()
                         bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
-                        
-                        # Manually draw bars with rounded corners
-                        for i, (category, value) in enumerate(zip(categories, values)):
-                            ax.add_patch(
-                                patches.FancyBboxPatch(
-                                    (i - 0.4, 0),  # (x, y) - bottom left corner of the bar
-                                    0.8, value,  # width, height of the bar
-                                    boxstyle="round,pad=0.05",  # rounded corners
-                                    linewidth=1,  # border width
-                                    edgecolor='black',  # border color
-                                    facecolor=bar_colors[i]  # fill color
-                                )
-                            )
+                        bars = ax.bar(categories, values, label=categories, color=bar_colors)
                         
                         ax.set_ylim(0, max(values) * 1.2)
-                        ax.set_xticks(range(len(categories)))
-                        ax.set_xticklabels(categories, rotation=45)
+                        plt.xticks(rotation=45)
+                        
+                        # Add rounded corners to the bars
+                        for bar in bars:
+                            x, y = bar.get_xy()
+                            width = bar.get_width()
+                            height = bar.get_height()
+                        
+                            # Create a rounded rectangle for each bar
+                            rounded_bar = patches.FancyBboxPatch(
+                                (x, y), width, height,
+                                boxstyle="round,pad=0.05",
+                                linewidth=0,
+                                edgecolor='none',
+                                facecolor=bar.get_facecolor(),
+                                mutation_scale=height / 10  # Adjusts rounding size
+                            )
+                            
+                            # Remove the original bar and add the rounded one
+                            bar.remove()
+                            ax.add_patch(rounded_bar)
                         
                         # Add value labels on top of the bars with a small font size
                         if len(values) > 1:
-                            for i, value in enumerate(values):
-                                ax.text(i, value + 0.5, f'{value}', ha='center', va='bottom', fontsize=8)
+                            for i, bar in enumerate(bars):
+                                yval = values[i]
+                                ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
                         
-                        ax.legend(categories)
-
+                        ax.legend()
 
 
                     
