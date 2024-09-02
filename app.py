@@ -103,30 +103,31 @@ def generate_response(prompt, diagram_data=None):
 
                         fig, ax = plt.subplots()
                         bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
-                        bars = ax.bar(categories, values, label=categories, color=bar_colors)
+                        bars = ax.bar(categories, values, color=bar_colors)
                         
                         ax.set_ylim(0, max(values) * 1.2)
                         plt.xticks(rotation=45)
                         
-                        # Add rounded corners to the bars
-                        for bar in bars:
-                            x, y = bar.get_xy()
+                        # Add rounded corners to the bars by overlaying rounded rectangles
+                        for bar, color in zip(bars, bar_colors):
+                            x = bar.get_x()
+                            y = bar.get_y()
                             width = bar.get_width()
                             height = bar.get_height()
                         
                             # Create a rounded rectangle for each bar
                             rounded_bar = patches.FancyBboxPatch(
                                 (x, y), width, height,
-                                boxstyle="round,pad=0.05",
+                                boxstyle="round,pad=0.05",  # Rounded corners
                                 linewidth=0,
+                                facecolor=color,
                                 edgecolor='none',
-                                facecolor=bar.get_facecolor(),
-                                mutation_scale=height / 10  # Adjusts rounding size
+                                mutation_aspect=0.5  # Adjusts the roundness aspect
                             )
                             
                             # Remove the original bar and add the rounded one
-                            bar.remove()
                             ax.add_patch(rounded_bar)
+                            bar.set_visible(False)  # Hide the original bar
                         
                         # Add value labels on top of the bars with a small font size
                         if len(values) > 1:
@@ -134,7 +135,7 @@ def generate_response(prompt, diagram_data=None):
                                 yval = values[i]
                                 ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
                         
-                        ax.legend()
+                        ax.legend(categories)
 
 
                     
