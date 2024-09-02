@@ -102,35 +102,31 @@ def generate_response(prompt, diagram_data=None):
                         # ax.legend()
 
                         
-                        fig, ax = plt.subplots()
+                        sfig, ax = plt.subplots()
                         bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
-                        bars = ax.bar(categories, values, label=categories, color=bar_colors)
+                        
+                        # Manually draw bars with rounded corners
+                        for i, (category, value) in enumerate(zip(categories, values)):
+                            ax.add_patch(
+                                patches.FancyBboxPatch(
+                                    (i - 0.4, 0),  # (x, y) - position
+                                    0.8, value,  # width, height
+                                    boxstyle="round,pad=0.05",  # rounded corners
+                                    linewidth=0,  # no border
+                                    facecolor=bar_colors[i]
+                                )
+                            )
                         
                         ax.set_ylim(0, max(values) * 1.2)
-                        plt.xticks(rotation=45)
-                        
-                        # Add rounded corners to the bars by manually creating rounded rectangles
-                        for bar in bars:
-                            bar_path = patches.PathPatch(
-                                patches.Path.make_compound_path(
-                                    patches.Path.arc(180, 360),  # Top-left corner
-                                    patches.Path.arc(0, 180)  # Bottom-right corner
-                                ),
-                                facecolor=bar.get_facecolor(), edgecolor='none'
-                            )
-                            ax.add_patch(bar_path)
-                            # Adjust position
-                            bar_path.set_xy(bar.get_xy())
-                            bar_path.set_width(bar.get_width())
-                            bar_path.set_height(bar.get_height())
+                        ax.set_xticks(range(len(categories)))
+                        ax.set_xticklabels(categories, rotation=45)
                         
                         # Add value labels on top of the bars with a small font size
                         if len(values) > 1:
-                            for bar in bars:
-                                yval = bar.get_height()
-                                ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
+                            for i, value in enumerate(values):
+                                ax.text(i, value + 0.5, f'{value}', ha='center', va='bottom', fontsize=8)
                         
-                        ax.legend()
+                        ax.legend(categories)
 
 
 
