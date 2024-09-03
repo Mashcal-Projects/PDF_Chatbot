@@ -159,8 +159,8 @@ def generate_response(prompt, diagram_data=None):
                                 yval = bar.get_height()
                                 ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
                         
-                        frame = legend.get_frame()
-                        frame.set_boxstyle('round,pad=0.5,rounding_size=0.2')
+                        # frame = legend.get_frame()
+                        # frame.set_boxstyle('round,pad=0.5,rounding_size=0.2')
                         ax.legend()
                     except Exception as e:
                         logging.error(f"Error generating graph: {e}")
