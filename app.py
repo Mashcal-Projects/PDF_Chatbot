@@ -132,19 +132,19 @@ def generate_response(prompt, diagram_data=None):
                         
 
                         # Register the custom projection
-                        register_projection(FancyAxes)
+                        # register_projection(FancyAxes)
                         
-                        # Replace the original part with this
-                        fig = plt.figure()
-                        ax = fig.add_subplot(
-                            111, projection="fancy_box_axes", facecolor="white", edgecolor="black"
-                        )
-                        ax.spines[["bottom", "left", "right", "top"]].set_visible(False)
+                        # # Replace the original part with this
+                        # fig = plt.figure()
+                        # ax = fig.add_subplot(
+                        #     111, projection="fancy_box_axes", facecolor="white", edgecolor="black"
+                        # )
+                        # ax.spines[["bottom", "left", "right", "top"]].set_visible(False)
                         
-                        bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
-                        bars = ax.bar(categories, values, label=categories, color=bar_colors)
-                        ax.set_ylim(0, max(values) * 1.2)
-                        plt.xticks(rotation=45)
+                        # bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
+                        # bars = ax.bar(categories, values, label=categories, color=bar_colors)
+                        # ax.set_ylim(0, max(values) * 1.2)
+                        # plt.xticks(rotation=45)
 
                         
                         # Add value labels on top of the bars with a small font size
