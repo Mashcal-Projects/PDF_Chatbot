@@ -152,17 +152,16 @@ def generate_response(prompt, diagram_data=None):
                         # ax.set_ylim(0, max(values) * 1.2)
                         # plt.xticks(rotation=45)
 
-
-                      # Set rounding parameters
-                        bar_width = 0.5
-                        bar_rounding_factor = 0.2  # proportion of bar_width for rounding
+                        
+                        # Plot the bars
                         bars = ax.bar(
                             x=columns_to_plot_labels,
                             height=values_replacing_nans,
                             color=[colors[c] for c in np.digitize(values_replacing_nans, color_thresholds) - 1],
                         )
                         
-                        # Round the bars
+                        # Apply rounding to the bars
+                        bar_rounding_factor = 0.2
                         for i, bar in enumerate(bars):
                             if bar.get_height() > bar_rounding_factor * max_col_height:
                                 # Create the rounded top using FancyBboxPatch
@@ -189,6 +188,15 @@ def generate_response(prompt, diagram_data=None):
                                 # Add the rounded top and square bottom to the plot
                                 ax.add_patch(round_top)
                                 ax.add_patch(square_bottom)
+                        
+                        # Add the text on top of the bars
+                        for i, bar in enumerate(bars):
+                            ax.text(bar.get_x() + bar.get_width() / 2, values_replacing_nans[i] + 0.5, values_replacing_nans[i],
+                                    ha='center', va='bottom', color='black', weight='bold', fontsize=10)
+
+
+
+               
 
                         
                         # Add value labels on top of the bars with a small font size
