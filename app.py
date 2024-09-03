@@ -47,7 +47,7 @@ class FancyAxes(maxes.Axes):
             1.0,
             boxstyle="round, rounding_size=0.06, pad=0",
             edgecolor=self._edgecolor,
-            linewidth=5,
+            linewidth=1,
         )
 
 
@@ -143,7 +143,7 @@ def generate_response(prompt, diagram_data=None):
                         # Replace the original part with this
                         fig = plt.figure()
                         ax = fig.add_subplot(
-                            111, projection="fancy_box_axes", facecolor="lightgrey", edgecolor="blue"
+                            111, projection="fancy_box_axes", facecolor="white", edgecolor="black"
                         )
                         ax.spines[["bottom", "left", "right", "top"]].set_visible(False)
                         
