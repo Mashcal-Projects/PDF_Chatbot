@@ -182,8 +182,8 @@ def generate_response(prompt, diagram_data=None):
                             )
                             
                             # Add the rounded top to the plot
-                            ax.add_patch(round_top)
-                            bars.append(round_top)
+                        ax.add_patch(round_top)
+                        bars.append(round_top)
                         
                         # Add the text on top of the bars
                         for i, value in enumerate(values):
