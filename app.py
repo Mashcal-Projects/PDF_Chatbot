@@ -130,11 +130,11 @@ def generate_response(prompt, diagram_data=None):
                         ax.set_ylim(0, max(values) * 1.2)
                         plt.xticks(rotation=45)
                         # Add value labels on top of the bars with a small font size
-                        if len(values) > 1:
-                            for bar in bars:
-                                yval = bar.get_height()
-                                ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
-                        ax.legend()
+                        # if len(values) > 1:
+                        #     for bar in bars:
+                        #         yval = bar.get_height()
+                        #         ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
+                        # ax.legend()
 
 
                         # Register the custom projection
@@ -158,7 +158,9 @@ def generate_response(prompt, diagram_data=None):
                             for bar in bars:
                                 yval = bar.get_height()
                                 ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
-                
+                        
+                        frame = legend.get_frame()
+                        frame.set_boxstyle('round,pad=0.5,rounding_size=0.2')
                         ax.legend()
                     except Exception as e:
                         logging.error(f"Error generating graph: {e}")
