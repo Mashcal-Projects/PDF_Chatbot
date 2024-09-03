@@ -147,11 +147,28 @@ def generate_response(prompt, diagram_data=None):
                         )
                         ax.spines[["bottom", "left", "right", "top"]].set_visible(False)
                         
+                        # bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
+                        # bars = ax.bar(categories, values, label=categories, color=bar_colors)
+                        # ax.set_ylim(0, max(values) * 1.2)
+                        # plt.xticks(rotation=45)
+
+
+                        # Define bar colors and draw bars with rounded corners
                         bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
-                        bars = ax.bar(categories, values, label=categories, color=bar_colors)
-                        ax.set_ylim(0, max(values) * 1.2)
-                        plt.xticks(rotation=45)
+                        for i, (category, value) in enumerate(zip(categories, values)):
+                            ax.add_patch(
+                                mpatches.FancyBboxPatch(
+                                    (i - 0.4, 0),  # Position of the bar
+                                    0.8, value,  # Width and height of the bar
+                                    boxstyle="round,pad=0.05",  # Rounded corners
+                                    linewidth=0,  # No border line
+                                    facecolor=bar_colors[i]  # Color of the bar
+                                )
+                            )
                         
+                        ax.set_ylim(0, max(values) * 1.2)
+                        ax.set_xticks(range(len(categories)))
+                        ax.set_xticklabels(categories, rotation=45)
                         # Add value labels on top of the bars with a small font size
                         if len(values) > 1:
                             for bar in bars:
