@@ -123,28 +123,29 @@ def generate_response(prompt, diagram_data=None):
                 # Log parsed data for further inspection
                 if categories and values:
                     try:
-                        logging.info(f"Parsed categories: {categories}")
-                        fig, ax = plt.subplots()
-                        bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
-                        bars = ax.bar(categories, values, label=categories, color=bar_colors)
-                        ax.set_ylim(0, max(values) * 1.2)
-                        plt.xticks(rotation=45)
-                        
-
-                        # Register the custom projection
-                        # register_projection(FancyAxes)
-                        
-                        # # Replace the original part with this
-                        # fig = plt.figure()
-                        # ax = fig.add_subplot(
-                        #     111, projection="fancy_box_axes", facecolor="white", edgecolor="black"
-                        # )
-                        # ax.spines[["bottom", "left", "right", "top"]].set_visible(False)
-                        
+                        # The original graph wuthout the the round corners 
+                        # logging.info(f"Parsed categories: {categories}")
+                        # fig, ax = plt.subplots()
                         # bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
                         # bars = ax.bar(categories, values, label=categories, color=bar_colors)
                         # ax.set_ylim(0, max(values) * 1.2)
                         # plt.xticks(rotation=45)
+                        
+
+                        # Register the custom projection
+                        register_projection(FancyAxes)
+                        
+                        # Replace the original part with this
+                        fig = plt.figure()
+                        ax = fig.add_subplot(
+                            111, projection="fancy_box_axes", facecolor="white", edgecolor="black"
+                        )
+                        ax.spines[["bottom", "left", "right", "top"]].set_visible(False)
+                        
+                        bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
+                        bars = ax.bar(categories, values, label=categories, color=bar_colors)
+                        ax.set_ylim(0, max(values) * 1.2)
+                        plt.xticks(rotation=45)
 
                         
                         # Add value labels on top of the bars with a small font size
