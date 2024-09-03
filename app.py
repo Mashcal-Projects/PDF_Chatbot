@@ -166,9 +166,8 @@ def generate_response(prompt, diagram_data=None):
                         
                         # Round the legend's frame
                         frame = legend.get_frame()
-                        frame.set_edgecolor('black')
-                        frame.set_linewidth(1)
-                        frame.set_boxstyle('round,pad=0.5,rounding_size=0.2') 
+                    
+                        frame.set_boxstyle("round,pad=0.5,rounding_size=0.2")
 
 
 
