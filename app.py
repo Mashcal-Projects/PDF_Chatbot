@@ -47,7 +47,7 @@ class FancyAxes(maxes.Axes):
             1.0,
             boxstyle="round, rounding_size=0.06, pad=0",
             edgecolor=self._edgecolor,
-            linewidth=0.2,
+            linewidth=1,
         )
 
 
