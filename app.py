@@ -159,55 +159,36 @@ def generate_response(prompt, diagram_data=None):
                         #         yval = bar.get_height()
                         #         ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
                         
+                        # Plot the bars and round their tops
+                        bar_rounding_factor = 0.1
+                        bars = []
                         
-                        # Plot the bars
-                        bars = ax.bar(
-                            x=columns_to_plot_labels,
-                            height=values_replacing_nans,
-                            color=[colors[c] for c in np.digitize(values_replacing_nans, color_thresholds) - 1],
-                        )
-                        
-                        # Apply rounding to the bars
-                        bar_rounding_factor = 0.2
-                        for i, bar in enumerate(bars):
-                            if bar.get_height() > bar_rounding_factor * max_col_height:
-                                # Create the rounded top using FancyBboxPatch
-                                round_top = FancyBboxPatch(
-                                    xy=bar.get_xy(),
-                                    width=bar.get_width(),
-                                    height=bar.get_height(),
-                                    color=bar.get_facecolor(),
-                                    boxstyle=f"round,pad=0,rounding_size={bar_rounding_factor}",
-                                    transform=ax.transData,
-                                    mutation_scale=1.1,
-                                    mutation_aspect=20,
-                                )
-                                # Create the bottom half of the bar using a Rectangle
-                                square_bottom = Rectangle(
-                                    xy=bar.get_xy(),
-                                    width=bar.get_width(),
-                                    height=bar.get_height() / 2,
-                                    color=bar.get_facecolor(),
-                                    transform=ax.transData,
-                                )
-                                # Remove the original bar
-                                bar.remove()
-                                # Add the rounded top and square bottom to the plot
-                                ax.add_patch(round_top)
-                                ax.add_patch(square_bottom)
+                        for i, (category, value) in enumerate(zip(categories, values)):
+                            bar = ax.bar(
+                                x=category,
+                                height=value,
+                                width=0.5,
+                                color=bar_colors[i],
+                            )
+                            
+                            # Create the rounded top using FancyBboxPatch
+                        round_top = FancyBboxPatch(
+                                xy=(bar[0].get_x(), 0),
+                                width=bar[0].get_width(),
+                                height=bar[0].get_height(),
+                                color=bar[0].get_facecolor(),
+                                boxstyle=f"round,pad=0,rounding_size={bar_rounding_factor}",
+                                transform=ax.transData,
+                            )
+                            
+                            # Add the rounded top to the plot
+                            ax.add_patch(round_top)
+                            bars.append(round_top)
                         
                         # Add the text on top of the bars
-                        for i, bar in enumerate(bars):
-                            ax.text(bar.get_x() + bar.get_width() / 2, values_replacing_nans[i] + 0.5, values_replacing_nans[i],
-                                    ha='center', va='bottom', color='black', weight='bold', fontsize=10)
-                        
-
-
-
-                        
+                        for i, value in enumerate(values):
+                            ax.text(i, value + 2, str(value), ha='center', va='bottom', color='black', weight='bold', fontsize=10)
                         ax.legend()
-
-                    
                     except Exception as e:
                         logging.error(f"Error generating graph: {e}")
                 else:
