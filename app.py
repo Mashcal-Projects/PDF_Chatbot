@@ -14,7 +14,42 @@ import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import matplotlib.path as path
+
+import matplotlib.patches as mpatches
+import matplotlib.axes as maxes
+from matplotlib.projections import register_projection
 from gradio_client import Client, handle_file
+
+
+# Define the custom FancyBboxPatch and Axes classes
+class StaticColorAxisBBox(mpatches.FancyBboxPatch):
+    def set_edgecolor(self, color):
+        if hasattr(self, "_original_edgecolor"):
+            return
+        self._original_edgecolor = color
+        self._set_edgecolor(color)
+
+    def set_linewidth(self, w):
+        super().set_linewidth(1.5)
+
+class FancyAxes(maxes.Axes):
+    name = "fancy_box_axes"
+    _edgecolor: str
+
+    def __init__(self, *args, **kwargs):
+        self._edgecolor = kwargs.pop("edgecolor", None)
+        super().__init__(*args, **kwargs)
+
+    def _gen_axes_patch(self):
+        return StaticColorAxisBBox(
+            (0, 0),
+            1.0,
+            1.0,
+            boxstyle="round, rounding_size=0.06, pad=0",
+            edgecolor=self._edgecolor,
+            linewidth=5,
+        )
+
 
 # Set OpenAI API key from Streamlit secrets
 openai.api_key = st.secrets['OPENAI_API_KEY']
@@ -100,6 +135,35 @@ def generate_response(prompt, diagram_data=None):
                                 yval = bar.get_height()
                                 ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
                         ax.legend()
+
+
+                    # Register the custom projection
+                    register_projection(FancyAxes)
+                    
+                    # Replace the original part with this
+                    fig = plt.figure()
+                    ax = fig.add_subplot(
+                        111, projection="fancy_box_axes", facecolor="lightgrey", edgecolor="blue"
+                    )
+                    ax.spines[["bottom", "left", "right", "top"]].set_visible(False)
+                    
+                    bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
+                    bars = ax.bar(categories, values, label=categories, color=bar_colors)
+                    ax.set_ylim(0, max(values) * 1.2)
+                    plt.xticks(rotation=45)
+                    
+                    # Add value labels on top of the bars with a small font size
+                    if len(values) > 1:
+                        for bar in bars:
+                            yval = bar.get_height()
+                            ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
+                    
+                    ax.legend()
+
+
+
+
+                    
                     except Exception as e:
                         logging.error(f"Error generating graph: {e}")
                 else:
