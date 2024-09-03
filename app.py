@@ -159,19 +159,8 @@ def generate_response(prompt, diagram_data=None):
                                 yval = bar.get_height()
                                 ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
                       
-                        # ax.legend()
+                        ax.legend()
 
-                        # Create a legend
-                        legend = ax.legend(frameon=True)
-                        
-                        # Round the legend's frame
-                        frame = legend.get_frame()
-                    
-                        frame.set_boxstyle("round,pad=0.5,rounding_size=0.2")
-
-
-
-                    
                     except Exception as e:
                         logging.error(f"Error generating graph: {e}")
                 else:
