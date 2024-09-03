@@ -30,7 +30,7 @@ class StaticColorAxisBBox(mpatches.FancyBboxPatch):
         self._set_edgecolor(color)
 
     def set_linewidth(self, w):
-        super().set_linewidth(1.5)
+        super().set_linewidth(w)
 
 class FancyAxes(maxes.Axes):
     name = "fancy_box_axes"
