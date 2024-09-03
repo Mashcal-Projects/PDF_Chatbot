@@ -124,17 +124,17 @@ def generate_response(prompt, diagram_data=None):
                 if categories and values:
                     try:
                         logging.info(f"Parsed categories: {categories}")
-                        # fig, ax = plt.subplots()
-                        # bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
-                        # bars = ax.bar(categories, values, label=categories, color=bar_colors)
-                        # ax.set_ylim(0, max(values) * 1.2)
-                        # plt.xticks(rotation=45)
-                        # # Add value labels on top of the bars with a small font size
-                        # if len(values) > 1:
-                        #     for bar in bars:
-                        #         yval = bar.get_height()
-                        #         ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
-                        # ax.legend()
+                        fig, ax = plt.subplots()
+                        bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
+                        bars = ax.bar(categories, values, label=categories, color=bar_colors)
+                        ax.set_ylim(0, max(values) * 1.2)
+                        plt.xticks(rotation=45)
+                        # Add value labels on top of the bars with a small font size
+                        if len(values) > 1:
+                            for bar in bars:
+                                yval = bar.get_height()
+                                ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
+                        ax.legend()
 
 
                         # Register the custom projection
@@ -147,56 +147,53 @@ def generate_response(prompt, diagram_data=None):
                         )
                         ax.spines[["bottom", "left", "right", "top"]].set_visible(False)
                         
-                        # bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
-                        # bars = ax.bar(categories, values, label=categories, color=bar_colors)
-                        # ax.set_ylim(0, max(values) * 1.2)
-                        # plt.xticks(rotation=45)
+                        bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
+                        bars = ax.bar(categories, values, label=categories, color=bar_colors)
+                        ax.set_ylim(0, max(values) * 1.2)
+                        plt.xticks(rotation=45)
 
                         
-                        # Plot the bars
-                        bars = ax.bar(
-                            x=columns_to_plot_labels,
-                            height=values_replacing_nans,
-                            color=[colors[c] for c in np.digitize(values_replacing_nans, color_thresholds) - 1],
-                        )
+                        # # Plot the bars
+                        # bars = ax.bar(
+                        #     x=columns_to_plot_labels,
+                        #     height=values_replacing_nans,
+                        #     color=[colors[c] for c in np.digitize(values_replacing_nans, color_thresholds) - 1],
+                        # )
                         
-                        # Apply rounding to the bars
-                        bar_rounding_factor = 0.2
-                        for i, bar in enumerate(bars):
-                            if bar.get_height() > bar_rounding_factor * max_col_height:
-                                # Create the rounded top using FancyBboxPatch
-                                round_top = FancyBboxPatch(
-                                    xy=bar.get_xy(),
-                                    width=bar.get_width(),
-                                    height=bar.get_height(),
-                                    color=bar.get_facecolor(),
-                                    boxstyle=f"round,pad=0,rounding_size={bar_rounding_factor}",
-                                    transform=ax.transData,
-                                    mutation_scale=1.1,
-                                    mutation_aspect=20,
-                                )
-                                # Create the bottom half of the bar using a Rectangle
-                                square_bottom = Rectangle(
-                                    xy=bar.get_xy(),
-                                    width=bar.get_width(),
-                                    height=bar.get_height() / 2,
-                                    color=bar.get_facecolor(),
-                                    transform=ax.transData,
-                                )
-                                # Remove the original bar
-                                bar.remove()
-                                # Add the rounded top and square bottom to the plot
-                                ax.add_patch(round_top)
-                                ax.add_patch(square_bottom)
+                        # # Apply rounding to the bars
+                        # bar_rounding_factor = 0.2
+                        # for i, bar in enumerate(bars):
+                        #     if bar.get_height() > bar_rounding_factor * max_col_height:
+                        #         # Create the rounded top using FancyBboxPatch
+                        #         round_top = FancyBboxPatch(
+                        #             xy=bar.get_xy(),
+                        #             width=bar.get_width(),
+                        #             height=bar.get_height(),
+                        #             color=bar.get_facecolor(),
+                        #             boxstyle=f"round,pad=0,rounding_size={bar_rounding_factor}",
+                        #             transform=ax.transData,
+                        #             mutation_scale=1.1,
+                        #             mutation_aspect=20,
+                        #         )
+                        #         # Create the bottom half of the bar using a Rectangle
+                        #         square_bottom = Rectangle(
+                        #             xy=bar.get_xy(),
+                        #             width=bar.get_width(),
+                        #             height=bar.get_height() / 2,
+                        #             color=bar.get_facecolor(),
+                        #             transform=ax.transData,
+                        #         )
+                        #         # Remove the original bar
+                        #         bar.remove()
+                        #         # Add the rounded top and square bottom to the plot
+                        #         ax.add_patch(round_top)
+                        #         ax.add_patch(square_bottom)
                         
-                        # Add the text on top of the bars
-                        for i, bar in enumerate(bars):
-                            ax.text(bar.get_x() + bar.get_width() / 2, values_replacing_nans[i] + 0.5, values_replacing_nans[i],
-                                    ha='center', va='bottom', color='black', weight='bold', fontsize=10)
+                        # # Add the text on top of the bars
+                        # for i, bar in enumerate(bars):
+                        #     ax.text(bar.get_x() + bar.get_width() / 2, values_replacing_nans[i] + 0.5, values_replacing_nans[i],
+                        #             ha='center', va='bottom', color='black', weight='bold', fontsize=10)
 
-
-
-               
 
                         
                         # Add value labels on top of the bars with a small font size
@@ -206,9 +203,6 @@ def generate_response(prompt, diagram_data=None):
                                 ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
                         
                         ax.legend()
-
-
-
 
                     
                     except Exception as e:
