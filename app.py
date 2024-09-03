@@ -147,47 +147,18 @@ def generate_response(prompt, diagram_data=None):
                         )
                         ax.spines[["bottom", "left", "right", "top"]].set_visible(False)
                         
-                        # bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
-                        # bars = ax.bar(categories, values, label=categories, color=bar_colors)
-                        # ax.set_ylim(0, max(values) * 1.2)
-                        # plt.xticks(rotation=45)
+                        bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
+                        bars = ax.bar(categories, values, label=categories, color=bar_colors)
+                        ax.set_ylim(0, max(values) * 1.2)
+                        plt.xticks(rotation=45)
 
                         
-                        # # Add value labels on top of the bars with a small font size
-                        # if len(values) > 1:
-                        #     for bar in bars:
-                        #         yval = bar.get_height()
-                        #         ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
-                        
-                        # Plot the bars and round their tops
-                        bar_rounding_factor = 0.1
-                        bars = []
-                        
-                        for i, (category, value) in enumerate(zip(categories, values)):
-                            bar = ax.bar(
-                                x=category,
-                                height=value,
-                                width=0.5,
-                                color=bar_colors[i],
-                            )
-                            
-                            # Create the rounded top using FancyBboxPatch
-                        round_top = FancyBboxPatch(
-                                xy=(bar[0].get_x(), 0),
-                                width=bar[0].get_width(),
-                                height=bar[0].get_height(),
-                                color=bar[0].get_facecolor(),
-                                boxstyle=f"round,pad=0,rounding_size={bar_rounding_factor}",
-                                transform=ax.transData,
-                            )
-                            
-                            # Add the rounded top to the plot
-                        ax.add_patch(round_top)
-                        bars.append(round_top)
-                        
-                        # Add the text on top of the bars
-                        for i, value in enumerate(values):
-                            ax.text(i, value + 2, str(value), ha='center', va='bottom', color='black', weight='bold', fontsize=10)
+                        # Add value labels on top of the bars with a small font size
+                        if len(values) > 1:
+                            for bar in bars:
+                                yval = bar.get_height()
+                                ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
+                
                         ax.legend()
                     except Exception as e:
                         logging.error(f"Error generating graph: {e}")
