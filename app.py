@@ -262,7 +262,7 @@ def main():
 
     
     # questions_df = load_questions('data/knowledge_center.csv')
-    questions_df = load_questions(PDF_FILE_PATH)
+    questions_df = load_questions("PDF_FILE_PATH")
     
     questions = questions_df['questions'].tolist()
 
