@@ -261,8 +261,8 @@ def main():
         st.session_state.chat_history = []
 
     
-    questions_df = load_questions('data/knowledge_center.csv')
-    # questions_df = load_questions('data/sitemap_data.pdf')
+    # questions_df = load_questions('data/knowledge_center.csv')
+    questions_df = load_questions('data/sitemap_data.csv')
     
     questions = questions_df['questions'].tolist()
 
