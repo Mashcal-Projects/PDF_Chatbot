@@ -54,7 +54,9 @@ class FancyAxes(maxes.Axes):
 # Set OpenAI API key from Streamlit secrets
 openai.api_key = st.secrets['OPENAI_API_KEY']
 
-PDF_FILE_PATH = "data/knowledge_center.pdf"
+# PDF_FILE_PATH = "data/knowledge_center.pdf"
+PDF_FILE_PATH = "data/sitemap_data.pdf"
+
 
 # Example row from your CSV
 row = {
