@@ -20,37 +20,6 @@ import matplotlib.axes as maxes
 from matplotlib.projections import register_projection
 from gradio_client import Client, handle_file
 
-
-# Define the custom FancyBboxPatch and Axes classes
-# class StaticColorAxisBBox(mpatches.FancyBboxPatch):
-#     def set_edgecolor(self, color):
-#         if hasattr(self, "_original_edgecolor"):
-#             return
-#         self._original_edgecolor = color
-#         self._set_edgecolor(color)
-
-#     def set_linewidth(self, w):
-#         super().set_linewidth(1)
-
-# class FancyAxes(maxes.Axes):
-#     name = "fancy_box_axes"
-#     _edgecolor: str
-
-#     def __init__(self, *args, **kwargs):
-#         self._edgecolor = kwargs.pop("edgecolor", None)
-#         super().__init__(*args, **kwargs)
-
-#     def _gen_axes_patch(self):
-#         return StaticColorAxisBBox(
-#             (0, 0),
-#             1.0,
-#             1.0,
-#             boxstyle="round, rounding_size=0.06, pad=0",
-#             edgecolor=self._edgecolor,
-#             linewidth=1,
-#         )
-
-
 # Set OpenAI API key from Streamlit secrets
 openai.api_key = st.secrets['OPENAI_API_KEY']
 
@@ -179,6 +148,8 @@ def load_questions(file_path):
 
 
 def user_input(user_question, diagram_data=None):
+
+    logging.info(f"user_question: {user_question}")
     # Load the vector store and perform a similarity search
     embeddings = OpenAIEmbeddings()
     new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
@@ -287,9 +258,10 @@ def main():
             
         # Process input text
             if user_question and (user_question != st.session_state.get('last_processed', '')):
-                response = user_input(user_question)  # Generate the response
-                st.session_state.chat_history.append({'question': user_question, 'answer': response[0]})
                 st.session_state['last_processed'] = user_question  # Track last processed question
+                response = user_input(user_question)  # Generate the response
+                logging.info(f"response: {response}")
+                st.session_state.chat_history.append({'question': user_question, 'answer': response[0]})
 
         # Display the most recent interaction at the top
     if st.session_state.chat_history:
