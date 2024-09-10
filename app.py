@@ -55,7 +55,9 @@ class FancyAxes(maxes.Axes):
 openai.api_key = st.secrets['OPENAI_API_KEY']
 
 # PDF_FILE_PATH = "data/knowledge_center.pdf"
-PDF_FILE_PATH = "data/sitemap_data.pdf"
+# PDF_FILE_PATH = "data/sitemap_data.pdf"
+PDF_FILE_PATH = "data/knowledge_center1.pdf"
+
 
 
 # Example row from your CSV
@@ -262,7 +264,9 @@ def main():
 
     
     # questions_df = load_questions('data/knowledge_center.csv')
-    questions_df = load_questions('data/sitemap_data.csv')
+    questions_df = load_questions('data/knowledge_center1.csv')
+    
+    # questions_df = load_questions('data/sitemap_data.csv')
     
     questions = questions_df['questions'].tolist()
 
