@@ -54,9 +54,9 @@ class FancyAxes(maxes.Axes):
 # Set OpenAI API key from Streamlit secrets
 openai.api_key = st.secrets['OPENAI_API_KEY']
 
-# PDF_FILE_PATH = "data/knowledge_center.pdf"
-# PDF_FILE_PATH = "data/sitemap_data.pdf"
 PDF_FILE_PATH = "data/knowledge_center.pdf"
+# PDF_FILE_PATH = "data/sitemap_data.pdf"
+# PDF_FILE_PATH = "data/knowledge_center.pdf"
 
 
 
@@ -220,9 +220,6 @@ def reset_conversation():
 def main():
 
     st.set_page_config("Chat PDF")
-    # st.set_page_config(layout="centered", initial_sidebar_state="collapsed")
-    # st.set_page_config(layout="wide", initial_sidebar_state="collapsed", page_title="Chat PDF", page_icon="🤖")
-
     
     st.markdown(
         """
@@ -263,19 +260,14 @@ def main():
         st.session_state.chat_history = []
 
     
-    # questions_df = load_questions('data/knowledge_center.csv')
     questions_df = load_questions('data/knowledge_center.csv')
-    
     # questions_df = load_questions('data/sitemap_data.csv')
-    
     questions = questions_df['questions'].tolist()
-
 
      # Input field for custom questions
     user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question")
     # Dropdown for predefined questions
     selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
-
 
     # Add Reset Button for Conversation
     if st.button("אפס שיחה"):
