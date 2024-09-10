@@ -259,11 +259,11 @@ def main():
                 st.session_state.chat_history.append({'question': selected_question, 'answer': response,'diagram':diagram})
             
         # Process input text
-            if user_question and (user_question != st.session_state.get('last_processed', '')):
-                st.session_state['last_processed'] = user_question  # Track last processed question
-                response = user_input(user_question)  # Generate the response
-                logging.info(f"response: {response}")
-                st.session_state.chat_history.append({'question': user_question, 'answer': response[0]})
+    if user_question and (user_question != st.session_state.get('last_processed', '')):
+            st.session_state['last_processed'] = user_question  # Track last processed question
+            response = user_input(user_question)  # Generate the response
+            logging.info(f"response: {response}")
+            st.session_state.chat_history.append({'question': user_question, 'answer': response[0]})
 
         # Display the most recent interaction at the top
     if st.session_state.chat_history:
