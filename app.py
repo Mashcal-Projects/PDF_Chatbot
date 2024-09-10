@@ -104,6 +104,7 @@ def reverse_hebrew_text(categories):
 def generate_response(prompt, diagram_data=None):
     try:
         with st.spinner("חושב..."):
+            logging.info(f"@@@@@@@@@@@@@ : {prompt}")
             response = openai.ChatCompletion.create(
                 model="gpt-4o-mini",
                 messages=[
