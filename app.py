@@ -247,7 +247,7 @@ def main():
         
       # Process dropdown selection  
     if selected_question != "בחר שאלה...":
-        logging.info("if&&&&&&&&&&&&&&&&&&&&&&&&&.")
+            logging.info("if&&&&&&&&&&&&&&&&&&&&&&&&&.")
         
             row = questions_df[questions_df['questions'] == selected_question].iloc[0]
             diagram_data = row["diagram"] if pd.notna(row["diagram"]) else None
