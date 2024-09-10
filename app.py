@@ -22,33 +22,33 @@ from gradio_client import Client, handle_file
 
 
 # Define the custom FancyBboxPatch and Axes classes
-class StaticColorAxisBBox(mpatches.FancyBboxPatch):
-    def set_edgecolor(self, color):
-        if hasattr(self, "_original_edgecolor"):
-            return
-        self._original_edgecolor = color
-        self._set_edgecolor(color)
+# class StaticColorAxisBBox(mpatches.FancyBboxPatch):
+#     def set_edgecolor(self, color):
+#         if hasattr(self, "_original_edgecolor"):
+#             return
+#         self._original_edgecolor = color
+#         self._set_edgecolor(color)
 
-    def set_linewidth(self, w):
-        super().set_linewidth(1)
+#     def set_linewidth(self, w):
+#         super().set_linewidth(1)
 
-class FancyAxes(maxes.Axes):
-    name = "fancy_box_axes"
-    _edgecolor: str
+# class FancyAxes(maxes.Axes):
+#     name = "fancy_box_axes"
+#     _edgecolor: str
 
-    def __init__(self, *args, **kwargs):
-        self._edgecolor = kwargs.pop("edgecolor", None)
-        super().__init__(*args, **kwargs)
+#     def __init__(self, *args, **kwargs):
+#         self._edgecolor = kwargs.pop("edgecolor", None)
+#         super().__init__(*args, **kwargs)
 
-    def _gen_axes_patch(self):
-        return StaticColorAxisBBox(
-            (0, 0),
-            1.0,
-            1.0,
-            boxstyle="round, rounding_size=0.06, pad=0",
-            edgecolor=self._edgecolor,
-            linewidth=1,
-        )
+#     def _gen_axes_patch(self):
+#         return StaticColorAxisBBox(
+#             (0, 0),
+#             1.0,
+#             1.0,
+#             boxstyle="round, rounding_size=0.06, pad=0",
+#             edgecolor=self._edgecolor,
+#             linewidth=1,
+#         )
 
 
 # Set OpenAI API key from Streamlit secrets
@@ -137,7 +137,7 @@ def generate_response(prompt, diagram_data=None):
                         
 
                         # Register the custom projection
-                        register_projection(FancyAxes)
+                        # register_projection(FancyAxes)
                         
                         # Replace the original part with this
                         fig = plt.figure()
