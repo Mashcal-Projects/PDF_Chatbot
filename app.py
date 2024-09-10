@@ -73,7 +73,6 @@ def reverse_hebrew_text(categories):
 def generate_response(prompt, diagram_data=None):
     try:
         with st.spinner("חושב..."):
-            logging.info(f"@@@@@@@@@@@@@ : {prompt}")
             response = openai.ChatCompletion.create(
                 model="gpt-4o-mini",
                 messages=[
@@ -83,44 +82,27 @@ def generate_response(prompt, diagram_data=None):
             )
             logging.info(f"response : {response}")
             answer = response.choices[0].message['content'].strip()
-            logging.info(f"full response : {response}")
             logging.info(f"answer : {answer}")
             fig = None
             if diagram_data:
                 logging.info(f"Diagram data received: {diagram_data}")
                 categories, values = parse_diagram_data(diagram_data)
-
                 # Reverse the Hebrew text within each category
                 categories = reverse_hebrew_text(categories)
-                
                 # Log parsed data for further inspection
                 if categories and values:
                     try:
-                        # The original graph wuthout the the round corners 
-                        # logging.info(f"Parsed categories: {categories}")
-                        # fig, ax = plt.subplots()
-                        # bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
-                        # bars = ax.bar(categories, values, label=categories, color=bar_colors)
-                        # ax.set_ylim(0, max(values) * 1.2)
-                        # plt.xticks(rotation=45)
-                        
-
-                        # Register the custom projection
-                        # register_projection(FancyAxes)
-                        
                         # Replace the original part with this
                         fig = plt.figure()
                         ax = fig.add_subplot(
                             111, projection="fancy_box_axes", facecolor="white", edgecolor="black"
                         )
                         ax.spines[["bottom", "left", "right", "top"]].set_visible(False)
-                        
                         bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
                         bars = ax.bar(categories, values, label=categories, color=bar_colors)
                         ax.set_ylim(0, max(values) * 1.2)
                         plt.xticks(rotation=45)
 
-                        
                         # Add value labels on top of the bars with a small font size
                         if len(values) > 1:
                             for bar in bars:
@@ -128,7 +110,6 @@ def generate_response(prompt, diagram_data=None):
                                 ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
                       
                         ax.legend()
-
                     except Exception as e:
                         logging.error(f"Error generating graph: {e}")
                 else:
@@ -148,7 +129,6 @@ def load_questions(file_path):
 
 
 def user_input(user_question, diagram_data=None):
-
     logging.info(f"user_question: {user_question}")
     # Load the vector store and perform a similarity search
     embeddings = OpenAIEmbeddings()
@@ -245,10 +225,8 @@ def main():
         reset_conversation()
         
         
-      # Process dropdown selection  
+    # Process dropdown selection  
     if selected_question != "בחר שאלה...":
-            logging.info("if&&&&&&&&&&&&&&&&&&&&&&&&&.")
-        
             row = questions_df[questions_df['questions'] == selected_question].iloc[0]
             diagram_data = row["diagram"] if pd.notna(row["diagram"]) else None
 
@@ -258,7 +236,7 @@ def main():
                 logging.info(f"response: {response}, diagram: {diagram}")
                 st.session_state.chat_history.append({'question': selected_question, 'answer': response,'diagram':diagram})
             
-        # Process input text
+    # Process input text
     if user_question and (user_question != st.session_state.get('last_processed', '')):
             st.session_state['last_processed'] = user_question  # Track last processed question
             response = user_input(user_question)  # Generate the response
