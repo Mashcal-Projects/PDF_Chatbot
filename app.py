@@ -161,8 +161,17 @@ def user_input(user_question, diagram_data=None, tags=None, link=None):
         prompt = f"הקשר: {context}\nשאלה: {user_question}\nתשובה קצרה:"
 
     logging.info(f"prompt: {prompt}")
-    # Generate the response
-    response, diagram = generate_response(prompt, diagram_data)
+      # Initialize response and diagram to avoid UnboundLocalError
+    response = ""
+    diagram = None
+    
+   try:
+        # Generate the response
+        response, diagram = generate_response(prompt, diagram_data)
+    except Exception as e:
+        logging.error(f"Error generating response: {e}")
+        st.error(f"Failed to generate response: {e}")
+    
     # If a link is provided, always append it with a short description
     if link:
         full_response = f"{response}\n\nלקריאה נוספת: [לחץ כאן]({link})"
