@@ -126,8 +126,6 @@ def load_questions(file_path):
     # Load the questions and diagrams from a CSV file
     df = pd.read_csv(file_path)
     return df
-
-
 # def user_input(user_question, diagram_data=None):
 #     logging.info(f"user_question: {user_question}")
 #     # Load the vector store and perform a similarity search
@@ -147,9 +145,7 @@ def load_questions(file_path):
 #     # st.write(response)
 #     logging.info(f"response, diagram: {response, diagram}")
 #     return  response, diagram
-
-
- def user_input(user_question, diagram_data=None, tags=None, link=None):
+def user_input(user_question, diagram_data=None, tags=None, link=None):
     logging.info(f"user_question: {user_question}")
     # Load the vector store and perform a similarity search
     embeddings = OpenAIEmbeddings()
@@ -158,7 +154,6 @@ def load_questions(file_path):
     
     # Use the content of the documents to form a context
     context = " ".join([doc.page_content for doc in docs])
-    
     # Include TAGS in the context if available to improve the response
     if tags:
         prompt = f"הקשר: {context}\nתגיות: {tags}\nשאלה: {user_question}\nתשובה קצרה:"
@@ -166,10 +161,8 @@ def load_questions(file_path):
         prompt = f"הקשר: {context}\nשאלה: {user_question}\nתשובה קצרה:"
 
     logging.info(f"prompt: {prompt}")
-    
     # Generate the response
     response, diagram = generate_response(prompt, diagram_data)
-    
     # If a link is provided, always append it with a short description
     if link:
         full_response = f"{response}\n\nלקריאה נוספת: [לחץ כאן]({link})"
@@ -177,8 +170,6 @@ def load_questions(file_path):
         full_response = response
     
     return full_response, diagram
-
-
 
 
 def parse_diagram_data(diagram_str):
