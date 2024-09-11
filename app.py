@@ -275,6 +275,7 @@ def main():
     if user_question and (user_question != st.session_state.get('last_processed', '')):
         
             st.session_state['last_processed'] = user_question  # Track last processed question
+            row = questions_df[questions_df['questions'] == selected_question].iloc[0]
             tags = row["tags"] if pd.notna(row["tags"]) else ""
             link = row["links"] if pd.notna(row["links"]) else None 
             response = user_input(user_question,tags,link)  # Generate the response
