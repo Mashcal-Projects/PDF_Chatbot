@@ -165,7 +165,7 @@ def user_input(user_question, diagram_data=None, tags=None, link=None):
     response = ""
     diagram = None
     
-   try:
+    try:
         # Generate the response
         response, diagram = generate_response(prompt, diagram_data)
     except Exception as e:
