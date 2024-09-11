@@ -254,7 +254,7 @@ def main():
             diagram_data = row["diagram"] if pd.notna(row["diagram"]) else None
 
             tags = row["TAGS"] if pd.notna(row["TAGS"]) else ""
-            link = row["link"] if pd.notna(row["link"]) else None  
+            link = row["links"] if pd.notna(row["links"]) else None  
 
             if 'last_processed_dropdown' not in st.session_state or st.session_state['last_processed_dropdown'] != selected_question:
                 st.session_state['last_processed_dropdown'] = selected_question
@@ -267,7 +267,7 @@ def main():
         
             st.session_state['last_processed'] = user_question  # Track last processed question
             tags = row["TAGS"] if pd.notna(row["TAGS"]) else ""
-            link = row["link"] if pd.notna(row["link"]) else None 
+            link = row["links"] if pd.notna(row["links"]) else None 
             response = user_input(user_question,tags,link)  # Generate the response
             logging.info(f"response: {response}")
             st.session_state.chat_history.append({'question': user_question, 'answer': response[0]})
