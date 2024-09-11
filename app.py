@@ -128,7 +128,28 @@ def load_questions(file_path):
     return df
 
 
-def user_input(user_question, diagram_data=None):
+# def user_input(user_question, diagram_data=None):
+#     logging.info(f"user_question: {user_question}")
+#     # Load the vector store and perform a similarity search
+#     embeddings = OpenAIEmbeddings()
+#     new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
+#     docs = new_db.similarity_search(user_question)
+    
+#     # Use the content of the documents to form a context
+#     context = " ".join([doc.page_content for doc in docs])
+   
+#     # Combine the context with the user question and generate a response
+#     prompt = f"הקשר: {context}\nשאלה: {user_question}\nתשובה:"
+#     logging.info(f"prompt: {prompt}")
+    
+#     # response, diagram = generate_response(prompt, row["diagram"])
+#     response, diagram = generate_response(prompt, diagram_data)
+#     # st.write(response)
+#     logging.info(f"response, diagram: {response, diagram}")
+#     return  response, diagram
+
+
+ def user_input(user_question, diagram_data=None, tags=None, link=None):
     logging.info(f"user_question: {user_question}")
     # Load the vector store and perform a similarity search
     embeddings = OpenAIEmbeddings()
@@ -137,16 +158,27 @@ def user_input(user_question, diagram_data=None):
     
     # Use the content of the documents to form a context
     context = " ".join([doc.page_content for doc in docs])
-   
-    # Combine the context with the user question and generate a response
-    prompt = f"הקשר: {context}\nשאלה: {user_question}\nתשובה:"
+    
+    # Include TAGS in the context if available to improve the response
+    if tags:
+        prompt = f"הקשר: {context}\nתגיות: {tags}\nשאלה: {user_question}\nתשובה קצרה:"
+    else:
+        prompt = f"הקשר: {context}\nשאלה: {user_question}\nתשובה קצרה:"
+
     logging.info(f"prompt: {prompt}")
     
-    # response, diagram = generate_response(prompt, row["diagram"])
+    # Generate the response
     response, diagram = generate_response(prompt, diagram_data)
-    # st.write(response)
-    logging.info(f"response, diagram: {response, diagram}")
-    return  response, diagram
+    
+    # If a link is provided, always append it with a short description
+    if link:
+        full_response = f"{response}\n\nלקריאה נוספת: [לחץ כאן]({link})"
+    else:
+        full_response = response
+    
+    return full_response, diagram
+
+
 
 
 def parse_diagram_data(diagram_str):
@@ -230,16 +262,22 @@ def main():
             row = questions_df[questions_df['questions'] == selected_question].iloc[0]
             diagram_data = row["diagram"] if pd.notna(row["diagram"]) else None
 
+            tags = row["TAGS"] if pd.notna(row["TAGS"]) else ""
+            link = row["LINK"] if pd.notna(row["LINK"]) else None  
+
             if 'last_processed_dropdown' not in st.session_state or st.session_state['last_processed_dropdown'] != selected_question:
                 st.session_state['last_processed_dropdown'] = selected_question
-                response,diagram = user_input(selected_question,diagram_data)
+                response,diagram = user_input(selected_question,diagram_data,tags,link)
                 logging.info(f"response: {response}, diagram: {diagram}")
                 st.session_state.chat_history.append({'question': selected_question, 'answer': response,'diagram':diagram})
             
     # Process input text
     if user_question and (user_question != st.session_state.get('last_processed', '')):
+        
             st.session_state['last_processed'] = user_question  # Track last processed question
-            response = user_input(user_question)  # Generate the response
+            tags = row["TAGS"] if pd.notna(row["TAGS"]) else ""
+            link = row["LINK"] if pd.notna(row["LINK"]) else None 
+            response = user_input(user_question,tags,link)  # Generate the response
             logging.info(f"response: {response}")
             st.session_state.chat_history.append({'question': user_question, 'answer': response[0]})
 
