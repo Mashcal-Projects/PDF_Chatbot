@@ -69,6 +69,15 @@ def get_vector_store(text_chunks):
 # Function to reverse Hebrew text in each category
 def reverse_hebrew_text(categories):
     return [cat[::-1] for cat in categories]
+
+    
+def find_closest_question(user_question, questions_df):
+    # Use difflib's get_close_matches to find the closest matching question
+    questions = questions_df['questions'].tolist()
+    closest_matches = get_close_matches(user_question, questions, n=1, cutoff=0.5)  # Adjust cutoff as needed
+    if closest_matches:
+        return closest_matches[0]  # Return the closest question
+    return None
     
 
 def generate_response(prompt, diagram_data=None):
@@ -146,6 +155,7 @@ def load_questions(file_path):
 #     # st.write(response)
 #     logging.info(f"response, diagram: {response, diagram}")
 #     return  response, diagram
+
 def user_input(user_question, diagram_data=None, tags=None, link=None):
     logging.info(f"user_question: {user_question}")
     # Load the vector store and perform a similarity search
@@ -275,11 +285,20 @@ def main():
     # Process input text
     if user_question and (user_question != st.session_state.get('last_processed', '')):
         
-            st.session_state['last_processed'] = user_question  # Track last processed question
-           
+        st.session_state['last_processed'] = user_question  # Track last processed question
+        
+         closest_question = find_closest_question(user_question, questions_df)
+         logging.info(f"closest_question: {closest_question}")
+        if closest_question:
+            row = questions_df[questions_df['questions'] == closest_question].iloc[0]
             tags = row["tags"] if pd.notna(row["tags"]) else ""
-            link = row["links"] if pd.notna(row["links"]) else None 
-            response = user_input(user_question,tags,link)  # Generate the response
+            link = row["links"] if pd.notna(row["links"]) else None
+        else:
+            tags = ""
+            link = None
+
+            
+            response = user_input(user_question tags=tags, link=link)  # Generate the response
             logging.info(f"response: {response}")
             st.session_state.chat_history.append({'question': user_question, 'answer': response[0]})
 
