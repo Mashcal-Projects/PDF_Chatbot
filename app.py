@@ -252,8 +252,8 @@ def main():
             row = questions_df[questions_df['questions'] == selected_question].iloc[0]
             diagram_data = row["diagram"] if pd.notna(row["diagram"]) else None
 
-            tags = row["tags"] if pd.notna(row["tags"]) else ""
-            link = row["links"] if pd.notna(row["links"]) else None  
+            # tags = row["tags"] if pd.notna(row["tags"]) else ""
+            # link = row["links"] if pd.notna(row["links"]) else None  
 
             if 'last_processed_dropdown' not in st.session_state or st.session_state['last_processed_dropdown'] != selected_question:
                 st.session_state['last_processed_dropdown'] = selected_question
@@ -264,17 +264,17 @@ def main():
     # Process input text
     if user_question and (user_question != st.session_state.get('last_processed', '')):
         st.session_state['last_processed'] = user_question  # Track last processed question
-        closest_question = find_closest_question(user_question, questions_df)
+        # closest_question = find_closest_question(user_question, questions_df)
         
         logging.info(f"closest_question: {closest_question}")
         
-        if closest_question:
-            row = questions_df[questions_df['questions'] == closest_question].iloc[0]
-            tags = row["tags"] if pd.notna(row["tags"]) else ""
-            link = row["links"] if pd.notna(row["links"]) else None
-        else:
-            tags = ""
-            link = None
+        # if closest_question:
+        #     row = questions_df[questions_df['questions'] == closest_question].iloc[0]
+        #     tags = row["tags"] if pd.notna(row["tags"]) else ""
+        #     link = row["links"] if pd.notna(row["links"]) else None
+        # else:
+        #     tags = ""
+        #     link = None
 
         
         response = user_input(user_question, tags=tags, link=link)
