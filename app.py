@@ -38,13 +38,15 @@ matplotlib.rcParams['axes.unicode_minus'] = False
 
 # Set up logging
 logging.basicConfig(
-    level=logging.INFO,  # Set to DEBUG to capture all levels of logs
+    level=logging.DEBUG,  # Set to DEBUG to capture all levels of logs
     format='%(asctime)s %(levelname)s %(message)s',
     handlers=[logging.StreamHandler(sys.stdout),]
 )
 
 # Test if logging works by adding an initial log message
 logging.info("App started, logging is set up.")
+logging.info("App started, logging is set up1111111.")
+
 
 def get_pdf_text(pdf_file_path):
     text = ""
