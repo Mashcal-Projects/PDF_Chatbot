@@ -40,7 +40,7 @@ matplotlib.rcParams['axes.unicode_minus'] = False
 logging.basicConfig(
     level=logging.DEBUG,  # Set to DEBUG to capture all levels of logs
     format='%(asctime)s %(levelname)s %(message)s',
-    handlers=[logging.StreamHandler()]
+    handlers=[logging.StreamHandler(sys.stdout),]
 )
 
 # Test if logging works by adding an initial log message
@@ -153,7 +153,7 @@ def user_input(user_question, diagram_data=None):
     logging.info(f"prompt: {prompt}")
       # Initialize response and diagram to avoid UnboundLocalError
     response = ""
-    diagram = None
+    # diagram = None
     
     # try:
         # Generate the response
