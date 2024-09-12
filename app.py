@@ -286,7 +286,9 @@ def main():
     if user_question and (user_question != st.session_state.get('last_processed', '')):
         st.session_state['last_processed'] = user_question  # Track last processed question
         closest_question = find_closest_question(user_question, questions_df)
+        
         logging.info(f"closest_question: {closest_question}")
+        
         if closest_question:
             row = questions_df[questions_df['questions'] == closest_question].iloc[0]
             tags = row["tags"] if pd.notna(row["tags"]) else ""
@@ -296,7 +298,7 @@ def main():
             link = None
 
         
-        response = user_input(user_question tags=tags, link=link)  # Generate the response
+        response = user_input(user_question tags=tags, link=link)
         logging.info(f"response: {response}")
         st.session_state.chat_history.append({'question': user_question, 'answer': response[0]})
 
