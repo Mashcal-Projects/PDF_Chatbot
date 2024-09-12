@@ -284,11 +284,9 @@ def main():
             
     # Process input text
     if user_question and (user_question != st.session_state.get('last_processed', '')):
-        
-         st.session_state['last_processed'] = user_question  # Track last processed question
-        
-         closest_question = find_closest_question(user_question, questions_df)
-         logging.info(f"closest_question: {closest_question}")
+        st.session_state['last_processed'] = user_question  # Track last processed question
+        closest_question = find_closest_question(user_question, questions_df)
+        logging.info(f"closest_question: {closest_question}")
         if closest_question:
             row = questions_df[questions_df['questions'] == closest_question].iloc[0]
             tags = row["tags"] if pd.notna(row["tags"]) else ""
