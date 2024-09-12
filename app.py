@@ -163,12 +163,11 @@ def user_input(user_question, diagram_data=None):
         st.error(f"Failed to generate response: {e}")
     
     # If a link is provided, always append it with a short description
-    if link:
-        full_response = f"{response}\n\nלקריאה נוספת: [לחץ כאן]({link})"
-    else:
-        full_response = response
+    # if link:
+    #     full_response = f"{response}\n\nלקריאה נוספת: [לחץ כאן]({link})"
+    # else:
     
-    return full_response, diagram
+    return response, diagram
 
 
 def parse_diagram_data(diagram_str):
