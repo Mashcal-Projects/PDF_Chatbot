@@ -298,7 +298,7 @@ def main():
             link = None
 
         
-        response = user_input(user_question tags=tags, link=link)
+        response = user_input(user_question, tags=tags, link=link)
         logging.info(f"response: {response}")
         st.session_state.chat_history.append({'question': user_question, 'answer': response[0]})
 
