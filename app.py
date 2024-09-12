@@ -295,10 +295,10 @@ def main():
             tags = ""
             link = None
 
-            
-            response = user_input(user_question tags=tags, link=link)  # Generate the response
-            logging.info(f"response: {response}")
-            st.session_state.chat_history.append({'question': user_question, 'answer': response[0]})
+        
+        response = user_input(user_question tags=tags, link=link)  # Generate the response
+        logging.info(f"response: {response}")
+        st.session_state.chat_history.append({'question': user_question, 'answer': response[0]})
 
         # Display the most recent interaction at the top
     if st.session_state.chat_history:
