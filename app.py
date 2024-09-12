@@ -19,6 +19,7 @@ import matplotlib.patches as mpatches
 import matplotlib.axes as maxes
 from matplotlib.projections import register_projection
 from gradio_client import Client, handle_file
+from difflib import get_close_matches
 
 # Set OpenAI API key from Streamlit secrets
 openai.api_key = st.secrets['OPENAI_API_KEY']
@@ -275,7 +276,7 @@ def main():
     if user_question and (user_question != st.session_state.get('last_processed', '')):
         
             st.session_state['last_processed'] = user_question  # Track last processed question
-            row = questions_df[questions_df['questions'] == selected_question].iloc[0]
+           
             tags = row["tags"] if pd.notna(row["tags"]) else ""
             link = row["links"] if pd.notna(row["links"]) else None 
             response = user_input(user_question,tags,link)  # Generate the response
