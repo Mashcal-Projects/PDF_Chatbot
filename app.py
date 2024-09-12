@@ -25,7 +25,6 @@ import sys
 # Set OpenAI API key from Streamlit secrets
 openai.api_key = st.secrets['OPENAI_API_KEY']
 
-# PDF_FILE_PATH = "data/knowledge_center.pdf"
 # PDF_FILE_PATH = "data/sitemap_data.pdf"
 PDF_FILE_PATH = "data/knowledge_center.pdf"
 
@@ -46,7 +45,6 @@ logging.basicConfig(
 
 # Test if logging works by adding an initial log message
 logging.info("App started, logging is set up.")
-
 
 def get_pdf_text(pdf_file_path):
     text = ""
@@ -80,6 +78,7 @@ def find_closest_question(user_question, questions_df):
     
 
 def generate_response(prompt, diagram_data=None):
+    logging.info("generate_response")
     try:
         with st.spinner("חושב..."):
             response = openai.ChatCompletion.create(
@@ -172,6 +171,7 @@ def user_input(user_question, diagram_data=None):
 
 
 def parse_diagram_data(diagram_str):
+    logging.info("parse_diagram_data")
     # Extract categories and values using regular expressions
     categories_part = re.search(r'categories = \[(.*?)\]', diagram_str).group(1)
     values_part = re.search(r'values = \[(.*?)\]', diagram_str).group(1)
@@ -191,9 +191,7 @@ def reset_conversation():
     st.session_state.chat_history = []
     
 def main():
-
     st.set_page_config("Chat PDF")
-    
     st.markdown(
         """
         <style>
