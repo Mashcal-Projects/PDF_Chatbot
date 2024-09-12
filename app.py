@@ -155,12 +155,12 @@ def user_input(user_question, diagram_data=None):
     response = ""
     diagram = None
     
-    try:
+    # try:
         # Generate the response
-        response, diagram = generate_response(prompt, diagram_data)
-    except Exception as e:
-        logging.error(f"Error generating response: {e}")
-        st.error(f"Failed to generate response: {e}")
+    response, diagram = generate_response(prompt, diagram_data)
+    # except Exception as e:
+    #     logging.error(f"Error generating response: {e}")
+    #     st.error(f"Failed to generate response: {e}")
     
     # If a link is provided, always append it with a short description
     # if link:
