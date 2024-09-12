@@ -135,7 +135,7 @@ def load_questions(file_path):
     df = pd.read_csv(file_path)
     return df
 
-def user_input(user_question, diagram_data=None, tags=None, link=None):
+def user_input(user_question, diagram_data=None):
     logging.info(f"user_question: {user_question}")
     # Load the vector store and perform a similarity search
     embeddings = OpenAIEmbeddings()
@@ -257,7 +257,7 @@ def main():
 
             if 'last_processed_dropdown' not in st.session_state or st.session_state['last_processed_dropdown'] != selected_question:
                 st.session_state['last_processed_dropdown'] = selected_question
-                response,diagram = user_input(selected_question,diagram_data,tags,link)
+                response,diagram = user_input(selected_question,diagram_data)
                 logging.info(f"response: {response}, diagram: {diagram}")
                 st.session_state.chat_history.append({'question': selected_question, 'answer': response,'diagram':diagram})
             
@@ -277,7 +277,7 @@ def main():
         #     link = None
 
         
-        response = user_input(user_question, tags=tags, link=link)
+        response = user_input(user_question)
         logging.info(f"response: {response}")
         st.session_state.chat_history.append({'question': user_question, 'answer': response[0]})
 
