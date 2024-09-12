@@ -265,7 +265,7 @@ def main():
         st.session_state['last_processed'] = user_question  # Track last processed question
         # closest_question = find_closest_question(user_question, questions_df)
         
-        logging.info(f"closest_question: {closest_question}")
+        # logging.info(f"closest_question: {closest_question}")
         
         # if closest_question:
         #     row = questions_df[questions_df['questions'] == closest_question].iloc[0]
