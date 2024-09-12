@@ -28,8 +28,6 @@ openai.api_key = st.secrets['OPENAI_API_KEY']
 PDF_FILE_PATH = "data/sitemap_data.pdf"
 # PDF_FILE_PATH = "data/knowledge_center.pdf"
 
-
-
 # Example row from your CSV
 row = {
     "question": "What are the issues?",
@@ -136,25 +134,6 @@ def load_questions(file_path):
     # Load the questions and diagrams from a CSV file
     df = pd.read_csv(file_path)
     return df
-# def user_input(user_question, diagram_data=None):
-#     logging.info(f"user_question: {user_question}")
-#     # Load the vector store and perform a similarity search
-#     embeddings = OpenAIEmbeddings()
-#     new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
-#     docs = new_db.similarity_search(user_question)
-    
-#     # Use the content of the documents to form a context
-#     context = " ".join([doc.page_content for doc in docs])
-   
-#     # Combine the context with the user question and generate a response
-#     prompt = f"הקשר: {context}\nשאלה: {user_question}\nתשובה:"
-#     logging.info(f"prompt: {prompt}")
-    
-#     # response, diagram = generate_response(prompt, row["diagram"])
-#     response, diagram = generate_response(prompt, diagram_data)
-#     # st.write(response)
-#     logging.info(f"response, diagram: {response, diagram}")
-#     return  response, diagram
 
 def user_input(user_question, diagram_data=None, tags=None, link=None):
     logging.info(f"user_question: {user_question}")
