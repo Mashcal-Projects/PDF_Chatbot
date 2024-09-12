@@ -20,6 +20,7 @@ import matplotlib.axes as maxes
 from matplotlib.projections import register_projection
 from gradio_client import Client, handle_file
 from difflib import get_close_matches
+import sys
 
 # Set OpenAI API key from Streamlit secrets
 openai.api_key = st.secrets['OPENAI_API_KEY']
