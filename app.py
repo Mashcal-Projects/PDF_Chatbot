@@ -145,10 +145,10 @@ def user_input(user_question, diagram_data=None):
     # Use the content of the documents to form a context
     context = " ".join([doc.page_content for doc in docs])
     # Include TAGS in the context if available to improve the response
-    if tags:
-        prompt = f"הקשר: {context}\nתגיות: {tags}\nשאלה: {user_question}\nתשובה קצרה:"
-    else:
-        prompt = f"הקשר: {context}\nשאלה: {user_question}\nתשובה קצרה:"
+    # if tags:
+    #     prompt = f"הקשר: {context}\nתגיות: {tags}\nשאלה: {user_question}\nתשובה קצרה:"
+    # else:
+    prompt = f"הקשר: {context}\nשאלה: {user_question}\nתשובה קצרה:"
 
     logging.info(f"prompt: {prompt}")
       # Initialize response and diagram to avoid UnboundLocalError
