@@ -285,7 +285,7 @@ def main():
     # Process input text
     if user_question and (user_question != st.session_state.get('last_processed', '')):
         
-        st.session_state['last_processed'] = user_question  # Track last processed question
+         st.session_state['last_processed'] = user_question  # Track last processed question
         
          closest_question = find_closest_question(user_question, questions_df)
          logging.info(f"closest_question: {closest_question}")
