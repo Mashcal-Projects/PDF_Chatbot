@@ -14,7 +14,6 @@ import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import matplotlib.path as path
-
 import matplotlib.patches as mpatches
 import matplotlib.axes as maxes
 from matplotlib.projections import register_projection
@@ -45,7 +44,7 @@ logging.basicConfig(
 
 # Test if logging works by adding an initial log message
 logging.info("App started, logging is set up.")
-logging.info("App started, logging is set up1111111.")
+
 
 
 def get_pdf_text(pdf_file_path):
@@ -84,7 +83,7 @@ def generate_response(prompt, diagram_data=None):
     try:
         with st.spinner("חושב..."):
             response = openai.ChatCompletion.create(
-                model="gpt-4o-mini",
+                model="gpt-3.5-turbo", 
                 messages=[
                     {"role": "system", "content": "אתה עוזר אדיב, אנא ענה בעברית."},
                     {"role": "user", "content": prompt}
