@@ -52,13 +52,14 @@ def load_embeddings():
         logging.info("OpenAI embeddings initialized and stored in session_state.")
 
 
-def load_pdf_and_vector_store():
-    if 'pdf_text' not in st.session_state:
-        raw_text = get_pdf_text(PDF_FILE_PATH)
-        text_chunks = get_text_chunks(raw_text)
-        st.session_state.pdf_text = raw_text
-        st.session_state.text_chunks = text_chunks
-        st.session_state.vector_store = get_vector_store(text_chunks)
+# Load the vector store once and store it in session_state if not already loaded
+def load_vector_store():
+    if 'vector_store' not in st.session_state:
+        with st.spinner("טוען נתונים..."):
+            raw_text = get_pdf_text(PDF_FILE_PATH)
+            text_chunks = get_text_chunks(raw_text)
+            st.session_state.vector_store = get_vector_store(text_chunks)
+            logging.info("Vector store loaded and stored in session_state.")
 
 
 def get_pdf_text(pdf_file_path):
@@ -79,8 +80,6 @@ def get_text_chunks(text):
 #     vector_store.save_local("faiss_index")
 
 def get_vector_store(text_chunks):
-    # embeddings = OpenAIEmbeddings()
-
      # Ensure that embeddings are loaded only once
     if 'embeddings' not in st.session_state:
         load_embeddings()
@@ -210,10 +209,10 @@ def parse_diagram_data(diagram_str):
     values = list(map(int, values_part.split(',')))
     return categories, values
 
-# Define a function to reset the inputs
-def reset_inputs():
-    st.session_state.question_key += 1
-    st.session_state.select_key += 1
+# # Define a function to reset the inputs
+# def reset_inputs():
+#     st.session_state.question_key += 1
+#     st.session_state.select_key += 1
 
 def reset_conversation():
     st.session_state.chat_history = []
@@ -257,6 +256,9 @@ def main():
      # Initialize chat history in session state
     if 'chat_history' not in st.session_state:
         st.session_state.chat_history = []
+
+      # Load the vector store once
+    load_vector_store()
 
     
     questions_df = load_questions('data/knowledge_center.csv')
@@ -326,11 +328,11 @@ def main():
             st.write(f"**תשובה:** {entry['answer']}")
             st.write("---")  # Separator line
     
-    # Load the vector store (initialization, not directly related to user interaction)
-    with st.spinner("טוען נתונים..."):
-        raw_text = get_pdf_text(PDF_FILE_PATH)
-        text_chunks = get_text_chunks(raw_text)
-        get_vector_store(text_chunks)
+    # # Load the vector store (initialization, not directly related to user interaction)
+    # with st.spinner("טוען נתונים..."):
+    #     raw_text = get_pdf_text(PDF_FILE_PATH)
+    #     text_chunks = get_text_chunks(raw_text)
+    #     get_vector_store(text_chunks)
    
 
 if __name__ == "__main__":
