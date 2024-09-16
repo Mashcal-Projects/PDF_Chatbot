@@ -45,6 +45,20 @@ logging.basicConfig(
 # Test if logging works by adding an initial log message
 logging.info("App started, logging is set up.")
 
+def load_embeddings():
+    """Loads OpenAI embeddings and stores them in session_state for reuse."""
+    if 'embeddings' not in st.session_state:
+        st.session_state.embeddings = OpenAIEmbeddings()
+        logging.info("OpenAI embeddings initialized and stored in session_state.")
+
+
+def load_pdf_and_vector_store():
+    if 'pdf_text' not in st.session_state:
+        raw_text = get_pdf_text(PDF_FILE_PATH)
+        text_chunks = get_text_chunks(raw_text)
+        st.session_state.pdf_text = raw_text
+        st.session_state.text_chunks = text_chunks
+        st.session_state.vector_store = get_vector_store(text_chunks)
 
 
 def get_pdf_text(pdf_file_path):
@@ -59,10 +73,22 @@ def get_text_chunks(text):
     chunks = text_splitter.split_text(text)
     return chunks
 
+# def get_vector_store(text_chunks):
+#     embeddings = OpenAIEmbeddings()
+#     vector_store = FAISS.from_texts(text_chunks, embedding=embeddings)
+#     vector_store.save_local("faiss_index")
+
 def get_vector_store(text_chunks):
-    embeddings = OpenAIEmbeddings()
+    # embeddings = OpenAIEmbeddings()
+
+     # Ensure that embeddings are loaded only once
+    if 'embeddings' not in st.session_state:
+        load_embeddings()
+    
+    embeddings = st.session_state.embeddings
     vector_store = FAISS.from_texts(text_chunks, embedding=embeddings)
     vector_store.save_local("faiss_index")
+    return vector_store
 
 # Function to reverse Hebrew text in each category
 def reverse_hebrew_text(categories):
@@ -79,7 +105,6 @@ def find_closest_question(user_question, questions_df):
     
 
 def generate_response(prompt, diagram_data=None):
-    logging.info("generate_response")
     try:
         with st.spinner("חושב..."):
             response = openai.ChatCompletion.create(
@@ -89,7 +114,6 @@ def generate_response(prompt, diagram_data=None):
                     {"role": "user", "content": prompt}
                 ]
             )
-            logging.info(f"response : {response}")
             answer = response.choices[0].message['content'].strip()
             logging.info(f"answer : {answer}")
             fig = None
@@ -138,8 +162,11 @@ def load_questions(file_path):
 
 def user_input(user_question, diagram_data=None):
     logging.info(f"user_question: {user_question}")
-    # Load the vector store and perform a similarity search
-    embeddings = OpenAIEmbeddings()
+    # Initialize embeddings only once
+    if 'embeddings' not in st.session_state:
+        load_embeddings()
+    
+    embeddings = st.session_state.embeddings
     new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
     docs = new_db.similarity_search(user_question)
     
