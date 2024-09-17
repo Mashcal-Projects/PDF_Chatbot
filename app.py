@@ -141,15 +141,14 @@ def generate_response(prompt, diagram_data=None):
                             for bar in bars:
                                 yval = bar.get_height()
                                 ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
-                      
-                        ax.legend()
+                        # ax.legend()
                            # Move the legend to the right
+                         ax.legend(categories, loc='upper right', frameon=False) 
                         # ax.legend(categories, loc="center left", bbox_to_anchor=(1, 0.5))  # Legend on the right
                     except Exception as e:
                         logging.error(f"Error generating graph: {e}")
                 else:
                     logging.error("Failed to parse diagram data.")
-            
             return answer, fig
             
     except Exception as e:
