@@ -149,7 +149,7 @@ def generate_response(prompt, diagram_data=None):
                              # Custom font properties for Hebrew text
                         font_properties = font_manager.FontProperties(family='DejaVu Sans')
                  # Move the legend to the right, using padded RTL labels
-                        ax.legend(categories, loc='upper right', prop=font_properties)
+                        ax.legend(bars,categories, loc='upper right', prop=font_properties)
                     except Exception as e:
                         logging.error(f"Error generating graph: {e}")
                 else:
