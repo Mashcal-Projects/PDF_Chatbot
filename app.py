@@ -134,7 +134,7 @@ def generate_response(prompt, diagram_data=None):
                                 yval = bar.get_height()
                                 ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
                         # ax.legend()
-                        ax.legend(categories, loc='upper left')
+                        ax.legend(categories, loc='upper right')
                     except Exception as e:
                         logging.error(f"Error generating graph: {e}")
                 else:
