@@ -74,11 +74,6 @@ def get_text_chunks(text):
     chunks = text_splitter.split_text(text)
     return chunks
 
-# def get_vector_store(text_chunks):
-#     embeddings = OpenAIEmbeddings()
-#     vector_store = FAISS.from_texts(text_chunks, embedding=embeddings)
-#     vector_store.save_local("faiss_index")
-
 def get_vector_store(text_chunks):
      # Ensure that embeddings are loaded only once
     if 'embeddings' not in st.session_state:
@@ -126,9 +121,6 @@ def generate_response(prompt, diagram_data=None):
                     try:
                         # Replace the original part with this
                         fig = plt.figure()
-                        # ax = fig.add_subplot(
-                        #     111, projection="fancy_box_axes", facecolor="white", edgecolor="black"
-                        # )
                         ax = fig.add_subplot(111)
                         ax.spines[["right", "top"]].set_visible(False)
                         bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
@@ -142,10 +134,7 @@ def generate_response(prompt, diagram_data=None):
                                 yval = bar.get_height()
                                 ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
                         # ax.legend()
-                           # Move the legend to the right
-                        # ax.legend(categories, loc='upper right') 
-                
-                        ax.legend(bars,categories, loc='upper right')
+                        ax.legend(categories, loc='upper left')
                     except Exception as e:
                         logging.error(f"Error generating graph: {e}")
                 else:
@@ -174,29 +163,11 @@ def user_input(user_question, diagram_data=None):
     
     # Use the content of the documents to form a context
     context = " ".join([doc.page_content for doc in docs])
-    # Include TAGS in the context if available to improve the response
-    # if tags:
-    #     prompt = f"הקשר: {context}\nתגיות: {tags}\nשאלה: {user_question}\nתשובה קצרה:"
-    # else:
     prompt = f"הקשר: {context}\nשאלה: {user_question}\nתשובה קצרה:"
-
     logging.info(f"prompt: {prompt}")
       # Initialize response and diagram to avoid UnboundLocalError
     response = ""
-    # diagram = None
-    
-    # try:
-        # Generate the response
     response, diagram = generate_response(prompt, diagram_data)
-    # except Exception as e:
-    #     logging.error(f"Error generating response: {e}")
-    #     st.error(f"Failed to generate response: {e}")
-    
-    # If a link is provided, always append it with a short description
-    # if link:
-    #     full_response = f"{response}\n\nלקריאה נוספת: [לחץ כאן]({link})"
-    # else:
-    
     return response, diagram
 
 
@@ -211,11 +182,6 @@ def parse_diagram_data(diagram_str):
     # logging.info(f"categories: {categories}")
     values = list(map(int, values_part.split(',')))
     return categories, values
-
-# # Define a function to reset the inputs
-# def reset_inputs():
-#     st.session_state.question_key += 1
-#     st.session_state.select_key += 1
 
 def reset_conversation():
     st.session_state.chat_history = []
@@ -253,17 +219,14 @@ def main():
         unsafe_allow_html=True
     )
 
-
     
     st.header("שאל את מומחה התשתיות 🤖🗨️")
      # Initialize chat history in session state
     if 'chat_history' not in st.session_state:
         st.session_state.chat_history = []
 
-      # Load the vector store once
+    # Load the vector store once
     load_vector_store()
-
-    
     questions_df = load_questions('data/knowledge_center.csv')
     # questions_df = load_questions('data/sitemap_data.csv')
     questions = questions_df['questions'].tolist()
@@ -277,14 +240,10 @@ def main():
     if st.button("אפס שיחה"):
         reset_conversation()
         
-        
     # Process dropdown selection  
     if selected_question != "בחר שאלה...":
             row = questions_df[questions_df['questions'] == selected_question].iloc[0]
             diagram_data = row["diagram"] if pd.notna(row["diagram"]) else None
-
-            # tags = row["tags"] if pd.notna(row["tags"]) else ""
-            # link = row["links"] if pd.notna(row["links"]) else None  
 
             if 'last_processed_dropdown' not in st.session_state or st.session_state['last_processed_dropdown'] != selected_question:
                 st.session_state['last_processed_dropdown'] = selected_question
@@ -330,13 +289,6 @@ def main():
                 st.pyplot(entry['diagram'])
             st.write(f"**תשובה:** {entry['answer']}")
             st.write("---")  # Separator line
-    
-    # # Load the vector store (initialization, not directly related to user interaction)
-    # with st.spinner("טוען נתונים..."):
-    #     raw_text = get_pdf_text(PDF_FILE_PATH)
-    #     text_chunks = get_text_chunks(raw_text)
-    #     get_vector_store(text_chunks)
-   
 
 if __name__ == "__main__":
     main()
