@@ -131,9 +131,7 @@ def generate_response(prompt, diagram_data=None):
                             for bar in bars:
                                 yval = bar.get_height()
                                 ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
-                        # ax.legend(loc='upper right')
-                        ax.legend(categories, loc='upper right', frameon=False, bbox_to_anchor=(1, 1), handletextpad=-2, labelspacing=1.2, borderaxespad=0, title="Legend")
-                        # ax.legend(categories, loc='upper right',reverse=True)
+                        ax.legend(loc='upper right')
                         
                         # Use the custom handler to reverse icon and text order
                         # ax.legend(bars, categories, loc='upper right', handler_map={bars[0]: ReversedLegendHandler()})
