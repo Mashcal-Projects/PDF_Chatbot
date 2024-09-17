@@ -130,7 +130,7 @@ def generate_response(prompt, diagram_data=None):
                         #     111, projection="fancy_box_axes", facecolor="white", edgecolor="black"
                         # )
                         ax = fig.add_subplot(111)
-                        ax.spines[["bottom", "left", "right", "top"]].set_visible(False)
+                        # ax.spines[["bottom", "left", "right", "top"]].set_visible(False)
                         bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
                         bars = ax.bar(categories, values, label=categories, color=bar_colors)
                         ax.set_ylim(0, max(values) * 1.2)
