@@ -130,7 +130,7 @@ def generate_response(prompt, diagram_data=None):
                         #     111, projection="fancy_box_axes", facecolor="white", edgecolor="black"
                         # )
                         ax = fig.add_subplot(111)
-                        # ax.spines[["bottom", "left", "right", "top"]].set_visible(False)
+                        ax.spines[["right", "top"]].set_visible(False)
                         bar_colors = ['tab:red', 'tab:blue', 'tab:green', 'tab:orange']
                         bars = ax.bar(categories, values, label=categories, color=bar_colors)
                         ax.set_ylim(0, max(values) * 1.2)
@@ -143,7 +143,7 @@ def generate_response(prompt, diagram_data=None):
                                 ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
                         # ax.legend()
                            # Move the legend to the right
-                        ax.legend(categories, loc='upper right', frameon=False) 
+                        ax.legend(categories, loc='upper right') 
                         # ax.legend(categories, loc="center left", bbox_to_anchor=(1, 0.5))  # Legend on the right
                     except Exception as e:
                         logging.error(f"Error generating graph: {e}")
