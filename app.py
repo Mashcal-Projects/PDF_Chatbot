@@ -16,6 +16,7 @@ import matplotlib.patches as patches
 import matplotlib.path as path
 import matplotlib.patches as mpatches
 import matplotlib.axes as maxes
+from matplotlib.legend_handler import HandlerBase
 from matplotlib.projections import register_projection
 from gradio_client import Client, handle_file
 from difflib import get_close_matches
