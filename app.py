@@ -143,8 +143,13 @@ def generate_response(prompt, diagram_data=None):
                                 ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
                         # ax.legend()
                            # Move the legend to the right
-                        ax.legend(categories, loc='upper right') 
+                        # ax.legend(categories, loc='upper right') 
                         # ax.legend(categories, loc="center left", bbox_to_anchor=(1, 0.5))  # Legend on the right
+
+                             # Custom font properties for Hebrew text
+                        font_properties = font_manager.FontProperties(family='DejaVu Sans')
+                 # Move the legend to the right, using padded RTL labels
+                        ax.legend(categories, loc='upper right', frameon=False, prop=font_properties)
                     except Exception as e:
                         logging.error(f"Error generating graph: {e}")
                 else:
