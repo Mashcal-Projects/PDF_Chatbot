@@ -88,6 +88,16 @@ def get_vector_store(text_chunks):
 def reverse_hebrew_text(categories):
     return [cat[::-1] for cat in categories]
 
+# Custom handler to reverse the order (text first, marker on the right)
+class ReversedLegendHandler(HandlerBase):
+    def create_artists(self, legend, orig_handle, xdescent, ydescent, width, height, fontsize, trans):
+        # Create the marker and text, but reverse their order
+        marker = plt.Line2D([], [], color=orig_handle.get_facecolor(), marker='s', markersize=10)
+        text = plt.Text(0, 0, legend.get_texts()[0].get_text())
+
+        # Return the reversed order: text first, marker second
+        return [text, marker]
+
     
 def find_closest_question(user_question, questions_df):
     # Use difflib's get_close_matches to find the closest matching question
@@ -134,7 +144,10 @@ def generate_response(prompt, diagram_data=None):
                                 yval = bar.get_height()
                                 ax.text(bar.get_x() + bar.get_width() / 2, yval + 0.5, f'{yval}', ha='center', va='bottom', fontsize=8)
                         # ax.legend()
-                        ax.legend(categories, loc='upper right',reverse=True)
+                        # ax.legend(categories, loc='upper right',reverse=True)
+                        
+                        # Use the custom handler to reverse icon and text order
+                        ax.legend(bars, categories, loc='upper right', handler_map={bars[0]: ReversedLegendHandler()})
                     except Exception as e:
                         logging.error(f"Error generating graph: {e}")
                 else:
