@@ -87,6 +87,7 @@ def get_vector_store(text_chunks):
 # Function to reverse Hebrew text in each category
 def reverse_hebrew_text(categories):
     return [cat[::-1] for cat in categories]
+    
 def find_closest_question(user_question, questions_df):
     # Use difflib's get_close_matches to find the closest matching question
     questions = questions_df['questions'].tolist()
@@ -234,8 +235,23 @@ def main():
      # Input field for custom questions
     user_question = st.text_input("הזינ/י שאלתך (חיפוש חופשי)",key="user_question")
     # Dropdown for predefined questions
-    selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
+    # selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + questions,key="selected_question")
 
+    # Filter the questions based on user input using the find_closest_question function
+    if user_question:
+        filtered_questions = find_closest_question(user_question, questions_df)
+    else:
+        filtered_questions = questions
+    
+    # Dropdown for predefined questions (filtered based on user input)
+    selected_question = st.selectbox("אנא בחר/י מתבנית החיפוש", options=["בחר שאלה..."] + filtered_questions, key="selected_question")
+
+
+
+
+
+    
+    
     # Add Reset Button for Conversation
     if st.button("אפס שיחה"):
         reset_conversation()
